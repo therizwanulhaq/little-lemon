@@ -47,15 +47,13 @@ const DishList = () => {
   return (
     <Dishes>
       {dishes.map((dish) => (
-        <div>
-          <Card
-            key={dish.id}
-            image={dish.image}
-            name={dish.name}
-            price={dish.price}
-            description={dish.description}
-          />
-        </div>
+        <Card
+          key={dish.id}
+          image={dish.image}
+          name={dish.name}
+          price={dish.price}
+          description={dish.description}
+        />
       ))}
     </Dishes>
   );
