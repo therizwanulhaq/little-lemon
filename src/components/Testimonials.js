@@ -70,7 +70,7 @@ const Testimonials = ({ name, image, comment, rating }) => {
               /* text-align: justify; */
               overflow: hidden;
               display: -webkit-box;
-              -webkit-line-clamp: 6; /* Limit to 4 lines */
+              -webkit-line-clamp: 6; /* Limit to 6 lines */
               -webkit-box-orient: vertical;
             `}
           >

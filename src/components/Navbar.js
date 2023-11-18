@@ -1,12 +1,14 @@
 import { css } from "@emotion/css";
 import React from "react";
+import { NavLink } from "react-router-dom";
+
 const navElements = [
-  "Home",
-  "About",
-  "Menu",
-  "Reservations",
-  "Order online",
-  "Login",
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Menu", path: "/menu" },
+  { name: "Reservations", path: "/reservations" },
+  { name: "Order online", path: "/order-online" },
+  { name: "Login", path: "/login" },
 ];
 
 function Navbar() {
@@ -23,7 +25,8 @@ function Navbar() {
         `}
       >
         {navElements.map((item, index) => (
-          <li
+          <NavLink
+            to={item.path}
             key={index}
             className={css`
               font-size: 0.9rem;
@@ -31,8 +34,8 @@ function Navbar() {
               color: #333333;
             `}
           >
-            {item}
-          </li>
+            {item.name}
+          </NavLink>
         ))}
       </ul>
     </nav>
