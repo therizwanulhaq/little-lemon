@@ -31,8 +31,14 @@ function Navbar() {
             className={css`
               font-size: 0.9rem;
               font-weight: 600;
-              color: #333333;
+              /* color: #333333; */
             `}
+            style={({ isActive }) => {
+              return {
+                fontWeight: isActive ? "bold" : "",
+                color: isActive ? "#ffd700" : "#333333",
+              };
+            }}
           >
             {item.name}
           </NavLink>
