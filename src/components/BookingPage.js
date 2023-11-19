@@ -76,9 +76,14 @@ const BookingPage = () => {
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("Birthday");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ date, time, guests, occasion });
+  };
+
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Title>Booking Form</Title>
 
         <Label htmlFor="res-date">Choose Date:</Label>
