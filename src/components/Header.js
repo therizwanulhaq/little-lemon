@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/css";
-import logo from "../assets/Logo .svg";
+import logo from "../assets/Logo.png";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 
@@ -22,7 +22,7 @@ function Header() {
           src={logo}
           alt="Logo"
           className={css`
-            width: fit-content;
+            width: 10rem;
           `}
         />
       </Link>
