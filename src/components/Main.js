@@ -7,6 +7,7 @@ import DishList from "./DishList";
 import TestimonialData from "./TestimonialData";
 import img2 from "../assets/Mario and Adrian A.jpg";
 import img3 from "../assets/restaurant.jpg";
+import { Link } from "react-router-dom";
 
 const fontFamily = `"Markazi Text", serif`;
 const Container = styled.div`
@@ -85,7 +86,9 @@ function Main() {
           We are a family owned Mediterranean <br /> restaurant, focused on
           traditional <br /> recipes served with a modern twist.
         </Description>
-        <CustomButton>Reserve a Table</CustomButton>
+        <Link to="/booking">
+          <CustomButton>Reserve a Table</CustomButton>
+        </Link>
         <AdImg src={img1} alt="Delicious Mediterranean Cuisine" />
       </Container>
       <Container background="white" margin="5rem 0">
