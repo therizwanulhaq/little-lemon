@@ -1,6 +1,7 @@
 // ConfirmedBooking.js
 import { css } from "@emotion/css";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ConfirmedBooking = () => {
   return (
@@ -17,11 +18,20 @@ const ConfirmedBooking = () => {
         <h2>Booking Confirmed!</h2>
         <p
           className={css`
-            margin-top: 1rem;
+            margin: 1rem 0 7rem 0;
           `}
         >
           Your reservation has been confirmed. Thank you!
         </p>
+        <Link
+          to="/"
+          className={css`
+            color: black;
+            text-decoration: underline;
+          `}
+        >
+          Back to HomePage
+        </Link>
       </div>
     </div>
   );
