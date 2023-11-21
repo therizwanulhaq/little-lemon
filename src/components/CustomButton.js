@@ -10,8 +10,9 @@ const CustomButton = styled.button((props) => ({
   fontWeight: "700",
   fontSize: "1rem",
   margin: "1rem 0",
-  cursor: "pointer",
   transition: "background 0.3s ease",
+  cursor: props.disabled ? "not-allowed" : "pointer", // Adjust cursor based on disabled state
+  opacity: props.disabled ? 0.5 : 1, // Adjust opacity based on disabled state
 
   "&:hover": {
     background: "#D3AC0E",

@@ -25,6 +25,7 @@ const Title = styled.h3`
 const Label = styled.label`
   display: block;
   margin-bottom: 0.7rem;
+  margin-top: 1rem;
 `;
 
 const Input = styled.input`
@@ -34,7 +35,6 @@ const Input = styled.input`
   border: 1px solid #ccc;
   outline: none;
   appearance: textfield;
-  margin-bottom: 1rem;
 
   &:focus {
     border-color: ${focusColor};
@@ -68,6 +68,12 @@ const Select = styled.select`
   }
 `;
 
+const ErrorMessage = styled.div`
+  margin-top: 0.3rem;
+  color: red;
+  font-size: 0.8rem;
+`;
+
 function getCurrentDate() {
   const today = new Date();
   const year = today.getFullYear();
@@ -87,6 +93,17 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("Birthday");
 
+  const invalidDateErrorMessage = "Please choose a valid date";
+  const invalidNumberOfGuestsErrorMessage =
+    "Please enter a number between 1 and 10";
+
+  const isDateValid = () => date !== "" && date >= getCurrentDate();
+
+  const isNumberOfGuestsValid = () =>
+    guests !== "" && guests > 0 && guests < 11;
+
+  const areAllFieldsValid = () => isDateValid() && isNumberOfGuestsValid();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await submitForm({ date, time, guests, occasion });
@@ -97,17 +114,23 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
       <Form onSubmit={handleSubmit}>
         <Title>Book Now</Title>
 
-        <Label htmlFor="res-date">Choose Date:</Label>
+        <Label htmlFor="res-date" hasError={!isDateValid()}>
+          Choose Date:
+        </Label>
         <Input
           type="date"
           id="res-date"
           required
+          min={getCurrentDate()}
           value={date}
           onChange={(e) => {
             setDate(e.target.value);
             updateTimes(e.target.value); // Call updateTimes with the selected date
           }}
         />
+        {isDateValid() ? null : (
+          <ErrorMessage>{invalidDateErrorMessage}</ErrorMessage>
+        )}
 
         <Label htmlFor="res-time">Choose Time:</Label>
         <Select
@@ -121,7 +144,9 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
           ))}
         </Select>
 
-        <Label htmlFor="guests">Number of Guests:</Label>
+        <Label htmlFor="guests" hasError={!isNumberOfGuestsValid()}>
+          Number of Guests:
+        </Label>
         <Input
           type="number"
           placeholder="1"
@@ -132,6 +157,9 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
           value={guests}
           onChange={(e) => setGuests(e.target.value)}
         />
+        {isNumberOfGuestsValid() ? null : (
+          <ErrorMessage>{invalidNumberOfGuestsErrorMessage}</ErrorMessage>
+        )}
 
         <Label htmlFor="occasion">Occasion:</Label>
         <Select
@@ -145,7 +173,12 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
           <option value="anniversary">Anniversary</option>
         </Select>
 
-        <CustomButton type="submit" borderRadius="0.3rem" width="100%">
+        <CustomButton
+          type="submit"
+          borderRadius="0.3rem"
+          width="100%"
+          disabled={!areAllFieldsValid()}
+        >
           Make Your reservation
         </CustomButton>
       </Form>
