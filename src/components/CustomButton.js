@@ -11,6 +11,11 @@ const CustomButton = styled.button((props) => ({
   fontSize: "1rem",
   margin: "1rem 0",
   cursor: "pointer",
+  transition: "background 0.3s ease",
+
+  "&:hover": {
+    background: "#D3AC0E",
+  },
 }));
 
 export default CustomButton;
