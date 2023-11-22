@@ -139,7 +139,7 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
           value={time}
           onChange={(e) => setTime(e.target.value)}
         >
-          {availableTimes.map((time) => (
+          {availableTimes?.map((time) => (
             <option key={time}>{time}</option>
           ))}
         </Select>
