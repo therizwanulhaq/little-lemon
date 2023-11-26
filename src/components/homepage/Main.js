@@ -1,36 +1,33 @@
 import React from "react";
-import { css } from "@emotion/css";
 import { Link } from "react-router-dom";
 
 import CustomButton from "../common/CustomButton";
 import TestimonialData from "./TestimonialData";
 import Specials from "./Specials";
+import Lemon from "../../assets/GreenLemon.png";
 
 import {
   Container,
   Title,
   SubTitle,
   Description,
+  Br,
   AdImg,
-  ImageContainer,
-  Img2,
-  Img3,
 } from "./StyledComponents";
 
 import img1 from "../../assets/Placeholder Image.jpg";
-import img2 from "../../assets/Mario and Adrian A.jpg";
-import img3 from "../../assets/restaurant.jpg";
+import AboutLittleLemon from "./AboutLittleLemon";
 
 function Main() {
   return (
     <main>
-      <Container display="flex">
+      <Container display="flex" padding="1rem 15rem" backgroundImage={Lemon}>
         <div>
           <Title>Little Lemon</Title>
           <SubTitle>Chicago</SubTitle>
           <Description>
-            We are a family owned Mediterranean <br /> restaurant, focused on
-            traditional <br /> recipes served with a modern twist.
+            We are a family owned Mediterranean <Br /> restaurant, focused on
+            traditional <Br /> recipes served with a modern twist.
           </Description>
           <Link to="/booking">
             <CustomButton>Reserve a Table</CustomButton>
@@ -39,7 +36,7 @@ function Main() {
         <AdImg src={img1} alt="Delicious Mediterranean Cuisine" />
       </Container>
       <Specials />
-      <Container padding="5rem 15rem">
+      <Container>
         <Title
           color="#edefee"
           fontSize="3rem"
@@ -50,37 +47,7 @@ function Main() {
         </Title>
         <TestimonialData />
       </Container>
-      <Container
-        background="white"
-        color="#333333"
-        padding="5rem 15rem 10rem 15rem"
-      >
-        <div
-          className={css`
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          `}
-        >
-          <div>
-            <Title>Little Lemon</Title>
-            <SubTitle>Chicago</SubTitle>
-            <Description>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              at ex leo. Maecenas enim sem, laoreet at nulla ac, luctus
-              scelerisque massa. Praesent ut molestie nisi. Aliquam arcu lorem,
-              auctor condimentum blandit id, lobortis in nisi. Ut diam justo,
-              euismod in accumsan id, vehicula sit amet tellus. Pellentesque
-            </Description>
-          </div>
-          <div>
-            <ImageContainer>
-              <Img2 src={img2} alt="Little Lemon Restaurant" />
-              <Img3 src={img3} alt="Adrian" />
-            </ImageContainer>
-          </div>
-        </div>
-      </Container>
+      <AboutLittleLemon />
     </main>
   );
 }
