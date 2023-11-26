@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/css";
-import logo from "../assets/Logo.png";
-import Navbar from "./Navbar";
+import logo from "../../assets/Logo.png";
+import Navbar from "../homepage/Navbar";
 import { Link } from "react-router-dom";
 
 function Header() {

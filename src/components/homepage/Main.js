@@ -1,13 +1,15 @@
 import React from "react";
 import { css } from "@emotion/css";
 import styled from "@emotion/styled";
-import CustomButton from "./CustomButton";
-import img1 from "../assets/Placeholder Image.jpg";
+import { Link } from "react-router-dom";
+
+import CustomButton from "../common/CustomButton";
 import DishList from "./DishList";
 import TestimonialData from "./TestimonialData";
-import img2 from "../assets/Mario and Adrian A.jpg";
-import img3 from "../assets/restaurant.jpg";
-import { Link } from "react-router-dom";
+
+import img1 from "../../assets/Placeholder Image.jpg";
+import img2 from "../../assets/Mario and Adrian A.jpg";
+import img3 from "../../assets/restaurant.jpg";
 
 const fontFamily = `"Markazi Text", serif`;
 const Container = styled.div`
