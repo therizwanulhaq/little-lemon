@@ -1,11 +1,11 @@
 // Urls.js
 import React, { useEffect, useReducer } from "react";
 import { Route, Routes } from "react-router-dom";
-import Main from "./Main";
-import BookingForm from "./BookingForm";
-import ConfirmedBooking from "./ConfirmedBooking";
+import Main from "../homepage/Main";
+import BookingForm from "../reservation/BookingForm";
+import ConfirmedBooking from "../reservation/ConfirmedBooking";
 import { useNavigate } from "react-router-dom";
-import { fetchAPI, submitAPI } from "./BookingsAPI";
+import { fetchAPI, submitAPI } from "../reservation/BookingsAPI";
 
 const Urls = () => {
   const navigate = useNavigate();

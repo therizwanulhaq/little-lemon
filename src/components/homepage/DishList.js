@@ -1,8 +1,8 @@
 import React from "react";
 import Card from "./Card";
-import dish1Image from "../assets/greek salad.jpg";
-import dish2Image from "../assets/bruschetta.jpg";
-import dish3Image from "../assets/lemon dessert.jpg";
+import dish1Image from "../../assets/greek salad.jpg";
+import dish2Image from "../../assets/bruschetta.jpg";
+import dish3Image from "../../assets/lemon dessert.jpg";
 import styled from "@emotion/styled";
 
 const dishes = [

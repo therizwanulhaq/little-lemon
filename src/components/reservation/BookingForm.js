@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import CustomButton from "./CustomButton";
+import CustomButton from "../common/CustomButton";
 
 const focusColor = "#f4ce14";
 

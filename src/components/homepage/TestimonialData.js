@@ -1,6 +1,6 @@
 import React from "react";
 import Testimonials from "./Testimonials";
-import img1 from "../assets/Kurumi.jpg";
+import img1 from "../../assets/Kurumi.jpg";
 import styled from "@emotion/styled";
 
 const testimonials = [
