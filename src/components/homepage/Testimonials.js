@@ -8,8 +8,8 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 1rem;
   margin-bottom: 1rem;
-  width: 13rem;
-  height: 11rem;
+  width: 100%;
+  /* height: 11rem; */
   background: #efeeee;
   color: #333333;
 `;

@@ -36,9 +36,13 @@ const testimonials = [
 ];
 
 const Card = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 100%;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 function TestimonialData() {

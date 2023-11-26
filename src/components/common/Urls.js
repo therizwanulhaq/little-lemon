@@ -6,6 +6,7 @@ import BookingForm from "../reservation/BookingForm";
 import ConfirmedBooking from "../reservation/ConfirmedBooking";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI, submitAPI } from "../reservation/BookingsAPI";
+import Menu from "../menu/Menu";
 
 const Urls = () => {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const Urls = () => {
     <>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="menu" element={<Menu />} />
         <Route
           path="/booking"
           element={
