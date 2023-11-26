@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import logo from "../assets/Asset 18@4x.png";
+import logo from "../../assets/Asset 18@4x.png";
 
 const FooterContainer = styled.footer`
   background: #efeeee;

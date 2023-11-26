@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import CustomButton from "./CustomButton";
+import CustomButton from "../common/CustomButton";
 
 const focusColor = "#f4ce14";
 
@@ -25,6 +25,7 @@ const Title = styled.h3`
 const Label = styled.label`
   display: block;
   margin-bottom: 0.7rem;
+  margin-top: 1rem;
 `;
 
 const Input = styled.input`
@@ -34,7 +35,6 @@ const Input = styled.input`
   border: 1px solid #ccc;
   outline: none;
   appearance: textfield;
-  margin-bottom: 1rem;
 
   &:focus {
     border-color: ${focusColor};
@@ -68,57 +68,103 @@ const Select = styled.select`
   }
 `;
 
-const availableTimes = ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+const ErrorMessage = styled.div`
+  margin-top: 0.3rem;
+  color: red;
+  font-size: 0.8rem;
+`;
 
-const BookingPage = () => {
-  const [date, setDate] = useState("");
+function getCurrentDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let day = today.getDate();
+
+  // Add leading zero if month or day is a single digit
+  month = month < 10 ? `0${month}` : month;
+  day = day < 10 ? `0${day}` : day;
+
+  return `${year}-${month}-${day}`;
+}
+
+const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
+  const [date, setDate] = useState(getCurrentDate());
   const [time, setTime] = useState("17:00");
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("Birthday");
 
-  const handleSubmit = (e) => {
+  const invalidDateErrorMessage = "Please choose a valid date";
+  const invalidNumberOfGuestsErrorMessage =
+    "Please enter a number between 1 and 10";
+
+  const isDateValid = () => date !== "" && date >= getCurrentDate();
+
+  const isNumberOfGuestsValid = () =>
+    guests !== "" && guests > 0 && guests < 11;
+
+  const areAllFieldsValid = () => isDateValid() && isNumberOfGuestsValid();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ date, time, guests, occasion });
+    await submitForm({ date, time, guests, occasion });
   };
 
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <Title>Booking Form</Title>
+        <Title>Book Now</Title>
 
-        <Label htmlFor="res-date">Choose Date:</Label>
+        <Label htmlFor="res-date" hasError={!isDateValid()}>
+          Choose Date:
+        </Label>
         <Input
           type="date"
           id="res-date"
+          required
+          min={getCurrentDate()}
           value={date}
-          onChange={(e) => setDate(e.target.value)}
+          onChange={(e) => {
+            setDate(e.target.value);
+            updateTimes(e.target.value); // Call updateTimes with the selected date
+          }}
         />
+        {isDateValid() ? null : (
+          <ErrorMessage>{invalidDateErrorMessage}</ErrorMessage>
+        )}
 
         <Label htmlFor="res-time">Choose Time:</Label>
         <Select
           id="res-time"
+          required
           value={time}
           onChange={(e) => setTime(e.target.value)}
         >
-          {availableTimes.map((time) => (
+          {availableTimes?.map((time) => (
             <option key={time}>{time}</option>
           ))}
         </Select>
 
-        <Label htmlFor="guests">Number of Guests:</Label>
+        <Label htmlFor="guests" hasError={!isNumberOfGuestsValid()}>
+          Number of Guests:
+        </Label>
         <Input
           type="number"
           placeholder="1"
           min="1"
           max="10"
           id="guests"
+          required
           value={guests}
           onChange={(e) => setGuests(e.target.value)}
         />
+        {isNumberOfGuestsValid() ? null : (
+          <ErrorMessage>{invalidNumberOfGuestsErrorMessage}</ErrorMessage>
+        )}
 
         <Label htmlFor="occasion">Occasion:</Label>
         <Select
           id="occasion"
+          required
           value={occasion}
           onChange={(e) => setOccasion(e.target.value)}
         >
@@ -127,7 +173,12 @@ const BookingPage = () => {
           <option value="anniversary">Anniversary</option>
         </Select>
 
-        <CustomButton type="submit" borderRadius="0.3rem" width="100%">
+        <CustomButton
+          type="submit"
+          borderRadius="0.3rem"
+          width="100%"
+          disabled={!areAllFieldsValid()}
+        >
           Make Your reservation
         </CustomButton>
       </Form>
@@ -135,4 +186,4 @@ const BookingPage = () => {
   );
 };
 
-export default BookingPage;
+export default BookingForm;
