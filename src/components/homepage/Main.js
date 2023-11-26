@@ -26,7 +26,7 @@ function Main() {
     <main>
       <Container display="flex">
         <div>
-          <Title fontSizeSC="3rem">Little Lemon</Title>
+          <Title>Little Lemon</Title>
           <SubTitle>Chicago</SubTitle>
           <Description>
             We are a family owned Mediterranean <br /> restaurant, focused on
