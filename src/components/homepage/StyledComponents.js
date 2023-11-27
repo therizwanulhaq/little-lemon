@@ -9,16 +9,10 @@ const fontFamily = `"Markazi Text", serif`;
 export const Container = styled.div`
   margin: ${(props) => props.margin || "0"};
   position: relative;
+  overflow: hidden;
   padding: ${(props) => props.padding || "2.5rem 15rem"};
   background: ${(props) => props.background || "#495e57"};
   color: ${(props) => props.color || "#edefee"};
-  /* Set background image */
-  background-image: ${(props) =>
-    props.backgroundImage ? `url(${props.backgroundImage})` : "none"};
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
-  background-blend-mode: soft-light;
 
   ${mq[3]} {
     padding: 2rem 10rem;
@@ -140,4 +134,25 @@ export const Img3 = styled.img`
   width: 17.5rem;
   height: 20rem;
   object-fit: cover;
+`;
+
+export const BackgroundImage = styled.div`
+  content: "";
+  position: absolute;
+  top: ${(props) => props.top || "4rem"};
+  right: ${(props) => props.right || ""};
+  left: ${(props) => props.left || ""};
+  width: ${(props) => props.width || "17rem"};
+  height: ${(props) => props.height || "17rem"};
+  background-image: url(${(props) => props.imageUrl || ""});
+  background-size: ${(props) => props.backgroundSize || "contain"};
+  background-repeat: no-repeat;
+  background-position: ${(props) => props.backgroundPosition || "center"};
+  background-blend-mode: ${(props) => props.backgroundBlendMode || "exclusion"};
+  transform: rotate(${(props) => props.rotation || "43deg"});
+  z-index: -1;
+
+  ${mq[1]} {
+    display: none;
+  }
 `;

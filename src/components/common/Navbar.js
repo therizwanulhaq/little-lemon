@@ -18,7 +18,7 @@ const HamburgerMenu = styled.span`
   z-index: 6;
   top: 1.1rem;
   right: 2rem;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     display: none;
   }
 `;
