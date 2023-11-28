@@ -12,7 +12,7 @@ import {
 } from "./StyledComponents";
 
 import img2 from "../../assets/Mario and Adrian A.jpg";
-import img3 from "../../assets/restaurant.jpg";
+import img3 from "../../assets/restaurantwfixedclrs.jpg";
 
 const AboutLittleLemon = () => {
   return (
@@ -29,11 +29,14 @@ const AboutLittleLemon = () => {
             <Title>Little Lemon</Title>
             <SubTitle>Chicago</SubTitle>
             <Description>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              at ex leo. Maecenas enim sem, laoreet at nulla ac, luctus
-              scelerisque massa. Praesent ut molestie nisi. Aliquam arcu lorem,
-              auctor condimentum blandit id, lobortis in nisi. Ut diam justo,
-              euismod in accumsan id, vehicula sit amet tellus. Pellentesque
+              Little Lemon is owned by two Italian brothers, Mario and Adrian,
+              who moved to the United States to pursue their shared dream of
+              owning a restaurant. <br />
+              To craft the menu, Mario relies on family recipes and his
+              experience as a chef in Italy. Adrian does all the marketing for
+              the restaurant and led the effort to expand the menu beyond
+              classic Italian to incorporate additional cuisines from the
+              Mediterranean region.
             </Description>
           </div>
           <div>

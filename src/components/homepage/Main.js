@@ -14,6 +14,7 @@ import {
   Br,
   AdImg,
   BackgroundImage,
+  ExpContainer,
 } from "./StyledComponents";
 
 import img1 from "../../assets/Placeholder Image.jpg";
@@ -23,7 +24,7 @@ function Main() {
   return (
     <main>
       <Container display="flex" padding="1rem 15rem" background="#495e57f5">
-        <BackgroundImage imageUrl={Lemon} top="3rem" right="3rem" />
+        <BackgroundImage imageUrl={Lemon} top="3rem" right="4rem" />
         <BackgroundImage
           imageUrl={Lemon}
           top="0rem"
@@ -44,7 +45,7 @@ function Main() {
         <AdImg src={img1} alt="Delicious Mediterranean Cuisine" />
       </Container>
       <Specials />
-      <Container background="#495e57ee" padding="5rem 15rem">
+      <ExpContainer background="#495e57ee" padding="5rem 15rem">
         <BackgroundImage
           imageUrl={Lemon}
           top="0"
@@ -55,8 +56,8 @@ function Main() {
         />
         <BackgroundImage
           imageUrl={Lemon}
-          top="0rem"
-          right="0rem"
+          top="1rem"
+          right="3rem"
           rotation="-30deg"
         />
         <Title
@@ -68,7 +69,7 @@ function Main() {
           What our customers say!
         </Title>
         <TestimonialData />
-      </Container>
+      </ExpContainer>
       <AboutLittleLemon />
     </main>
   );

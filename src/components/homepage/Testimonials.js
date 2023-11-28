@@ -12,6 +12,12 @@ const Container = styled.div`
   border-radius: 1rem;
   background: #efeeee;
   color: #333333;
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+    padding: 0.7rem;
+    width: 9rem;
+  }
 `;
 
 const Profile = styled.div`
@@ -24,6 +30,12 @@ const ImageContainer = styled.div`
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
+
+  @media (max-width: 768px) {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 const ProfilePhoto = styled.img`
@@ -31,17 +43,30 @@ const ProfilePhoto = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
+
+  @media (max-width: 768px) {
+    object-fit: cover;
+    width: 2rem;
+  }
 `;
 
 const Name = styled.p`
   font-size: 0.8rem;
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+  }
 `;
 
 const Username = styled.p`
   margin-top: 0.2rem;
   font-size: 0.7rem;
   font-weight: 500;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Rating = styled.div`
@@ -71,6 +96,10 @@ const generateStars = (rating) => {
           padding: 0 0.2rem;
           font-size: 1.2rem;
           color: ${i <= roundedRating ? "#ffb700" : "#d3d3d3"};
+
+          @media (max-width: 768px) {
+            padding: 0;
+          }
         `}
       >
         ★

@@ -6,26 +6,31 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const fontFamily = `"Markazi Text", serif`;
 
-export const Container = styled.div`
-  margin: ${(props) => props.margin || "0"};
-  position: relative;
-  overflow: hidden;
-  padding: ${(props) => props.padding || "2.5rem 15rem"};
-  background: ${(props) => props.background || "#495e57"};
-  color: ${(props) => props.color || "#edefee"};
+export const Container = styled.div((props) => ({
+  margin: props.margin || "0",
+  position: "relative",
+  padding: props.padding || "2.5rem 15rem",
+  background: props.background || "#495e57",
+  color: props.color || "#edefee",
 
-  ${mq[3]} {
-    padding: 2rem 10rem;
-  }
-  ${mq[2]} {
-    padding: 1.5rem 5rem;
-  }
+  [mq[3]]: {
+    padding: "2rem 10rem",
+  },
+  [mq[2]]: {
+    padding: "1.5rem 5rem",
+  },
+  [mq[1]]: {
+    padding: "0.5rem 2rem",
+    display: props.display || "",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "0.5rem",
+  },
+}));
+
+export const ExpContainer = styled(Container)`
   ${mq[1]} {
-    padding: 0.5rem 2rem;
-    display: ${(props) => props.display || ""};
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
+    padding: 2rem 0 3rem 0;
   }
 `;
 
@@ -113,8 +118,8 @@ export const AdImg = styled.img`
 
 export const ImageContainer = styled.div`
   position: relative;
-  width: 17.5rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
   margin-left: 15rem;
   ${mq[1]} {
     display: none;
@@ -125,30 +130,30 @@ export const Img2 = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 `;
 
 export const Img3 = styled.img`
   position: absolute;
   top: 5rem;
   right: 12rem;
-  width: 17.5rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
   object-fit: cover;
+  object-position: center;
 `;
 
 export const BackgroundImage = styled.div`
-  content: "";
   position: absolute;
   top: ${(props) => props.top || "4rem"};
   right: ${(props) => props.right || ""};
   left: ${(props) => props.left || ""};
-  width: ${(props) => props.width || "17rem"};
-  height: ${(props) => props.height || "17rem"};
+  width: ${(props) => props.width || "15rem"};
+  height: ${(props) => props.height || "15rem"};
   background-image: url(${(props) => props.imageUrl || ""});
   background-size: ${(props) => props.backgroundSize || "contain"};
   background-repeat: no-repeat;
   background-position: ${(props) => props.backgroundPosition || "center"};
-  background-blend-mode: ${(props) => props.backgroundBlendMode || "exclusion"};
   transform: rotate(${(props) => props.rotation || "43deg"});
   z-index: -1;
 

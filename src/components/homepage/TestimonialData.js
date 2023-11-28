@@ -10,7 +10,7 @@ const testimonials = [
   {
     id: 1,
     image: img1,
-    name: "Sergio De Paula",
+    name: "Sergio Paula",
     username: "danny_ocean",
     comment: "Awesome place peaceful atmosphere with delicious food.",
     rating: "5.0",
@@ -42,13 +42,20 @@ const testimonials = [
 ];
 
 const Card = styled.div`
+  margin: 3rem 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   max-width: 100%;
+  overflow-x: auto;
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    margin-bottom: 2rem;
+    margin: 0 0;
+    > :first-of-type {
+      margin-left: 2rem;
+    }
+    > :last-child {
+      margin-right: 2rem;
+    }
   }
 `;
 
