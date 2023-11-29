@@ -2,48 +2,58 @@ import React from "react";
 import { css } from "@emotion/css";
 
 import {
-  Container,
   Title,
   SubTitle,
   Description,
   ImageContainer,
   Img2,
-  Img3,
+  AboutLilLemonContainer,
 } from "./StyledComponents";
 
-import img2 from "../../assets/Mario and Adrian A.jpg";
-import img3 from "../../assets/restaurant.jpg";
+import img2 from "../../assets/MarioAndAdrian.jpg";
+import restaurant from "../../assets/restaurant.jpg";
 
 const AboutLittleLemon = () => {
   return (
     <>
-      <Container background="white" color="#333333">
+      <AboutLilLemonContainer
+        backgroundImage={restaurant}
+        background="#131917"
+        color="#bfbfbfc7"
+        padding="3rem 15rem"
+      >
         <div
           className={css`
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: last baseline;
+            gap: 3rem;
+            @media (max-width: 768px) {
+              display: block;
+            }
           `}
         >
           <div>
             <Title>Little Lemon</Title>
             <SubTitle>Chicago</SubTitle>
-            <Description>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              at ex leo. Maecenas enim sem, laoreet at nulla ac, luctus
-              scelerisque massa. Praesent ut molestie nisi. Aliquam arcu lorem,
-              auctor condimentum blandit id, lobortis in nisi. Ut diam justo,
-              euismod in accumsan id, vehicula sit amet tellus. Pellentesque
+            <Description fontSize="1.5rem" textAlign="justify">
+              Little Lemon is owned by two Italian brothers, Mario and Adrian,
+              who moved to the United States to pursue their shared dream of
+              owning a restaurant. <br />
+              To craft the menu, Mario relies on family recipes and his
+              experience as a chef in Italy. Adrian does all the marketing for
+              the restaurant and led the effort to expand the menu beyond
+              classic Italian to incorporate additional cuisines from the
+              Mediterranean region.
             </Description>
           </div>
           <div>
             <ImageContainer>
               <Img2 src={img2} alt="Little Lemon Restaurant" />
-              <Img3 src={img3} alt="Adrian" />
             </ImageContainer>
           </div>
         </div>
-      </Container>
+      </AboutLilLemonContainer>
     </>
   );
 };
