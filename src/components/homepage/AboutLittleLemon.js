@@ -2,33 +2,41 @@ import React from "react";
 import { css } from "@emotion/css";
 
 import {
-  Container,
   Title,
   SubTitle,
   Description,
   ImageContainer,
   Img2,
-  Img3,
+  AboutLilLemonContainer,
 } from "./StyledComponents";
 
-import img2 from "../../assets/Mario and Adrian A.jpg";
-import img3 from "../../assets/restaurantwfixedclrs.jpg";
+import img2 from "../../assets/MarioAndAdrian.jpg";
+import restaurant from "../../assets/restaurant.jpg";
 
 const AboutLittleLemon = () => {
   return (
     <>
-      <Container background="white" color="#333333">
+      <AboutLilLemonContainer
+        backgroundImage={restaurant}
+        background="#131917"
+        color="#bfbfbfc7"
+        padding="3rem 15rem"
+      >
         <div
           className={css`
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: last baseline;
+            gap: 3rem;
+            @media (max-width: 768px) {
+              display: block;
+            }
           `}
         >
           <div>
             <Title>Little Lemon</Title>
             <SubTitle>Chicago</SubTitle>
-            <Description>
+            <Description fontSize="1.5rem" textAlign="justify">
               Little Lemon is owned by two Italian brothers, Mario and Adrian,
               who moved to the United States to pursue their shared dream of
               owning a restaurant. <br />
@@ -42,11 +50,10 @@ const AboutLittleLemon = () => {
           <div>
             <ImageContainer>
               <Img2 src={img2} alt="Little Lemon Restaurant" />
-              <Img3 src={img3} alt="Adrian" />
             </ImageContainer>
           </div>
         </div>
-      </Container>
+      </AboutLilLemonContainer>
     </>
   );
 };

@@ -8,7 +8,7 @@ import { Container, Title } from "./StyledComponents";
 const Specials = () => {
   return (
     <>
-      <Container background="white" margin="2.5rem 0">
+      <Container background="white" margin="3rem 0">
         <div
           className={css`
             display: flex;

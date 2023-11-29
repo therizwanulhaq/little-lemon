@@ -14,7 +14,7 @@ import {
   Br,
   AdImg,
   BackgroundImage,
-  ExpContainer,
+  TitleWithLines,
 } from "./StyledComponents";
 
 import img1 from "../../assets/Placeholder Image.jpg";
@@ -23,7 +23,11 @@ import AboutLittleLemon from "./AboutLittleLemon";
 function Main() {
   return (
     <main>
-      <Container display="flex" padding="1rem 15rem" background="#495e57f5">
+      <Container
+        display="flex"
+        padding="2rem 15rem 1rem 15rem"
+        background="#495e57f5"
+      >
         <BackgroundImage imageUrl={Lemon} top="3rem" right="4rem" />
         <BackgroundImage
           imageUrl={Lemon}
@@ -45,31 +49,8 @@ function Main() {
         <AdImg src={img1} alt="Delicious Mediterranean Cuisine" />
       </Container>
       <Specials />
-      <ExpContainer background="#495e57ee" padding="5rem 15rem">
-        <BackgroundImage
-          imageUrl={Lemon}
-          top="0"
-          left="-20rem"
-          width="50rem"
-          height="50rem"
-          rotation="5deg"
-        />
-        <BackgroundImage
-          imageUrl={Lemon}
-          top="1rem"
-          right="3rem"
-          rotation="-30deg"
-        />
-        <Title
-          color="#edefee"
-          fontSize="3rem"
-          textAlign="center"
-          margin="0 0 2rem 0"
-        >
-          What our customers say!
-        </Title>
-        <TestimonialData />
-      </ExpContainer>
+      <TestimonialData />
+      <TitleWithLines>ABOUT LITTLE LEMON RESTAURANT</TitleWithLines>
       <AboutLittleLemon />
     </main>
   );

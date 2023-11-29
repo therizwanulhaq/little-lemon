@@ -8,10 +8,11 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const FooterContainer = styled.footer`
-  margin-top: 3.5rem;
+  border-top: 1px #bfbfbfc7 solid;
+  margin-top: 7rem;
   background: #efeeee;
   color: #333333;
-  padding: 2.5rem 15rem;
+  padding: 3rem 15rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -28,7 +29,11 @@ const FooterContainer = styled.footer`
 `;
 
 const Logo = styled.img`
-  width: 130px;
+  margin-top: 1.7rem;
+  height: 11rem;
+  ${mq[1]} {
+    display: none;
+  }
 `;
 
 const LinkSection = styled.div`

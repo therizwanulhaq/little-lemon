@@ -12,6 +12,11 @@ export const Container = styled.div((props) => ({
   padding: props.padding || "2.5rem 15rem",
   background: props.background || "#495e57",
   color: props.color || "#edefee",
+  backgroundImage: `url(${props.backgroundImage || ""})`,
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundBlendMode: "multiply",
 
   [mq[3]]: {
     padding: "2rem 10rem",
@@ -20,17 +25,36 @@ export const Container = styled.div((props) => ({
     padding: "1.5rem 5rem",
   },
   [mq[1]]: {
-    padding: "0.5rem 2rem",
+    padding: "1rem 2rem",
     display: props.display || "",
     justifyContent: "space-between",
     alignItems: "center",
     gap: "0.5rem",
   },
+  [mq[0]]: {
+    padding: "0.5rem 2rem",
+  },
 }));
 
-export const ExpContainer = styled(Container)`
+export const ReviewContainer = styled(Container)`
+  ${mq[3]} {
+    padding: 3rem 8rem;
+  }
+  ${mq[2]} {
+    padding: 2rem 1rem;
+  }
+
   ${mq[1]} {
-    padding: 2rem 0 3rem 0;
+    padding: 3rem 0;
+  }
+`;
+
+export const AboutLilLemonContainer = styled(Container)`
+  ${mq[2]} {
+    padding: 2.5rem 5rem;
+  }
+  ${mq[1]} {
+    padding: 2rem;
   }
 `;
 
@@ -38,6 +62,7 @@ export const Title = styled.h1`
   font-family: ${fontFamily};
   font-size: ${(props) => props.fontSize || "4rem"};
   font-weight: 400;
+  line-height: 3rem;
   color: ${(props) => props.color || "#f4ce14"};
   text-align: ${(props) => props.textAlign || "left"};
   margin: ${(props) => props.margin || "0"};
@@ -53,7 +78,6 @@ export const SubTitle = styled.h2`
   font-family: ${fontFamily};
   font-size: 2.5rem;
   font-weight: 400;
-  line-height: 1rem;
   ${mq[2]} {
     font-size: 2.2rem;
   }
@@ -63,18 +87,19 @@ export const SubTitle = styled.h2`
 `;
 
 export const Description = styled.p`
-  margin-top: 2rem;
+  margin-top: 1rem;
   font-family: ${fontFamily};
-  font-size: 1.7rem;
+  text-align: ${(props) => props.textAlign || ""};
+  font-size: ${(props) => props.fontSize || "1.7rem"};
   ${mq[2]} {
     font-size: 1.6rem;
   }
   ${mq[1]} {
-    margin-top: 1.3rem;
+    margin-top: 1rem;
   }
   ${mq[0]} {
     font-size: 1rem;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
   }
 `;
 
@@ -117,10 +142,7 @@ export const AdImg = styled.img`
 `;
 
 export const ImageContainer = styled.div`
-  position: relative;
   width: 15rem;
-  height: 15rem;
-  margin-left: 15rem;
   ${mq[1]} {
     display: none;
   }
@@ -131,16 +153,7 @@ export const Img2 = styled.img`
   height: 100%;
   object-fit: cover;
   object-position: center;
-`;
-
-export const Img3 = styled.img`
-  position: absolute;
-  top: 5rem;
-  right: 12rem;
-  width: 15rem;
-  height: 15rem;
-  object-fit: cover;
-  object-position: center;
+  border-radius: 0.5rem;
 `;
 
 export const BackgroundImage = styled.div`
@@ -159,5 +172,38 @@ export const BackgroundImage = styled.div`
 
   ${mq[1]} {
     display: none;
+  }
+`;
+
+export const TitleWithLines = styled(Container)`
+  background: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #333; /* Set your desired text color */
+  font-size: 1.7rem; /* Set your desired font size */
+  font-weight: 400; /* Set your desired font weight */
+  letter-spacing: 2px;
+  height: 15rem;
+
+  ::before,
+  ::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid #333; /* Set your desired line color and thickness */
+    margin: 0 1rem; /* Adjust the spacing between text and lines */
+  }
+
+  ${mq[1]} {
+    letter-spacing: 0;
+    font-size: 1.1rem;
+
+    font-weight: 500;
+    height: 10rem;
+  }
+  ${mq[0]} {
+    font-size: 0.7rem;
+    font-weight: 500;
+    height: 8rem;
   }
 `;

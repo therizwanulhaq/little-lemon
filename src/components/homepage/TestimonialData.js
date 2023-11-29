@@ -5,6 +5,9 @@ import img2 from "../../assets/stefan-stefancik-.jpg";
 import img3 from "../../assets/muhammad-haikal-sjukri.jpg";
 import img4 from "../../assets/kelly-sikkema.jpg";
 import styled from "@emotion/styled";
+import Lemon from "../../assets/GreenLemon.png";
+
+import { Title, BackgroundImage, ReviewContainer } from "./StyledComponents";
 
 const testimonials = [
   {
@@ -48,6 +51,17 @@ const Card = styled.div`
   gap: 1rem;
   max-width: 100%;
   overflow-x: auto;
+  ::-webkit-scrollbar {
+    height: 1px; /* Set the width of the scrollbar */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #cccccc00; /* Set the color of the scrollbar thumb */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #cccccc00; /* Set the color of the scrollbar track */
+  }
   @media (max-width: 768px) {
     margin: 0 0;
     > :first-of-type {
@@ -61,18 +75,48 @@ const Card = styled.div`
 
 function TestimonialData() {
   return (
-    <Card>
-      {testimonials.map((data) => (
-        <Testimonials
-          key={data.id}
-          name={data.name}
-          username={data.username}
-          image={data.image}
-          rating={data.rating}
-          comment={data.comment}
+    <>
+      <ReviewContainer
+        background="#ccccccf0"
+        color="#0000007d"
+        padding="5rem 15rem"
+      >
+        <BackgroundImage
+          imageUrl={Lemon}
+          top="0"
+          left="-20rem"
+          width="50rem"
+          height="50rem"
+          rotation="5deg"
         />
-      ))}
-    </Card>
+        <BackgroundImage
+          imageUrl={Lemon}
+          top="1rem"
+          right="3rem"
+          rotation="-30deg"
+        />
+        <Title
+          color="#0000007d"
+          fontSize="3rem"
+          textAlign="center"
+          margin="0 0 2rem 0"
+        >
+          What our customers say!
+        </Title>
+        <Card>
+          {testimonials.map((data) => (
+            <Testimonials
+              key={data.id}
+              name={data.name}
+              username={data.username}
+              image={data.image}
+              rating={data.rating}
+              comment={data.comment}
+            />
+          ))}
+        </Card>
+      </ReviewContainer>
+    </>
   );
 }
 
