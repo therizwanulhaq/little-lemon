@@ -2,20 +2,24 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/css";
 
+const breakpoints = [576, 768, 992, 1200, 1300];
+
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+
 const CardContainer = styled.div`
   margin-bottom: 1rem;
   border: none;
   background: #efeeee;
   border-radius: 1rem 1rem 0 0;
-  width: 17rem;
+  width: 100%;
   color: #333333;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-  @media (max-width: 768px) {
+
+  ${mq[1]} {
     display: flex;
     flex-direction: row-reverse;
     border-radius: 0;
-    width: auto;
     background: none;
     box-shadow: none;
   }
@@ -24,7 +28,7 @@ const CardContainer = styled.div`
 const DishImageContainer = styled.div`
   width: 100%;
   height: 11rem;
-  @media (max-width: 768px) {
+  ${mq[1]} {
     border-radius: 0;
     width: 8rem;
     height: 8.1rem;
@@ -36,7 +40,7 @@ const DishImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  @media (max-width: 768px) {
+  ${mq[1]} {
     border-radius: 0;
     width: 8rem;
   }
@@ -50,7 +54,7 @@ const DishPrice = styled.p`
   font-size: 1rem;
   font-weight: bold;
   color: #cd690c;
-  @media (max-width: 768px) {
+  ${mq[1]} {
     display: none;
   }
 `;
@@ -68,7 +72,7 @@ const DishDescription = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 4; /* Limit to 4 lines */
   -webkit-box-orient: vertical;
-  @media (max-width: 768px) {
+  ${mq[1]} {
     margin: 0.8rem 0;
     text-align: left;
     -webkit-line-clamp: 2;
@@ -81,7 +85,7 @@ const Cta = styled.div`
   gap: 1rem;
   font-weight: 700;
   font-size: 1rem;
-  @media (max-width: 768px) {
+  ${mq[1]} {
     display: none;
   }
 `;
@@ -92,7 +96,7 @@ const Divider = styled.div`
   background: #bfbfbf6b;
   height: 1px;
   margin-bottom: 1rem;
-  @media (max-width: 768px) {
+  ${mq[1]} {
     display: block;
   }
 `;
@@ -109,7 +113,7 @@ const Card = ({ image, name, price, description }) => {
           className={css`
             padding: 1rem;
             gap: 0.5rem;
-            @media (max-width: 768px) {
+            ${mq[1]} {
               padding: 1rem 1rem 1rem 0;
             }
           `}
@@ -123,7 +127,7 @@ const Card = ({ image, name, price, description }) => {
             className={css`
               font-weight: bold;
               display: none;
-              @media (max-width: 768px) {
+              ${mq[1]} {
                 display: block;
               }
             `}
