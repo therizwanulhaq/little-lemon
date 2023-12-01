@@ -64,11 +64,6 @@ const DesktopNavLink = styled(NavLink)`
   }
 `;
 
-const Logo = styled.img`
-  width: 5rem;
-  margin: auto;
-`;
-
 const MobileNavBar = styled.ul`
   position: fixed;
   top: 0;
@@ -120,6 +115,11 @@ const Overlay = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 4;
+`;
+
+const Logo = styled.img`
+  width: 5rem;
+  margin: auto;
 `;
 
 function Navbar() {
