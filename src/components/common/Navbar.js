@@ -1,4 +1,3 @@
-import { css } from "@emotion/css";
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -33,6 +32,38 @@ const DesktopNavBar = styled.ul`
   }
 `;
 
+const DesktopNavLink = styled(NavLink)`
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333333;
+  position: relative;
+  text-decoration: none;
+
+  &:hover::before {
+    width: 100%;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffd700;
+    visibility: visible;
+    transition: width 0.3s ease-in-out;
+  }
+
+  &:hover {
+    color: #ffd700;
+    transition: color 0.3s ease-in-out;
+  }
+  &.active {
+    color: #ffd700;
+  }
+`;
+
 const Logo = styled.img`
   width: 5rem;
   margin: auto;
@@ -53,6 +84,32 @@ const MobileNavBar = styled.ul`
   text-align: left;
   transform: translateX(${(props) => (props.isOpen ? "0" : "100%")});
   transition: transform 260ms;
+`;
+
+const MobileNavLink = styled(NavLink)`
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #333333;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px solid #50645e36;
+
+  &:hover {
+    background-color: #fdfdfd;
+  }
+
+  &:first-child {
+    border-top: 1px solid #50645e36;
+    margin-top: 3rem; /* Adjust the top padding as needed */
+  }
+
+  &.active {
+    color: #558b7b;
+    background: #50645e36;
+    border-top: 1px solid #50645e36;
+  }
 `;
 
 const Overlay = styled.div`
@@ -80,45 +137,9 @@ function Navbar() {
     <nav>
       <DesktopNavBar>
         {navElements.map((navLink, index) => (
-          <NavLink
-            to={navLink.path}
-            key={index}
-            className={css`
-              font-size: 0.9rem;
-              font-weight: 600;
-              color: #333333;
-              position: relative;
-              text-decoration: none;
-
-              &:hover::before {
-                width: 100%;
-              }
-
-              &::before {
-                content: "";
-                position: absolute;
-                width: 0;
-                height: 2px;
-                bottom: 0;
-                left: 0;
-                background-color: #ffd700;
-                visibility: visible;
-                transition: width 0.3s ease-in-out;
-              }
-
-              &:hover {
-                color: #ffd700;
-                transition: color 0.3s ease-in-out;
-              }
-            `}
-            style={({ isActive }) => {
-              return {
-                color: isActive ? "#ffd700" : "#333333",
-              };
-            }}
-          >
+          <DesktopNavLink to={navLink.path} key={index}>
             {navLink.name}
-          </NavLink>
+          </DesktopNavLink>
         ))}
       </DesktopNavBar>
       <HamburgerMenu
@@ -131,39 +152,13 @@ function Navbar() {
 
       <MobileNavBar isOpen={isMobileMenuOpen}>
         {navElements.map((navLink, index) => (
-          <NavLink
+          <MobileNavLink
             to={navLink.path}
             key={index}
             onClick={toggleMobileMenu}
-            className={css`
-              font-size: 0.8rem;
-              font-weight: 700;
-              text-transform: uppercase;
-              color: #333333;
-              padding: 1rem 2rem;
-              text-decoration: none;
-              cursor: pointer;
-              border-bottom: 1px solid #50645e36;
-
-              &:hover {
-                background-color: #fdfdfd;
-              }
-
-              &:first-child {
-                border-top: 1px solid #50645e36;
-                margin-top: 3rem; /* Adjust the top padding as needed */
-              }
-            `}
-            style={({ isActive }) => {
-              return {
-                color: isActive ? "#558b7b" : "#333333",
-                background: isActive ? "#50645e36" : "",
-                borderTop: isActive ? "1px solid #50645e36" : "",
-              };
-            }}
           >
             {navLink.name}
-          </NavLink>
+          </MobileNavLink>
         ))}
         <Logo src={LittleLemon} />
       </MobileNavBar>
