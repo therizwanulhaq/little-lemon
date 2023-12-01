@@ -102,7 +102,7 @@ const MobileNavLink = styled(NavLink)`
 
   &:first-child {
     border-top: 1px solid #50645e36;
-    margin-top: 3rem; /* Adjust the top padding as needed */
+    margin-top: 3rem;
   }
 
   &.active {
@@ -118,13 +118,8 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Adjust the alpha value for desired transparency */
-  z-index: 4; /* Adjust the z-index as needed */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 4;
 `;
 
 function Navbar() {
