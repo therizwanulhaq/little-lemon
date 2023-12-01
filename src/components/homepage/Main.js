@@ -50,7 +50,7 @@ function Main() {
       </Container>
       <Specials />
       <TestimonialData />
-      <TitleWithLines>ABOUT LITTLE LEMON RESTAURANT</TitleWithLines>
+      <TitleWithLines id="about">ABOUT LITTLE LEMON RESTAURANT</TitleWithLines>
       <AboutLittleLemon />
     </main>
   );

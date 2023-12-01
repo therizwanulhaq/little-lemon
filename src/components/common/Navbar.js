@@ -1,15 +1,16 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import LittleLemon from "../../assets/Asset20@4x.png";
 
 const navElements = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Menu", path: "/menu" },
-  { name: "Reservations", path: "/reservations" },
-  { name: "Order online", path: "/order-online" },
-  { name: "Login", path: "/login" },
+  { name: "Home", path: "/", type: "navLink" },
+  { name: "About", path: "/#about", type: "hashLink" },
+  { name: "Menu", path: "/menu", type: "navLink" },
+  { name: "Reservations", path: "/booking", type: "navLink" },
+  { name: "Order online", path: "/order-online", type: "navLink" },
+  { name: "Login", path: "/login", type: "navLink" },
 ];
 
 const HamburgerMenu = styled.span`
@@ -32,7 +33,7 @@ const DesktopNavBar = styled.ul`
   }
 `;
 
-const DesktopNavLink = styled(NavLink)`
+const desktopNavLinkStyles = `
   font-size: 0.9rem;
   font-weight: 600;
   color: #333333;
@@ -64,6 +65,14 @@ const DesktopNavLink = styled(NavLink)`
   }
 `;
 
+const DesktopNavLink = styled(NavLink)`
+  ${desktopNavLinkStyles}
+`;
+
+const DesktopHashLink = styled(HashLink)`
+  ${desktopNavLinkStyles}
+`;
+
 const MobileNavBar = styled.ul`
   position: fixed;
   top: 0;
@@ -81,7 +90,7 @@ const MobileNavBar = styled.ul`
   transition: transform 260ms;
 `;
 
-const MobileNavLink = styled(NavLink)`
+const mobileNavLinkStyles = `
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -95,7 +104,7 @@ const MobileNavLink = styled(NavLink)`
     background-color: #fdfdfd;
   }
 
-  &:first-child {
+  &:first-of-type {
     border-top: 1px solid #50645e36;
     margin-top: 3rem;
   }
@@ -105,6 +114,14 @@ const MobileNavLink = styled(NavLink)`
     background: #50645e36;
     border-top: 1px solid #50645e36;
   }
+`;
+
+const MobileNavLink = styled(NavLink)`
+  ${mobileNavLinkStyles}
+`;
+
+const MobileHashLink = styled(HashLink)`
+  ${mobileNavLinkStyles}
 `;
 
 const Overlay = styled.div`
@@ -131,11 +148,17 @@ function Navbar() {
   return (
     <nav>
       <DesktopNavBar>
-        {navElements.map((navLink, index) => (
-          <DesktopNavLink to={navLink.path} key={index}>
-            {navLink.name}
-          </DesktopNavLink>
-        ))}
+        {navElements.map((link, index) =>
+          link.type === "navLink" ? (
+            <DesktopNavLink to={link.path} key={index}>
+              {link.name}
+            </DesktopNavLink>
+          ) : (
+            <DesktopHashLink to={link.path} key={index}>
+              {link.name}
+            </DesktopHashLink>
+          )
+        )}
       </DesktopNavBar>
       <HamburgerMenu
         className="material-symbols-outlined"
@@ -146,15 +169,25 @@ function Navbar() {
       </HamburgerMenu>
 
       <MobileNavBar isOpen={isMobileMenuOpen}>
-        {navElements.map((navLink, index) => (
-          <MobileNavLink
-            to={navLink.path}
-            key={index}
-            onClick={toggleMobileMenu}
-          >
-            {navLink.name}
-          </MobileNavLink>
-        ))}
+        {navElements.map((link, index) =>
+          link.type === "navLink" ? (
+            <MobileNavLink
+              to={link.path}
+              key={index}
+              onClick={toggleMobileMenu}
+            >
+              {link.name}
+            </MobileNavLink>
+          ) : (
+            <MobileHashLink
+              to={link.path}
+              key={index}
+              onClick={toggleMobileMenu}
+            >
+              {link.name}
+            </MobileHashLink>
+          )
+        )}
         <Logo src={LittleLemon} />
       </MobileNavBar>
       {isMobileMenuOpen && <Overlay onClick={toggleMobileMenu} />}
