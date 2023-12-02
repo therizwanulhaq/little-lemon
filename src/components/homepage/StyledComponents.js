@@ -32,7 +32,7 @@ export const Container = styled.div((props) => ({
     gap: "0.5rem",
   },
   [mq[0]]: {
-    padding: "0.5rem 2rem",
+    padding: "0.5rem 1rem",
   },
 }));
 
@@ -55,6 +55,9 @@ export const AboutLilLemonContainer = styled(Container)`
   }
   ${mq[1]} {
     padding: 2rem;
+  }
+  ${mq[0]} {
+    padding: 2rem 1rem;
   }
 `;
 
@@ -133,10 +136,10 @@ export const AdImg = styled.img`
     position: static;
     width: 12rem;
     height: 16rem;
+    border-radius: 0.2rem;
   }
   ${mq[0]} {
-    position: static;
-    width: 18rem;
+    width: 25rem;
     height: 12rem;
   }
 `;
