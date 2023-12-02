@@ -7,6 +7,7 @@ import ConfirmedBooking from "../reservation/ConfirmedBooking";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI, submitAPI } from "../reservation/BookingsAPI";
 import Menu from "../menu/Menu";
+import OrderDelivery from "../menu/OrderDelivery";
 
 const Urls = () => {
   const navigate = useNavigate();
@@ -78,6 +79,7 @@ const Urls = () => {
           }
         />
         <Route path="/confirmed" element={<ConfirmedBooking />} />
+        <Route path="/order-delivery" element={<OrderDelivery />} />
       </Routes>
     </>
   );

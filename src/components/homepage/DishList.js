@@ -40,6 +40,7 @@ const Dishes = styled.div`
   cursor: pointer;
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 0;
   }
 `;
 

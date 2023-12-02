@@ -26,6 +26,9 @@ const FooterContainer = styled.footer`
   ${mq[1]} {
     padding: 0.5rem 2rem;
   }
+  ${mq[0]} {
+    padding: 0.5rem 1rem;
+  }
 `;
 
 const Logo = styled.img`
