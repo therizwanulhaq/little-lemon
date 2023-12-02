@@ -25,6 +25,10 @@ function Header() {
         }
         ${mq[1]} {
           padding: 0.5rem 2rem;
+          border-bottom: 1px solid #ccc;
+        }
+        ${mq[0]} {
+          padding: 0.5rem 1rem;
         }
       `}
     >
