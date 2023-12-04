@@ -81,7 +81,7 @@ const Urls = () => {
           }
         />
         <Route path="/confirmed" element={<ConfirmedBooking />} />
-        <Route path="/order-delivery" element={<OrderDelivery />} />
+        <Route path="/order-delivery/:dishName" element={<OrderDelivery />} />
       </Routes>
     </>
   );

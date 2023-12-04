@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import dish1Image from "../../assets/greek salad.jpg";
+
 import { CtaButton } from "../common/CustomButton";
 import DishAddons from "./DishAddons";
 import QuantityOfDishes from "./TotalPrice";
+import { useParams } from "react-router-dom";
+import { useDishContext } from "../context/Context";
 
 const breakpoints = [576, 768, 992, 1200];
 
@@ -120,21 +122,35 @@ const Title = styled.h2`
   margin-bottom: 1rem;
 `;
 
+const toSlug = (text) =>
+  text
+    .toLowerCase()
+    .replace(/[^\w ]+/g, "")
+    .replace(/ +/g, "-");
+
 const OrderDelivery = () => {
+  const { dishName } = useParams();
+  const dishList = useDishContext();
+
+  // Find the dish with the matching dishName
+  const selectedDish = dishList.find((dish) => toSlug(dish.name) === dishName);
+
+  if (!selectedDish) {
+    return <div>Dish not found</div>; // Handle the case where the dish is not found
+  }
+
+  const { image, name, price, description } = selectedDish;
+
   return (
     <Section>
       <div>
-        <DishImage src={dish1Image} alt="dish1" />
+        <DishImage src={image} alt={name} />
         <DishDetailsContainer>
           <PriceAndDishRow>
-            <DishName>Greek Salad</DishName>
-            <DishPrice>$12.99</DishPrice>
+            <DishName>{name}</DishName>
+            <DishPrice>${price}</DishPrice>
           </PriceAndDishRow>
-          <DishDescription>
-            The famous greek salad of crispy lettuce, peppers, olives and our
-            Chicago style feta cheese, garnished with crunchy garlic and
-            rosemary croutons.
-          </DishDescription>
+          <DishDescription>{description}</DishDescription>
           <Cta>
             <DeliveryIcon className="material-symbols-outlined">
               directions_bike
