@@ -1,9 +1,22 @@
 import React from "react";
 import { css } from "@emotion/css";
 import DishList from "./DishList";
-import CustomButton from "../common/CustomButton";
+import { CustomButton } from "../common/CustomButton";
 
 import { Container, Title } from "./StyledComponents";
+
+import styled from "@emotion/styled";
+
+const Divider = styled.div`
+  display: none;
+  width: 100%;
+  background: #bfbfbf6b;
+  height: 1px;
+  margin-bottom: 1rem;
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
 
 const Specials = () => {
   return (
@@ -22,6 +35,7 @@ const Specials = () => {
           </Title>
           <CustomButton>Online Menu</CustomButton>
         </div>
+        <Divider />
         <DishList />
       </Container>
     </>
