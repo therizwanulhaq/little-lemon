@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 const AddonsContainer = styled.div`
@@ -37,7 +37,24 @@ const Button = styled.span`
   cursor: pointer;
 `;
 
-const DishAddons = ({ name, price, quantity }) => {
+const DishAddons = ({ name, price, onTotalPriceChange }) => {
+  const [quantity, setQuantity] = useState(1);
+
+  const incrementQuantity = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+    onTotalPriceChange((prevTotal) => prevTotal + parseFloat(price)); // Notify the parent component about the total price change
+  };
+
+  const decrementQuantity = () => {
+    if (quantity > 0) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+      onTotalPriceChange((prevTotal) => prevTotal - parseFloat(price)); // Notify the parent component about the total price change
+    }
+  };
+
+  // Calculate total price based on quantity
+  const total = (quantity * parseFloat(price)).toFixed(2);
+
   return (
     <>
       <AddonsContainer>
@@ -45,9 +62,19 @@ const DishAddons = ({ name, price, quantity }) => {
           {name} x{quantity}
         </Name>
         <Cta>
-          <Button className="material-symbols-outlined">remove</Button>
-          <Price>${price}</Price>
-          <Button className="material-symbols-outlined">add</Button>
+          <Button
+            className="material-symbols-outlined"
+            onClick={decrementQuantity}
+          >
+            remove
+          </Button>
+          <Price>${total}</Price>
+          <Button
+            className="material-symbols-outlined"
+            onClick={incrementQuantity}
+          >
+            add
+          </Button>
         </Cta>
       </AddonsContainer>
       <Divider />
