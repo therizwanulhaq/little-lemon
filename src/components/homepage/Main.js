@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import CustomButton from "../common/CustomButton";
+import { CustomButton } from "../common/CustomButton";
 import TestimonialData from "./TestimonialData";
 import AboutLittleLemon from "./AboutLittleLemon";
 import Specials from "./Specials";

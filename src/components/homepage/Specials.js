@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/css";
 import DishList from "./DishList";
-import CustomButton from "../common/CustomButton";
+import { CustomButton } from "../common/CustomButton";
 
 import { Container, Title } from "./StyledComponents";
 import { Link } from "react-router-dom";
