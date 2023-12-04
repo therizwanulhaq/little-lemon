@@ -22,6 +22,9 @@ const HamburgerMenu = styled.span`
   @media (min-width: 769px) {
     display: none;
   }
+  @media (max-width: 576px) {
+    right: 1rem;
+  }
 `;
 
 const DesktopNavBar = styled.ul`

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import CustomButton from "../common/CustomButton";
+import { CustomButton } from "../common/CustomButton";
 
 const focusColor = "#f4ce14";
 
@@ -177,6 +177,7 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
           type="submit"
           borderRadius="0.3rem"
           width="100%"
+          height="2.5rem"
           disabled={!areAllFieldsValid()}
         >
           Make Your reservation

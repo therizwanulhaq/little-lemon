@@ -1,0 +1,23 @@
+[
+    {
+      "id": 1,
+      "image": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Greek-Salad-6-1.jpg",
+      "name": "Greek Salad",
+      "price": 10.99,
+      "description": "The famous Greek salad of crispy lettuce, peppers, olives and our Chicago style feta cheese, garnished with crunchy garlic and rosemary croutons."
+    },
+    {
+      "id": 2,
+      "image": "https://media-cdn2.greatbritishchefs.com/media/u0qnarx2/gbc_may22_piccolo-2.whqc_768x512q80.jpg",
+      "name": "Bruschetta",
+      "price": 12.99,
+      "description": "Our Bruschetta is made from grilled bread that has been smeared with garlic and seasoned with salt and olive oil."
+    },
+    {
+      "id": 3,
+      "image": "https://www.imperialsugar.com/sites/default/files/recipe/Lemon-Pudding-Trifle-imperial.jpg",
+      "name": "Lemon Dessert",
+      "price": 12.99,
+      "description": "This comes straight from grandma's recipe book, every last ingredient has been sourced and is as authentic as can be imagined."
+    }
+  ]

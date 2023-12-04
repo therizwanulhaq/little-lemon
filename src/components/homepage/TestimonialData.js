@@ -65,10 +65,10 @@ const Card = styled.div`
   @media (max-width: 768px) {
     margin: 0 0;
     > :first-of-type {
-      margin-left: 2rem;
+      margin-left: 1rem;
     }
     > :last-child {
-      margin-right: 2rem;
+      margin-right: 1rem;
     }
   }
 `;

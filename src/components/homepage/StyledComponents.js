@@ -32,7 +32,7 @@ export const Container = styled.div((props) => ({
     gap: "0.5rem",
   },
   [mq[0]]: {
-    padding: "0.5rem 2rem",
+    padding: "0.5rem 1rem",
   },
 }));
 
@@ -55,6 +55,9 @@ export const AboutLilLemonContainer = styled(Container)`
   }
   ${mq[1]} {
     padding: 2rem;
+  }
+  ${mq[0]} {
+    padding: 2rem 1rem;
   }
 `;
 
@@ -133,10 +136,10 @@ export const AdImg = styled.img`
     position: static;
     width: 12rem;
     height: 16rem;
+    border-radius: 0.2rem;
   }
   ${mq[0]} {
-    position: static;
-    width: 18rem;
+    width: 25rem;
     height: 12rem;
   }
 `;
@@ -175,14 +178,15 @@ export const BackgroundImage = styled.div`
   }
 `;
 
-export const TitleWithLines = styled(Container)`
+export const TitleWithLines = styled.h1`
   background: white;
   display: flex;
   align-items: center;
   text-align: center;
-  color: #333; /* Set your desired text color */
-  font-size: 1.7rem; /* Set your desired font size */
-  font-weight: 400; /* Set your desired font weight */
+  color: #333;
+  padding: 2.5rem 15rem;
+  font-size: 1.7rem;
+  font-weight: 400;
   letter-spacing: 2px;
   height: 15rem;
 
@@ -190,20 +194,26 @@ export const TitleWithLines = styled(Container)`
   ::after {
     content: "";
     flex: 1;
-    border-top: 1px solid #333; /* Set your desired line color and thickness */
-    margin: 0 1rem; /* Adjust the spacing between text and lines */
+    border-top: 1px solid #333;
+    margin: 0 1rem;
+  }
+  ${mq[3]} {
+    padding: 2rem 10rem;
+  }
+  ${mq[2]} {
+    padding: 1.5rem 5rem;
   }
 
   ${mq[1]} {
     letter-spacing: 0;
-    font-size: 1.1rem;
-
+    padding: 1rem 2rem;
     font-weight: 500;
     height: 10rem;
   }
   ${mq[0]} {
-    font-size: 0.7rem;
+    font-size: 1.1rem;
     font-weight: 500;
     height: 8rem;
+    padding: 0.5rem;
   }
 `;
