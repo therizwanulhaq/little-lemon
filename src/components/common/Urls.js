@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchAPI, submitAPI } from "../reservation/BookingsAPI";
 import Menu from "../menu/Menu";
 import OrderDelivery from "../menu/OrderDelivery";
+import ScrollToTop from "./ScrollToTop";
 
 const Urls = () => {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const Urls = () => {
 
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="menu" element={<Menu />} />
