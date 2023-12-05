@@ -1,23 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 import { CtaButton } from "../common/CustomButton";
 import DishAddons from "./DishAddons";
-import QuantityOfDishes from "./TotalPrice";
+import QuantityOfDishes from "./QuantityOfDishes";
 import { useParams } from "react-router-dom";
 import { useDishContext } from "../context/Context";
 
 const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
-
-const addons = [
-  { id: 1, name: "Avocado", price: "1" },
-  { id: 2, name: "Seeds", price: "1" },
-  { id: 3, name: "Dressing", price: "1" },
-];
-
-const quantity = 1;
 
 const Section = styled.section`
   padding: 0 15rem;
@@ -122,6 +114,12 @@ const Title = styled.h2`
   margin-bottom: 1rem;
 `;
 
+const addons = [
+  { id: 1, name: "Avocado", price: "1" },
+  { id: 2, name: "Seeds", price: "1" },
+  { id: 3, name: "Dressing", price: "1" },
+];
+
 const toSlug = (text) =>
   text
     .toLowerCase()
@@ -131,6 +129,16 @@ const toSlug = (text) =>
 const OrderDelivery = () => {
   const { dishName } = useParams();
   const dishList = useDishContext();
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+
+  // Calculate the initial total price based on addon prices
+  const initialTotalPrice = addons.reduce(
+    (total, addon) => total + parseFloat(addon.price),
+    0
+  );
+
+  const [selectedTotalPrice, setSelectedTotalPrice] =
+    useState(initialTotalPrice);
 
   // Find the dish with the matching dishName
   const selectedDish = dishList.find((dish) => toSlug(dish.name) === dishName);
@@ -140,6 +148,22 @@ const OrderDelivery = () => {
   }
 
   const { image, name, price, description } = selectedDish;
+
+  // Handle quantity change
+  const handleQuantityChange = (newQuantity) => {
+    setSelectedQuantity(newQuantity);
+  };
+
+  // Handle total price change from DishAddons
+  const handleTotalPriceChange = (newTotalPrice) => {
+    setSelectedTotalPrice(newTotalPrice);
+  };
+
+  // Calculate the total price based on quantity and add the total price from DishAddons
+  const totalPrice = (
+    selectedQuantity * parseFloat(price) +
+    selectedTotalPrice
+  ).toFixed(2);
 
   return (
     <Section>
@@ -164,11 +188,16 @@ const OrderDelivery = () => {
       <Container>
         <Title>Add</Title>
         {addons.map(({ id, name, price }) => (
-          <DishAddons key={id} name={name} price={price} quantity={quantity} />
+          <DishAddons
+            key={id}
+            name={name}
+            price={price}
+            onTotalPriceChange={handleTotalPriceChange}
+          />
         ))}
-        <QuantityOfDishes quantity={quantity} />
+        <QuantityOfDishes onQuantityChange={handleQuantityChange} />
         <CtaButton width="100%" height="2.5rem">
-          Add for $15.99
+          Add for ${totalPrice}
         </CtaButton>
       </Container>
     </Section>

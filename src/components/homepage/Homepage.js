@@ -20,7 +20,7 @@ import {
   TitleWithLines,
 } from "./StyledComponents";
 
-function Main() {
+function Homepage() {
   return (
     <main>
       <Container
@@ -56,4 +56,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Homepage;

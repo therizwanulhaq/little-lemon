@@ -6,6 +6,7 @@ import { CustomButton } from "../common/CustomButton";
 import { Container, Title } from "./StyledComponents";
 
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const Divider = styled.div`
   display: none;
@@ -33,7 +34,9 @@ const Specials = () => {
           <Title color="#333333" fontSize="3rem">
             This Weeks Specials!
           </Title>
-          <CustomButton>Online Menu</CustomButton>
+          <Link to="/menu">
+            <CustomButton>Online Menu</CustomButton>
+          </Link>
         </div>
         <Divider />
         <DishList />
