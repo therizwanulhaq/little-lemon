@@ -7,11 +7,13 @@ const breakpoints = [576, 768, 992, 1200, 1300];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const CardContainer = styled.div`
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   border: none;
   background: #efeeee;
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 0.5rem;
   width: 100%;
+  overflow: hidden;
+  height: auto;
   color: #333333;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -23,32 +25,35 @@ const CardContainer = styled.div`
     border-radius: 0;
     background: none;
     box-shadow: none;
+    margin-bottom: 1rem;
   }
 `;
 
 const DishImageContainer = styled.div`
   width: 100%;
-  height: 11rem;
+  height: 10rem;
   ${mq[1]} {
     border-radius: 0;
     width: 8rem;
-    height: 8.1rem;
+    height: 8rem;
   }
 `;
 
 const DishImage = styled.img`
-  border-radius: 1rem 1rem 0 0;
   width: 100%;
-  height: 100%;
+  height: 10rem;
   object-fit: cover;
   ${mq[1]} {
-    border-radius: 0;
     width: 8rem;
   }
 `;
 
 const DishName = styled.h3`
   font-size: 1rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Limit to 1 lines */
+  -webkit-box-orient: vertical;
 `;
 
 const DishPrice = styled.p`
@@ -66,28 +71,17 @@ const PriceAndDishRow = styled.div`
 `;
 
 const DishDescription = styled.p`
-  margin: 1rem 0 1.5rem 0;
+  margin: 1rem 0 0 0;
   font-size: 0.9rem;
-  text-align: justify;
+  /* text-align: justify; */
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* Limit to 4 lines */
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
   -webkit-box-orient: vertical;
   ${mq[1]} {
     margin: 0.8rem 0;
     text-align: left;
     -webkit-line-clamp: 2;
-  }
-`;
-
-const Cta = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-weight: 700;
-  font-size: 1rem;
-  ${mq[1]} {
-    display: none;
   }
 `;
 
@@ -102,7 +96,7 @@ const Divider = styled.div`
   }
 `;
 
-const Card = ({ image, name, price, description }) => {
+const DishCard = ({ image, name, price, description }) => {
   return (
     <>
       <CardContainer>
@@ -135,18 +129,6 @@ const Card = ({ image, name, price, description }) => {
           >
             ${price}
           </div>
-          <Cta>
-            Order a delivery
-            <span
-              className="material-symbols-outlined"
-              style={{
-                fontSize: "1.1rem",
-                fontWeight: 500,
-              }}
-            >
-              directions_bike
-            </span>
-          </Cta>
         </div>
       </CardContainer>
       <Divider />
@@ -154,4 +136,4 @@ const Card = ({ image, name, price, description }) => {
   );
 };
 
-export default Card;
+export default DishCard;

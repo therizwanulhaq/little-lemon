@@ -24,9 +24,11 @@ const toSlug = (text) =>
 
 const DishList = () => {
   const dishList = useDishContext();
+  // Limit the displayed dishes to only three
+  const limitedDishList = dishList.slice(25, 28);
   return (
     <Dishes>
-      {dishList.map((dish) => (
+      {limitedDishList.map((dish) => (
         <Link key={dish.id} to={`/order-delivery/${toSlug(dish.name)}`}>
           <Card
             image={dish.image}

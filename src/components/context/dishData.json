@@ -1,0 +1,283 @@
+[
+  {
+    "id": 1,
+    "image": "https://supervalu.ie/thumbnail/800x600/var/files/real-food/recipes/Uploaded-2020/spaghetti-bolognese-recipe.jpg",
+    "name": "Spaghetti Bolognese",
+    "price": 12.99,
+    "description": "Classic Italian pasta dish with meat sauce.",
+    "category": "Lunch"
+  },
+  {
+    "id": 2,
+    "image": "https://www.jessicagavin.com/wp-content/uploads/2022/06/chicken-caesar-salad-28-1200.jpg",
+    "name": "Chicken Caesar Salad",
+    "price": 9.99,
+    "description": "Fresh salad with grilled chicken and Caesar dressing.",
+    "category": "Lunch"
+  },
+  {
+    "id": 3,
+    "image": "https://www.acouplecooks.com/wp-content/uploads/2022/10/Margherita-Pizza-093.jpg",
+    "name": "Margherita Pizza",
+    "price": 10.99,
+    "description": "Traditional pizza with tomato, mozzarella, and basil.",
+    "category": "Lunch"
+  },
+  {
+    "id": 4,
+    "image": "https://www.inspiredtaste.net/wp-content/uploads/2022/04/Veggie-Stir-Fry-Recipe-3-1200-1200x800.jpg",
+    "name": "Vegetable Stir-Fry",
+    "price": 11.99,
+    "description": "Assorted vegetables stir-fried in a savory sauce.",
+    "category": "Lunch"
+  },
+  {
+    "id": 5,
+    "image": "https://www.acouplecooks.com/wp-content/uploads/2020/05/Grilled-Salmon-015-1.jpg",
+    "name": "Grilled Salmon",
+    "price": 15.99,
+    "description": "Fresh salmon fillet grilled to perfection.",
+    "category": "Lunch"
+  },
+
+  {
+    "id": 6,
+    "image": "https://b2b.swissbake.ch/images/Recipe/Aromatic%20Garlic%20Bread.jpg",
+    "name": "Garlic Bread",
+    "price": 4.99,
+    "description": "Toasted bread coated in garlic-infused butter, a simple and flavorful dish, perfect as a side or appetizer.",
+    "category": "Starters"
+  },
+  {
+    "id": 7,
+    "image": "https://www.kitchensanctuary.com/wp-content/uploads/2017/11/Stuffed-Mushrooms-square-FS-16.jpg",
+    "name": "Stuffed Mushrooms",
+    "price": 7.99,
+    "description": "Mushrooms stuffed with herbs and cheese.",
+    "category": "Starters"
+  },
+  {
+    "id": 8,
+    "image": "https://media-cdn2.greatbritishchefs.com/media/u0qnarx2/gbc_may22_piccolo-2.whqc_768x512q80.jpg",
+    "name": "Bruschetta",
+    "price": 6.99,
+    "description": "Toasted bread topped with diced tomatoes, garlic, and basil.",
+    "category": "Starters"
+  },
+  {
+    "id": 9,
+    "image": "https://cookieandkate.com/images/2020/12/cheese-board-recipe.jpg",
+    "name": "Cheese Platter",
+    "price": 8.99,
+    "description": "Assorted cheeses served with crackers and fruits.",
+    "category": "Starters"
+  },
+  {
+    "id": 10,
+    "image": "https://s23209.pcdn.co/wp-content/uploads/2022/08/220602_DD_Spinach-Artichoke-Dip_140-1.jpg",
+    "name": "Spinach Artichoke Dip",
+    "price": 5.99,
+    "description": "Creamy dip with spinach, artichokes, and melted cheese.",
+    "category": "Starters"
+  },
+  {
+    "id": 11,
+    "image": "https://img.taste.com.au/0NpUpm-p/taste/2016/11/steak-diane-with-chive-mash-85635-1.jpeg",
+    "name": "Steak with Mashed Potatoes",
+    "price": 18.99,
+    "description": "Grilled steak served with creamy mashed potatoes.",
+    "category": "Mains"
+  },
+  {
+    "id": 12,
+    "image": "https://www.dinneratthezoo.com/wp-content/uploads/2018/06/shrimp-alfredo-6-500x500.jpg",
+    "name": "Shrimp Alfredo Pasta",
+    "price": 14.99,
+    "description": "Creamy Alfredo pasta with shrimp and Parmesan cheese.",
+    "category": "Mains"
+  },
+  {
+    "id": 13,
+    "image": "https://jessicainthekitchen.com/wp-content/uploads/2021/06/Vegan-Lasagna-17.jpg",
+    "name": "Vegetarian Lasagna",
+    "price": 12.99,
+    "description": "Layers of pasta, vegetables, and cheese in a savory tomato sauce.",
+    "category": "Mains"
+  },
+  {
+    "id": 14,
+    "image": "https://www.onceuponachef.com/images/2015/08/Grilled-Chicken-Fajitas-1-scaled.jpg",
+    "name": "Chicken Fajitas",
+    "price": 16.99,
+    "description": "Sizzling chicken fajitas with bell peppers and onions.",
+    "category": "Mains"
+  },
+  {
+    "id": 15,
+    "image": "https://therealfooddietitians.com/wp-content/uploads/2022/04/Teriyaki-Salmon-Bowls-5.jpg",
+    "name": "Salmon Teriyaki Bowl",
+    "price": 17.99,
+    "description": "Teriyaki-glazed salmon served over a bed of rice with vegetables.",
+    "category": "Mains"
+  },
+  {
+    "id": 16,
+    "image": "https://preppykitchen.com/wp-content/uploads/2022/03/Chocolate-Lava-Cake-Recipe.jpg",
+    "name": "Chocolate Lava Cake",
+    "price": 7.99,
+    "description": "Warm and gooey chocolate cake with a molten center.",
+    "category": "Desserts"
+  },
+  {
+    "id": 17,
+    "image": "https://static01.nyt.com/images/2017/04/05/dining/05COOKING-TIRAMISU1/05COOKING-TIRAMISU1-superJumbo.jpg",
+    "name": "Tiramisu",
+    "price": 8.99,
+    "description": "Classic Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cheese.",
+    "category": "Desserts"
+  },
+  {
+    "id": 18,
+    "image": "https://lifeloveandgoodfood.com/wp-content/uploads/2021/07/strawberry-cheesecake-36-1200x1200-1-500x500.jpg",
+    "name": "Strawberry Cheesecake",
+    "price": 9.99,
+    "description": "Creamy cheesecake topped with fresh strawberries.",
+    "category": "Desserts"
+  },
+  {
+    "id": 19,
+    "image": "https://joyfoodsunshine.com/wp-content/uploads/2019/08/best-apple-pie-recipe-from-scratch-8.jpg",
+    "name": "Apple Pie",
+    "price": 6.99,
+    "description": "Homemade apple pie with a flaky crust.",
+    "category": "Desserts"
+  },
+  {
+    "id": 20,
+    "image": "https://www.scotchandscones.com/wp-content/uploads/2022/07/mango-sorbet-bowl.jpg",
+    "name": "Mango Sorbet",
+    "price": 5.99,
+    "description": "Refreshing mango sorbet for a sweet and tangy treat.",
+    "category": "Desserts"
+  },
+  {
+    "id": 21,
+    "image": "https://aubreyskitchen.com/wp-content/uploads/2021/03/best-sauce-for-lobster-ravioli.jpg",
+    "name": "Lobster Ravioli",
+    "price": 19.99,
+    "description": "Delicious lobster-filled ravioli in a creamy tomato sauce.",
+    "category": "Dinner"
+  },
+  {
+    "id": 22,
+    "image": "https://grillmomma.com/wp-content/uploads/2020/12/IMG_1986-3-scaled-e1609301042548.jpg",
+    "name": "Beef Wellington",
+    "price": 21.99,
+    "description": "Tender beef filet wrapped in puff pastry with mushroom duxelles.",
+    "category": "Dinner"
+  },
+  {
+    "id": 23,
+    "image": "https://www.honeywhatscooking.com/wp-content/uploads/2020/11/Baked-Eggplant-Parmesan30.jpg",
+    "name": "Eggplant Parmesan",
+    "price": 13.99,
+    "description": "Breaded and baked eggplant slices topped with marinara sauce and melted cheese.",
+    "category": "Dinner"
+  },
+  {
+    "id": 24,
+    "image": "https://i.etsystatic.com/8474866/r/il/979d94/4765918848/il_570xN.4765918848_7ep3.jpg",
+    "name": "Sushi Platter",
+    "price": 22.99,
+    "description": "Assorted sushi rolls and sashimi pieces.",
+    "category": "Dinner"
+  },
+  {
+    "id": 25,
+    "image": "https://lindseyeatsla.com/wp-content/uploads/2020/12/Lindseyeatsla_Mushroom_Risotto-9.jpg",
+    "name": "Mushroom Risotto",
+    "price": 16.99,
+    "description": "Creamy risotto with assorted mushrooms and Parmesan cheese.",
+    "category": "Dinner"
+  },
+  {
+    "id": 26,
+    "image": "https://assets.epicurious.com/photos/63ef9f657c3e98834ec8645e/4:3/w_5315,h_3986,c_limit/Paella_RECIPE_021523_47427.jpg",
+    "name": "Seafood Paella",
+    "price": 23.99,
+    "description": "Spanish-style paella with a variety of seafood.",
+    "category": "Specials"
+  },
+  {
+    "id": 27,
+    "image": "https://www.savoryexperiments.com/wp-content/uploads/2020/05/Truffle-Mac-and-Cheese-6.jpg",
+    "name": "Truffle Mac 'n' Cheese",
+    "price": 17.99,
+    "description": "Macaroni and cheese with a luxurious truffle-infused sauce.",
+    "category": "Specials"
+  },
+  {
+    "id": 28,
+    "image": "https://img.taste.com.au/LW8W28Yd/taste/2010/01/duck-confit-with-crispy-potatoes-and-bitter-leaf-salad-120445-1.jpg",
+    "name": "Crispy Duck Confit",
+    "price": 20.99,
+    "description": "Duck leg slow-cooked until tender and crisped to perfection.",
+    "category": "Specials"
+  },
+  {
+    "id": 29,
+    "image": "https://delizzious.com/wp-content/uploads/2021/03/vegetable-tempura-3-1.jpg",
+    "name": "Vegetable Tempura",
+    "price": 15.99,
+    "description": "Assorted vegetables lightly battered and fried to a crispy texture.",
+    "category": "Specials"
+  },
+  {
+    "id": 30,
+    "image": "https://www.modernhoney.com/wp-content/uploads/2021/07/Caprese-Salad-1-scaled.jpg",
+    "name": "Caprese Salad",
+    "price": 14.99,
+    "description": "Fresh mozzarella, tomatoes, and basil drizzled with balsamic glaze.",
+    "category": "Specials"
+  },
+  {
+    "id": 31,
+    "image": "https://www.modernfarmhouseeats.com/wp-content/uploads/2022/02/garlic-parmesan-air-fryer-frozen-french-fries-3.jpg",
+    "name": "Garlic Parmesan Fries",
+    "price": 5.99,
+    "description": "Crispy fries tossed in garlic butter and Parmesan cheese.",
+    "category": "Sides"
+  },
+  {
+    "id": 32,
+    "image": "https://www.twopeasandtheirpod.com/wp-content/uploads/2023/04/Caesar-Salad-24.jpg",
+    "name": "Caesar Salad",
+    "price": 4.99,
+    "description": "Classic Caesar salad with romaine lettuce, croutons, and Caesar dressing.",
+    "category": "Sides"
+  },
+  {
+    "id": 33,
+    "image": "https://www.wellplated.com/wp-content/uploads/2021/03/Healthy-Grilled-Asparagus.jpg",
+    "name": "Grilled Asparagus",
+    "price": 6.99,
+    "description": "Fresh asparagus spears grilled to perfection.",
+    "category": "Sides"
+  },
+  {
+    "id": 34,
+    "image": "https://www.acouplecooks.com/wp-content/uploads/2021/09/Baked-Potato-Toppings-009.jpg",
+    "name": "Loaded Baked Potato",
+    "price": 7.99,
+    "description": "Baked potato topped with cheese, bacon, and sour cream.",
+    "category": "Sides"
+  },
+  {
+    "id": 35,
+    "image": "https://www.inspiredtaste.net/wp-content/uploads/2019/03/Mashed-Sweet-Potatoes-Recipe-2-1200.jpg",
+    "name": "Mashed Sweet Potatoes",
+    "price": 6.99,
+    "description": "Creamy mashed sweet potatoes with a hint of cinnamon.",
+    "category": "Sides"
+  }
+]

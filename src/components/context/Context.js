@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import dishListData from "./dishList.json";
+import dishListData from "./dishData.json";
 
 const DishContext = createContext();
 
