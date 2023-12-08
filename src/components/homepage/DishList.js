@@ -29,7 +29,7 @@ const DishList = () => {
   return (
     <Dishes>
       {limitedDishList.map((dish) => (
-        <Link key={dish.id} to={`/order-delivery/${toSlug(dish.name)}`}>
+        <Link key={dish.id} to={`/order-online/${toSlug(dish.name)}`}>
           <Card
             image={dish.image}
             name={dish.name}

@@ -4,11 +4,10 @@ import BookingForm from "../reservation/BookingForm";
 import ConfirmedBooking from "../reservation/ConfirmedBooking";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI, submitAPI } from "../reservation/BookingsAPI";
-import Menu from "../menu/Menu";
-import OrderDelivery from "../menu/OrderDelivery";
+import OrderOnline from "../order_online/OrderOnline";
+import OrderDelivery from "../order_online/OrderDelivery";
 import ScrollToTop from "./ScrollToTop";
 import Homepage from "../homepage/Homepage";
-import OrderOnline from "../homepage/OrderOnline";
 
 const Urls = () => {
   const navigate = useNavigate();
@@ -57,7 +56,7 @@ const Urls = () => {
       const success = submitAPI(formData);
       if (success) {
         // Navigate to the booking confirmation pages
-        navigate("/confirmed");
+        navigate("/booking/confirmed");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -69,8 +68,8 @@ const Urls = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="order-online" element={<OrderOnline />} />
+        <Route path="/order-online" element={<OrderOnline />} />
+
         <Route
           path="/booking"
           element={
@@ -81,8 +80,8 @@ const Urls = () => {
             />
           }
         />
-        <Route path="/confirmed" element={<ConfirmedBooking />} />
-        <Route path="/order-delivery/:dishName" element={<OrderDelivery />} />
+        <Route path="/booking/confirmed" element={<ConfirmedBooking />} />
+        <Route path="/order-online/:dishName" element={<OrderDelivery />} />
       </Routes>
     </>
   );

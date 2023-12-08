@@ -36,6 +36,7 @@ const Title = styled.h1((props) => ({
   color: props.color || "black",
   fontSize: props.fontSize || "1.5rem",
   fontWeight: props.fontWeight || "500",
+  letterSpacing: props.letterSpacing || "",
 }));
 
 const SearchBar = styled.input`
@@ -153,7 +154,7 @@ const toSlug = (text) =>
     .replace(/[^\w ]+/g, "")
     .replace(/ +/g, "-");
 
-const Menu = () => {
+const OrderOnline = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -179,10 +180,10 @@ const Menu = () => {
   return (
     <Main>
       <Container>
-        <Title color="#000000c7" fontWeight="700">
+        <Title color="#000000c7" fontWeight="700" letterSpacing="-1px">
           Online
         </Title>
-        <Title fontWeight="500" color="#00000080">
+        <Title fontWeight="700" color="#00000080">
           MENU
         </Title>
         <SearchBar
@@ -209,7 +210,7 @@ const Menu = () => {
       ) : (
         <DishListContainer>
           {filteredDishes.map((dish) => (
-            <Link key={dish.id} to={`/order-delivery/${toSlug(dish.name)}`}>
+            <Link key={dish.id} to={`/order-online/${toSlug(dish.name)}`}>
               <DishTile
                 image={dish.image}
                 name={dish.name}
@@ -224,4 +225,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default OrderOnline;
