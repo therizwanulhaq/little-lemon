@@ -31,3 +31,14 @@ export const CtaButton = styled(CustomButton)`
     padding: 0.5rem 1.5rem;
   }
 `;
+
+export const CategoriesButton = styled(CustomButton)((props) => ({
+  color: props.selected ? "black" : "white",
+  background: props.selected ? " #f4ce14" : "#495e57",
+  fontSize: "0.8rem",
+  padding: "0.4rem",
+
+  "&:hover": {
+    background: props.selected ? "#f4ce14" : "#495e57",
+  },
+}));

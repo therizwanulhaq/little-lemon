@@ -56,7 +56,7 @@ const Urls = () => {
     try {
       const success = submitAPI(formData);
       if (success) {
-        // Navigate to the booking confirmation page
+        // Navigate to the booking confirmation pages
         navigate("/confirmed");
       }
     } catch (error) {

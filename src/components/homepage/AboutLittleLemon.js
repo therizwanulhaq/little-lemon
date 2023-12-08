@@ -18,8 +18,8 @@ const AboutLittleLemon = () => {
     <>
       <AboutLilLemonContainer
         backgroundImage={restaurant}
-        background="#131917"
-        color="#bfbfbfc7"
+        background="#131917de"
+        color="#bfbfbff7"
         padding="3rem 15rem"
       >
         <div

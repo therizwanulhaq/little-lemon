@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 import { CtaButton } from "../common/CustomButton";
-import DishAddons from "./DishAddons";
+import DishModifiers from "./DishModifiers";
 import QuantityOfDishes from "./QuantityOfDishes";
 import { useParams } from "react-router-dom";
 import { useDishContext } from "../context/Context";
@@ -188,7 +188,7 @@ const OrderDelivery = () => {
       <Container>
         <Title>Add</Title>
         {addons.map(({ id, name, price }) => (
-          <DishAddons
+          <DishModifiers
             key={id}
             name={name}
             price={price}
