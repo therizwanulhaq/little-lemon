@@ -1,7 +1,5 @@
-// Urls.js
 import React, { useEffect, useReducer } from "react";
 import { Route, Routes } from "react-router-dom";
-import Main from "../homepage/Main";
 import BookingForm from "../reservation/BookingForm";
 import ConfirmedBooking from "../reservation/ConfirmedBooking";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +7,8 @@ import { fetchAPI, submitAPI } from "../reservation/BookingsAPI";
 import Menu from "../menu/Menu";
 import OrderDelivery from "../menu/OrderDelivery";
 import ScrollToTop from "./ScrollToTop";
+import Homepage from "../homepage/Homepage";
+import OrderOnline from "../homepage/OrderOnline";
 
 const Urls = () => {
   const navigate = useNavigate();
@@ -68,8 +68,9 @@ const Urls = () => {
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="menu" element={<Menu />} />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="order-online" element={<OrderOnline />} />
         <Route
           path="/booking"
           element={
