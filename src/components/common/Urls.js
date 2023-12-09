@@ -12,8 +12,12 @@ import SignIn from "../auth/SignIn";
 import SignUp from "../auth/SignUp";
 import Profile from "../auth/Profile";
 
+// import { useAuth } from "../context/AuthContext";
+
 const Urls = () => {
   const navigate = useNavigate();
+
+  // const { isLoggedIn } = useAuth();
 
   const reducer = (state, action) => {
     switch (action.type) {

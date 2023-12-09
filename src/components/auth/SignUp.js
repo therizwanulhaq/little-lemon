@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { CustomButton } from "../common/CustomButton";
-import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const focusColor = "#f4ce14";
 
@@ -45,35 +44,64 @@ const Input = styled.input`
   }
 `;
 
+const Error = styled.p`
+  margin-top: 0.3rem;
+  color: red;
+  font-size: 0.8rem;
+`;
+
 const SignUp = () => {
+  const { signUp } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
-  const SignUp = (e) => {
+  const SignUp = async (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    navigate("/profile");
+
+    // Reset previous error messages
+    setEmailError("");
+    setPasswordError("");
+    setConfirmPasswordError("");
+
+    // Validate email
+    if (email === "") {
+      setEmailError("Please enter an email!");
+      return;
+    }
+
+    if (password === "") {
+      setPasswordError("Please enter your password!");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setConfirmPasswordError(
+        "Password and Confirm Password should be the same"
+      );
+      return;
+    }
+
+    // Continue with the sign-up process
+    try {
+      await signUp(email, password);
+      // Redirect or perform any action after successful sign-up
+      navigate("/profile");
+    } catch (error) {
+      // Handle authentication errors
+      console.error("Error signing up:", error);
+      setEmailError(error.message);
+    }
   };
 
   return (
     <Container>
       <Form onSubmit={SignUp}>
         <Title>Sign Up</Title>
-        <Label>Name</Label>
-        <Input
-          type="text"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
         <Label>Email</Label>
         <Input
           type="email"
@@ -81,6 +109,7 @@ const SignUp = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        <Error>{emailError}</Error>
         <Label>Password</Label>
         <Input
           type="password"
@@ -88,6 +117,15 @@ const SignUp = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <Error>{passwordError}</Error>
+        <Label>Confirm Password</Label>
+        <Input
+          type="password"
+          placeholder="Confirm your password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <Error>{confirmPasswordError}</Error>
         <CustomButton
           margin="1.5rem 0"
           type="submit"

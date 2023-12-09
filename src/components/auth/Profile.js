@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { CustomButton } from "../common/CustomButton";
 
-const AuthDetails = () => {
+const Profile = () => {
+  const navigate = useNavigate();
   const [authUser, setAuthUser] = useState(null);
 
   useEffect(() => {
@@ -22,13 +25,14 @@ const AuthDetails = () => {
         console.log("sign out successful");
       })
       .catch((error) => console.log(error));
+    navigate("/sign-in");
   };
   return (
     <div>
       {authUser ? (
         <>
           <p>Signed In as {authUser.email}</p>
-          <button onClick={userSignOut}>Sign Out</button>
+          <CustomButton onClick={userSignOut}>Sign Out</CustomButton>
         </>
       ) : (
         <p>Signed Out</p>
@@ -37,4 +41,4 @@ const AuthDetails = () => {
   );
 };
 
-export default AuthDetails;
+export default Profile;

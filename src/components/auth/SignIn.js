@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { CustomButton } from "../common/CustomButton";
-import { auth } from "../../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const focusColor = "#f4ce14";
 
@@ -45,26 +45,55 @@ const Input = styled.input`
   }
 `;
 
+const Error = styled.p`
+  margin-top: 0.3rem;
+  color: red;
+  font-size: 0.8rem;
+`;
+
 const SignIn = () => {
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [error, setError] = useState("");
 
-  const signIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    navigate("/profile");
+
+    // Reset previous error messages
+    setEmailError("");
+    setPasswordError("");
+
+    // Validate email
+    if (email === "") {
+      setEmailError("Please enter an email!");
+      return;
+    }
+
+    // Validate password
+    if (password === "") {
+      setPasswordError("Please enter your password!");
+      return;
+    }
+
+    // Continue with the sign-in process
+    try {
+      await signIn(email, password);
+      // Redirect to profile or any other page after successful sign-in
+      navigate("/profile");
+    } catch (error) {
+      // Handle authentication errors
+      console.error(error);
+      setError(error.message);
+    }
   };
 
   return (
     <Container>
-      <Form onSubmit={signIn}>
+      <Form onSubmit={handleSignIn}>
         <Title>Log In</Title>
         <Label>Email</Label>
         <Input
@@ -73,6 +102,7 @@ const SignIn = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        <Error>{emailError}</Error>
         <Label>Password</Label>
         <Input
           type="password"
@@ -80,6 +110,8 @@ const SignIn = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <Error>{passwordError}</Error>
+        <Error>{error}</Error>
         <CustomButton
           margin="1.5rem 0"
           type="submit"

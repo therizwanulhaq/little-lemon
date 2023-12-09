@@ -1,7 +1,7 @@
-// AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import {
+  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
@@ -12,6 +12,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -22,11 +23,16 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const login = async (email, password) => {
+  const signIn = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      setIsLoggedIn(true);
     } catch (error) {
       console.error("Error logging in:", error);
+      setIsLoggedIn(false);
+      if (error.code === "auth/invalid-credential") {
+        throw new Error("Incorrect email or password");
+      }
     }
   };
 
@@ -36,6 +42,21 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Error logging out:", error);
     }
+    setIsLoggedIn(false);
+  };
+
+  const signUp = async (email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password, isLoggedIn);
+    } catch (error) {
+      console.error("Error signing up:", error);
+      console.error("Error code:", error.code);
+      if (error.code === "auth/email-already-in-use") {
+        throw new Error(
+          "This email is already registered. Please use another email."
+        );
+      }
+    }
   };
 
   if (loading) {
@@ -43,7 +64,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, signIn, logout, signUp }}>
       {children}
     </AuthContext.Provider>
   );
