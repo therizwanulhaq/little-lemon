@@ -10,7 +10,7 @@ const navElements = [
   // { name: "Menu", path: "/menu", type: "navLink" },
   { name: "Reservations", path: "/booking", type: "navLink" },
   { name: "About", path: "/#about", type: "hashLink" },
-  { name: "Login", path: "/login", type: "navLink" },
+  { name: "Login", path: "/sign-in", type: "navLink" },
 ];
 
 const HamburgerMenu = styled.span`

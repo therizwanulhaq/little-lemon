@@ -8,6 +8,9 @@ import OrderOnline from "../order_online/OrderOnline";
 import OrderDelivery from "../order_online/OrderDelivery";
 import ScrollToTop from "./ScrollToTop";
 import Homepage from "../homepage/Homepage";
+import SignIn from "../auth/SignIn";
+import SignUp from "../auth/SignUp";
+import Profile from "../auth/Profile";
 
 const Urls = () => {
   const navigate = useNavigate();
@@ -82,6 +85,9 @@ const Urls = () => {
         />
         <Route path="/booking/confirmed" element={<ConfirmedBooking />} />
         <Route path="/order-online/:dishName" element={<OrderDelivery />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </>
   );
