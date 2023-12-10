@@ -50,6 +50,7 @@ export const ReviewContainer = styled(Container)`
 `;
 
 export const AboutLilLemonContainer = styled(Container)`
+  margin-bottom: 10rem;
   ${mq[2]} {
     padding: 2.5rem 5rem;
   }

@@ -7,10 +7,10 @@ import LittleLemon from "../../assets/Asset20@4x.png";
 const navElements = [
   { name: "Home", path: "/", type: "navLink" },
   { name: "Order online", path: "/order-online", type: "navLink" },
-  // { name: "Menu", path: "/menu", type: "navLink" },
   { name: "Reservations", path: "/booking", type: "navLink" },
   { name: "About", path: "/#about", type: "hashLink" },
   { name: "Login", path: "/sign-in", type: "navLink" },
+  { name: "Profile", path: "/profile", type: "navLink" },
 ];
 
 const HamburgerMenu = styled.span`

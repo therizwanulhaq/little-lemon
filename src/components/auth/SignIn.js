@@ -1,55 +1,22 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { CustomButton } from "../common/CustomButton";
-
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { CustomButton } from "../common/CustomButton";
+import {
+  Container,
+  Form,
+  Title,
+  Label,
+  Input,
+  PasswordContainer,
+  EyeIcon,
+  ErrorMessage,
+  SignUpOrSignInMessage,
+} from "./StyledComponents";
 
-const focusColor = "#f4ce14";
+import { BackgroundImage } from "../homepage/StyledComponents";
 
-const Container = styled.div`
-  padding-top: 5rem;
-  height: 90vh;
-  display: flex;
-  justify-content: center;
-`;
-
-const Form = styled.form`
-  max-width: 400px;
-  border: none;
-`;
-
-const Title = styled.h3`
-  font-size: 1.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
-`;
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: 0.7rem;
-  margin-top: 1rem;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 0.7rem 0.5rem;
-  border-radius: 0.3rem;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease;
-  outline: none;
-  appearance: textfield;
-
-  &:focus {
-    border-color: ${focusColor};
-  }
-`;
-
-const Error = styled.p`
-  margin-top: 0.3rem;
-  color: red;
-  font-size: 0.8rem;
-`;
+import Lemon from "../../assets/GreenLemon.png";
 
 const SignIn = () => {
   const { signIn } = useAuth();
@@ -58,7 +25,13 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -82,36 +55,59 @@ const SignIn = () => {
     // Continue with the sign-in process
     try {
       await signIn(email, password);
-      // Redirect to profile or any other page after successful sign-in
+      // Redirect after successful sign-in
       navigate("/profile");
     } catch (error) {
-      // Handle authentication errors
-      console.error(error);
-      setError(error.message);
+      // Authentication errors
+      console.error("Error signing up:", error);
+      setErrorMessage(error.message);
     }
   };
 
   return (
     <Container>
+      <BackgroundImage
+        imageUrl={Lemon}
+        top="0"
+        left="14rem"
+        width="5rem"
+        background="#fdfdfdf0;"
+      />
+      <BackgroundImage
+        imageUrl={Lemon}
+        top="15rem"
+        right="14rem"
+        width="8rem"
+      />
       <Form onSubmit={handleSignIn}>
         <Title>Log In</Title>
-        <Label>Email</Label>
+        <Label htmlFor="email">Email</Label>
         <Input
+          id="email"
           type="email"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Error>{emailError}</Error>
-        <Label>Password</Label>
-        <Input
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Error>{passwordError}</Error>
-        <Error>{error}</Error>
+        <ErrorMessage>{emailError}</ErrorMessage>
+        <Label htmlFor="password">Password</Label>
+        <PasswordContainer>
+          <Input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <EyeIcon
+            className="material-symbols-outlined"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? "visibility" : "visibility_off"}
+          </EyeIcon>
+        </PasswordContainer>
+        <ErrorMessage>{passwordError}</ErrorMessage>
+        <ErrorMessage>{errorMessage}</ErrorMessage>
         <CustomButton
           margin="1.5rem 0"
           type="submit"
@@ -121,9 +117,9 @@ const SignIn = () => {
         >
           Log In
         </CustomButton>
-        <p>
+        <SignUpOrSignInMessage>
           Don't have an account? <Link to="/sign-up">Sign Up</Link>
-        </p>
+        </SignUpOrSignInMessage>
       </Form>
     </Container>
   );
