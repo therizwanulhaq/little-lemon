@@ -13,6 +13,7 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const Main = styled.main`
   min-height: 100vh;
+  padding-bottom: 5rem;
 `;
 
 const Container = styled.div`

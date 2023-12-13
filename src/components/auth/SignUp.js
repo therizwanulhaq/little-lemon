@@ -119,7 +119,7 @@ const SignUp = () => {
           Sign Up
         </CustomButton>
         <SignUpOrSignInMessage>
-          Already have an account? <Link to="/sign-in">Sign In</Link>
+          Already have an account? <Link to="/sign-in">Log In</Link>
         </SignUpOrSignInMessage>
       </Form>
     </Container>

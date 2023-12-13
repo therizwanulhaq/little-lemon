@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import Spinner from "../common/Loader";
 
 const AuthContext = createContext();
 
@@ -35,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   return (
