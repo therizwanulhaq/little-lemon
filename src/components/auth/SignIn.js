@@ -25,7 +25,6 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -60,7 +59,9 @@ const SignIn = () => {
     } catch (error) {
       // Authentication errors
       console.error("Error signing up:", error);
-      setErrorMessage(error.message);
+      if (error.code === "auth/invalid-credential") {
+        setPasswordError("Incorrect email or password.");
+      }
     }
   };
 
@@ -107,7 +108,6 @@ const SignIn = () => {
           </EyeIcon>
         </PasswordContainer>
         <ErrorMessage>{passwordError}</ErrorMessage>
-        <ErrorMessage>{errorMessage}</ErrorMessage>
         <CustomButton
           margin="1.5rem 0"
           type="submit"

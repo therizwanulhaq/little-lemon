@@ -24,9 +24,8 @@ const SignUp = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const SignUp = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     // Reset previous error messages
@@ -40,9 +39,11 @@ const SignUp = () => {
       return;
     }
 
+    //Validate password
     if (password === "") {
       setPasswordError("Please enter your password!");
-      return;
+    } else if (password.length < 6) {
+      setPasswordError("Password should be at least 6 characters");
     }
 
     if (password !== confirmPassword) {
@@ -60,7 +61,11 @@ const SignUp = () => {
     } catch (error) {
       // Authentication errors
       console.error("Error signing up:", error);
-      setErrorMessage(error.message);
+      if (error.code === "auth/email-already-in-use") {
+        setEmailError(
+          "This email is already registered. Please use another email."
+        );
+      }
     }
   };
 
@@ -79,7 +84,7 @@ const SignUp = () => {
         right="14rem"
         width="8rem"
       />
-      <Form onSubmit={SignUp}>
+      <Form onSubmit={handleSignUp}>
         <Title>Sign Up</Title>
         <Label htmlFor="email">Email</Label>
         <Input
@@ -108,7 +113,6 @@ const SignUp = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <ErrorMessage>{confirmPasswordError}</ErrorMessage>
-        <ErrorMessage>{errorMessage}</ErrorMessage>
         <CustomButton
           margin="1.5rem 0"
           type="submit"
