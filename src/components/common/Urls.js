@@ -11,13 +11,12 @@ import Homepage from "../homepage/Homepage";
 import SignIn from "../auth/SignIn";
 import SignUp from "../auth/SignUp";
 import Profile from "../auth/Profile";
-
-// import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+import PageNotFound from "./PageNotFound";
 
 const Urls = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
-
-  // const { isLoggedIn } = useAuth();
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -89,9 +88,15 @@ const Urls = () => {
         />
         <Route path="/booking/confirmed" element={<ConfirmedBooking />} />
         <Route path="/order-online/:dishName" element={<OrderDelivery />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/profile" element={<Profile />} />
+        {user ? (
+          <Route path="/profile" element={<Profile />} />
+        ) : (
+          <>
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
+          </>
+        )}
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );

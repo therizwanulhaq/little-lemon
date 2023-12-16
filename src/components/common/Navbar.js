@@ -3,14 +3,13 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import LittleLemon from "../../assets/Asset20@4x.png";
+import { useAuth } from "../context/AuthContext";
 
 const navElements = [
   { name: "Home", path: "/", type: "navLink" },
   { name: "Order online", path: "/order-online", type: "navLink" },
   { name: "Reservations", path: "/booking", type: "navLink" },
   { name: "About", path: "/#about", type: "hashLink" },
-  { name: "Login", path: "/sign-in", type: "navLink" },
-  { name: "Profile", path: "/profile", type: "navLink" },
 ];
 
 const HamburgerMenu = styled.span`
@@ -143,6 +142,7 @@ const Logo = styled.img`
 `;
 
 function Navbar() {
+  const { user } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -161,6 +161,11 @@ function Navbar() {
               {link.name}
             </DesktopHashLink>
           )
+        )}
+        {user ? (
+          <DesktopNavLink to="/profile">Profile</DesktopNavLink>
+        ) : (
+          <DesktopNavLink to="/sign-in">Login</DesktopNavLink>
         )}
       </DesktopNavBar>
       <HamburgerMenu
@@ -190,6 +195,15 @@ function Navbar() {
               {link.name}
             </MobileHashLink>
           )
+        )}
+        {user ? (
+          <MobileNavLink to="/profile" onClick={toggleMobileMenu}>
+            Profile
+          </MobileNavLink>
+        ) : (
+          <MobileNavLink to="/sign-in" onClick={toggleMobileMenu}>
+            Login
+          </MobileNavLink>
         )}
         <Logo src={LittleLemon} />
       </MobileNavBar>

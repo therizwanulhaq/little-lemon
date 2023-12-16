@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     await signInWithEmailAndPassword(auth, email, password);
   };
 
-  const logout = async () => {
+  const logOut = async () => {
     await signOut(auth);
   };
 
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, signIn, logout, signUp }}>
+    <AuthContext.Provider value={{ user, signIn, logOut, signUp }}>
       {children}
     </AuthContext.Provider>
   );

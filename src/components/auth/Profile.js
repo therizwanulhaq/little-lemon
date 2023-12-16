@@ -1,37 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { auth } from "../../firebase";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import React from "react";
+
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../common/CustomButton";
+import { useAuth } from "../context/AuthContext";
 
 const Profile = () => {
+  const { logOut, user } = useAuth();
   const navigate = useNavigate();
-  const [authUser, setAuthUser] = useState(null);
-
-  useEffect(() => {
-    const listen = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setAuthUser(user);
-      } else setAuthUser(null);
-    });
-    return () => {
-      listen();
-    };
-  }, []);
 
   const userSignOut = () => {
-    signOut(auth)
+    logOut()
       .then(() => {
         console.log("sign out successful");
       })
       .catch((error) => console.log(error));
-    navigate("/sign-in");
+    navigate("/");
   };
   return (
     <div>
-      {authUser ? (
+      {user ? (
         <>
-          <p>Signed In as {authUser.email}</p>
+          <p>Signed In as {user.email}</p>
           <CustomButton onClick={userSignOut}>Sign Out</CustomButton>
         </>
       ) : (
