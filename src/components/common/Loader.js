@@ -4,11 +4,11 @@ import { keyframes } from "@emotion/react";
 
 const LoaderWrapper = styled.div`
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   width: 3rem;
   height: 3rem;
-  transform: translate(-50%, 50%);
+  transform: translate(-40%, 50%);
 `;
 
 const rotation = keyframes`

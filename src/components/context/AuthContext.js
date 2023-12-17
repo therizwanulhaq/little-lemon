@@ -31,8 +31,8 @@ export const AuthProvider = ({ children }) => {
     await signOut(auth);
   };
 
-  const signUp = async (email, password) => {
-    await createUserWithEmailAndPassword(auth, email, password);
+  const signUp = async (name, email, password) => {
+    await createUserWithEmailAndPassword(auth, name, email, password);
   };
 
   if (loading) {
