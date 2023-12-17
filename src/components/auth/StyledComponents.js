@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 
 const focusColor = "#f4ce14";
 
+const breakpoints = [576, 768, 992, 1200];
+
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+
 export const Container = styled.main`
   position: relative;
   height: 90vh;
@@ -66,4 +70,32 @@ export const ErrorMessage = styled.p`
 
 export const SignUpOrSignInMessage = styled.p`
   text-align: center;
+`;
+
+export const Main = styled.main`
+  padding: 2rem 15rem;
+  background: #f7f7f7;
+
+  ${mq[3]} {
+    padding: 0rem 10rem;
+  }
+  ${mq[2]} {
+    padding: 0rem 5rem;
+  }
+
+  ${mq[1]} {
+    padding: 0rem 2rem;
+  }
+
+  ${mq[0]} {
+    padding: 0rem 1rem;
+  }
+`;
+
+export const ProfilePhoto = styled.img`
+  width: 5rem;
+  height: 5rem;
+  border: 1px solid black;
+  border-radius: 50%;
+  object-fit: cover;
 `;

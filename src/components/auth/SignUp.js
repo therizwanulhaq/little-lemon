@@ -67,7 +67,7 @@ const SignUp = () => {
     try {
       await signUp(email, password);
 
-      // Add user data to Firestore
+      // Add user data to FireStore
       const usersCollection = collection(db, "users");
       await addDoc(usersCollection, {
         name: name,
@@ -76,7 +76,7 @@ const SignUp = () => {
       });
 
       // Redirect after successful sign-up
-      navigate("/profile");
+      navigate("/");
     } catch (error) {
       // Authentication errors
       console.error("Error signing up:", error);

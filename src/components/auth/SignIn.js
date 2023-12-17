@@ -55,7 +55,7 @@ const SignIn = () => {
     try {
       await signIn(email, password);
       // Redirect after successful sign-in
-      navigate("/profile");
+      navigate("/");
     } catch (error) {
       // Authentication errors
       console.error("Error signing up:", error);
