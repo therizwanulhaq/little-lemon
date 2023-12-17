@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 
-const AddonsContainer = styled.div`
+const DishModifiersContainer = styled.div`
   padding: 0.5rem 0;
   display: flex;
   justify-content: space-between;
@@ -57,7 +57,7 @@ const DishAddons = ({ name, price, onTotalPriceChange }) => {
 
   return (
     <>
-      <AddonsContainer>
+      <DishModifiersContainer>
         <Name>
           {name} x{quantity}
         </Name>
@@ -76,7 +76,7 @@ const DishAddons = ({ name, price, onTotalPriceChange }) => {
             add
           </Button>
         </Cta>
-      </AddonsContainer>
+      </DishModifiersContainer>
       <Divider />
     </>
   );

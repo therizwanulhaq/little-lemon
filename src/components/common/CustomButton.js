@@ -10,7 +10,7 @@ export const CustomButton = styled.button((props) => ({
   borderRadius: props.borderRadius || "1rem",
   fontWeight: "700",
   fontSize: props.fontSize || "1rem",
-  margin: "1rem 0",
+  margin: props.margin || "1rem 0",
   transition: "background 0.3s ease",
   cursor: props.disabled ? "not-allowed" : "pointer", // Adjust cursor based on disabled state
   opacity: props.disabled ? 0.5 : 1, // Adjust opacity based on disabled state

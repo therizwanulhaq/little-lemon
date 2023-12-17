@@ -5,7 +5,13 @@
     "name": "Spaghetti Bolognese",
     "price": 12.99,
     "description": "Classic Italian pasta dish with meat sauce.",
-    "category": "Lunch"
+    "category": "Lunch",
+    "modifiers": [
+      { "name": "Extra Cheese", "price": "1.5" },
+      { "name": "Spicy Meat Sauce", "price": "1.0" },
+      { "name": "Garlic Breadsticks", "price": "2.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 2,
@@ -13,7 +19,13 @@
     "name": "Chicken Caesar Salad",
     "price": 9.99,
     "description": "Fresh salad with grilled chicken and Caesar dressing.",
-    "category": "Lunch"
+    "category": "Lunch",
+    "modifiers": [
+      { "name": "Bacon Bits", "price": "1.0" },
+      { "name": "Avocado Slices", "price": "1.5" },
+      { "name": "Extra Crispy", "price": "0.75" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 3,
@@ -21,7 +33,13 @@
     "name": "Margherita Pizza",
     "price": 10.99,
     "description": "Traditional pizza with tomato, mozzarella, and basil.",
-    "category": "Lunch"
+    "category": "Lunch",
+    "modifiers": [
+      { "name": "Double Cheese", "price": "2.0" },
+      { "name": "Pepperoni Toppings", "price": "1.5" },
+      { "name": "Stuffed Crust", "price": "2.5" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 4,
@@ -29,7 +47,13 @@
     "name": "Vegetable Stir-Fry",
     "price": 11.99,
     "description": "Assorted vegetables stir-fried in a savory sauce.",
-    "category": "Lunch"
+    "category": "Lunch",
+    "modifiers": [
+      { "name": "Tofu Option", "price": 2.0 },
+      { "name": "Spicy Sauce", "price": 1.5 },
+      { "name": "Brown Rice", "price": 1.0 },
+      { "name": "Gluten-Free Option", "price": 2.5 }
+    ]
   },
   {
     "id": 5,
@@ -37,7 +61,13 @@
     "name": "Grilled Salmon",
     "price": 15.99,
     "description": "Fresh salmon fillet grilled to perfection.",
-    "category": "Lunch"
+    "category": "Lunch",
+    "modifiers": [
+      { "name": "Lemon Dill Sauce", "price": 1.5 },
+      { "name": "Garlic Butter", "price": 2.0 },
+      { "name": "Quinoa Pilaf", "price": 1.0 },
+      { "name": "Gluten-Free Option", "price": 2.5 }
+    ]
   },
 
   {
@@ -46,7 +76,13 @@
     "name": "Garlic Bread",
     "price": 4.99,
     "description": "Toasted bread coated in garlic-infused butter, a simple and flavorful dish, perfect as a side or appetizer.",
-    "category": "Starters"
+    "category": "Starters",
+    "modifiers": [
+      { "name": "Extra Garlic Butter", "price": "1.0" },
+      { "name": "Cheese Topping", "price": "1.5" },
+      { "name": "Herb Infusion", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.0" }
+    ]
   },
   {
     "id": 7,
@@ -54,7 +90,13 @@
     "name": "Stuffed Mushrooms",
     "price": 7.99,
     "description": "Mushrooms stuffed with herbs and cheese.",
-    "category": "Starters"
+    "category": "Starters",
+    "modifiers": [
+      { "name": "Truffle Drizzle", "price": "2.0" },
+      { "name": "Bacon Crumble", "price": "1.5" },
+      { "name": "Spicy Variation", "price": "1.75" },
+      { "name": "Gluten-Free Option", "price": "2.0" }
+    ]
   },
   {
     "id": 8,
@@ -62,7 +104,13 @@
     "name": "Bruschetta",
     "price": 6.99,
     "description": "Toasted bread topped with diced tomatoes, garlic, and basil.",
-    "category": "Starters"
+    "category": "Starters",
+    "modifiers": [
+      { "name": "Balsamic Glaze", "price": "1.0" },
+      { "name": "Mozzarella Melt", "price": "1.5" },
+      { "name": "Prosciutto Upgrade", "price": "2.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 9,
@@ -70,7 +118,13 @@
     "name": "Cheese Platter",
     "price": 8.99,
     "description": "Assorted cheeses served with crackers and fruits.",
-    "category": "Starters"
+    "category": "Starters",
+    "modifiers": [
+      { "name": "Honey Drizzle", "price": "1.5" },
+      { "name": "Nuts and Berries", "price": "2.0" },
+      { "name": "Cured Meats Selection", "price": "2.5" },
+      { "name": "Gluten-Free Option", "price": "2.0" }
+    ]
   },
   {
     "id": 10,
@@ -78,15 +132,28 @@
     "name": "Spinach Artichoke Dip",
     "price": 5.99,
     "description": "Creamy dip with spinach, artichokes, and melted cheese.",
-    "category": "Starters"
+    "category": "Starters",
+    "modifiers": [
+      { "name": "Crab and Artichoke Blend", "price": "2.5" },
+      { "name": "Extra Cheese", "price": "1.5" },
+      { "name": "Spicy Kick", "price": "1.0" },
+      { "name": "Gluten-Free Option", "price": "2.0" }
+    ]
   },
+
   {
     "id": 11,
     "image": "https://img.taste.com.au/0NpUpm-p/taste/2016/11/steak-diane-with-chive-mash-85635-1.jpeg",
     "name": "Steak with Mashed Potatoes",
     "price": 18.99,
     "description": "Grilled steak served with creamy mashed potatoes.",
-    "category": "Mains"
+    "category": "Mains",
+    "modifiers": [
+      { "name": "Peppercorn Sauce", "price": "2.5" },
+      { "name": "Garlic Butter Drizzle", "price": "1.75" },
+      { "name": "Blue Cheese Crust", "price": "2.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 12,
@@ -94,7 +161,13 @@
     "name": "Shrimp Alfredo Pasta",
     "price": 14.99,
     "description": "Creamy Alfredo pasta with shrimp and Parmesan cheese.",
-    "category": "Mains"
+    "category": "Mains",
+    "modifiers": [
+      { "name": "Extra Shrimp", "price": "2.0" },
+      { "name": "Sun-Dried Tomatoes", "price": "1.5" },
+      { "name": "Spinach Infusion", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 13,
@@ -102,7 +175,13 @@
     "name": "Vegetarian Lasagna",
     "price": 12.99,
     "description": "Layers of pasta, vegetables, and cheese in a savory tomato sauce.",
-    "category": "Mains"
+    "category": "Mains",
+    "modifiers": [
+      { "name": "Beyond Meat Crumbles", "price": "2.0" },
+      { "name": "Vegan Cheese Blend", "price": "1.5" },
+      { "name": "Cashew Cream Sauce", "price": "1.75" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 14,
@@ -110,7 +189,13 @@
     "name": "Chicken Fajitas",
     "price": 16.99,
     "description": "Sizzling chicken fajitas with bell peppers and onions.",
-    "category": "Mains"
+    "category": "Mains",
+    "modifiers": [
+      { "name": "Guacamole Topping", "price": "1.5" },
+      { "name": "Sour Cream Drizzle", "price": "1.0" },
+      { "name": "Extra Cheese", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.0" }
+    ]
   },
   {
     "id": 15,
@@ -118,7 +203,13 @@
     "name": "Salmon Teriyaki Bowl",
     "price": 17.99,
     "description": "Teriyaki-glazed salmon served over a bed of rice with vegetables.",
-    "category": "Mains"
+    "category": "Mains",
+    "modifiers": [
+      { "name": "Pineapple Salsa", "price": "1.75" },
+      { "name": "Seaweed Salad", "price": "2.0" },
+      { "name": "Wasabi Drizzle", "price": "1.5" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 16,
@@ -126,7 +217,13 @@
     "name": "Chocolate Lava Cake",
     "price": 7.99,
     "description": "Warm and gooey chocolate cake with a molten center.",
-    "category": "Desserts"
+    "category": "Desserts",
+    "modifiers": [
+      { "name": "Vanilla Ice Cream Scoop", "price": "1.5" },
+      { "name": "Caramel Drizzle", "price": "1.0" },
+      { "name": "Toasted Almonds", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.0" }
+    ]
   },
   {
     "id": 17,
@@ -134,7 +231,13 @@
     "name": "Tiramisu",
     "price": 8.99,
     "description": "Classic Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cheese.",
-    "category": "Desserts"
+    "category": "Desserts",
+    "modifiers": [
+      { "name": "Chocolate Shavings", "price": "1.0" },
+      { "name": "Amaretto Infusion", "price": "2.0" },
+      { "name": "Extra Cocoa Powder", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 18,
@@ -142,7 +245,13 @@
     "name": "Strawberry Cheesecake",
     "price": 9.99,
     "description": "Creamy cheesecake topped with fresh strawberries.",
-    "category": "Desserts"
+    "category": "Desserts",
+    "modifiers": [
+      { "name": "Blueberry Compote", "price": "1.5" },
+      { "name": "Lemon Zest Garnish", "price": "1.0" },
+      { "name": "Graham Cracker Crust", "price": "2.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 19,
@@ -150,7 +259,13 @@
     "name": "Apple Pie",
     "price": 6.99,
     "description": "Homemade apple pie with a flaky crust.",
-    "category": "Desserts"
+    "category": "Desserts",
+    "modifiers": [
+      { "name": "Cinnamon Sugar Topping", "price": "1.25" },
+      { "name": "Vanilla Bean Ice Cream", "price": "2.0" },
+      { "name": "Caramel Drizzle", "price": "1.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 20,
@@ -158,7 +273,13 @@
     "name": "Mango Sorbet",
     "price": 5.99,
     "description": "Refreshing mango sorbet for a sweet and tangy treat.",
-    "category": "Desserts"
+    "category": "Desserts",
+    "modifiers": [
+      { "name": "Fresh Mint Leaves", "price": "0.75" },
+      { "name": "Coconut Flakes", "price": "1.0" },
+      { "name": "Mixed Berry Compote", "price": "1.5" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 21,
@@ -166,7 +287,13 @@
     "name": "Lobster Ravioli",
     "price": 19.99,
     "description": "Delicious lobster-filled ravioli in a creamy tomato sauce.",
-    "category": "Dinner"
+    "category": "Dinner",
+    "modifiers": [
+      { "name": "Shrimp Scampi", "price": "2.5" },
+      { "name": "Lemon Zest Garnish", "price": "1.0" },
+      { "name": "Fresh Basil Leaves", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 22,
@@ -174,7 +301,13 @@
     "name": "Beef Wellington",
     "price": 21.99,
     "description": "Tender beef filet wrapped in puff pastry with mushroom duxelles.",
-    "category": "Dinner"
+    "category": "Dinner",
+    "modifiers": [
+      { "name": "Truffle Demi-Glace", "price": "3.0" },
+      { "name": "Roasted Garlic Mashed Potatoes", "price": "2.0" },
+      { "name": "Asparagus Bundle", "price": "2.5" },
+      { "name": "Gluten-Free Option", "price": "3.0" }
+    ]
   },
   {
     "id": 23,
@@ -182,7 +315,13 @@
     "name": "Eggplant Parmesan",
     "price": 13.99,
     "description": "Breaded and baked eggplant slices topped with marinara sauce and melted cheese.",
-    "category": "Dinner"
+    "category": "Dinner",
+    "modifiers": [
+      { "name": "Italian Sausage Crumbles", "price": "2.0" },
+      { "name": "Fresh Oregano Sprinkle", "price": "1.0" },
+      { "name": "Extra Mozzarella", "price": "1.5" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 24,
@@ -190,7 +329,13 @@
     "name": "Sushi Platter",
     "price": 22.99,
     "description": "Assorted sushi rolls and sashimi pieces.",
-    "category": "Dinner"
+    "category": "Dinner",
+    "modifiers": [
+      { "name": "Wasabi Mayo Drizzle", "price": "1.5" },
+      { "name": "Pickled Ginger Garnish", "price": "1.0" },
+      { "name": "Soy Sauce Infusion", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 25,
@@ -198,7 +343,13 @@
     "name": "Mushroom Risotto",
     "price": 16.99,
     "description": "Creamy risotto with assorted mushrooms and Parmesan cheese.",
-    "category": "Dinner"
+    "category": "Dinner",
+    "modifiers": [
+      { "name": "Truffle Oil Drizzle", "price": "2.0" },
+      { "name": "Crispy Sage Leaves", "price": "1.0" },
+      { "name": "Parmesan Shavings", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 26,
@@ -206,7 +357,13 @@
     "name": "Seafood Paella",
     "price": 23.99,
     "description": "Spanish-style paella with a variety of seafood.",
-    "category": "Specials"
+    "category": "Specials",
+    "modifiers": [
+      { "name": "Lemon Wedges", "price": "1.0" },
+      { "name": "Saffron Infusion", "price": "2.0" },
+      { "name": "Chorizo Bits", "price": "1.5" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 27,
@@ -214,7 +371,13 @@
     "name": "Truffle Mac 'n' Cheese",
     "price": 17.99,
     "description": "Macaroni and cheese with a luxurious truffle-infused sauce.",
-    "category": "Specials"
+    "category": "Specials",
+    "modifiers": [
+      { "name": "Bacon Crumbles", "price": "1.5" },
+      { "name": "Crispy Shallots", "price": "1.0" },
+      { "name": "Black Truffle Shavings", "price": "3.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 28,
@@ -222,7 +385,13 @@
     "name": "Crispy Duck Confit",
     "price": 20.99,
     "description": "Duck leg slow-cooked until tender and crisped to perfection.",
-    "category": "Specials"
+    "category": "Specials",
+    "modifiers": [
+      { "name": "Orange Gastrique", "price": "1.5" },
+      { "name": "Rosemary Infusion", "price": "2.0" },
+      { "name": "Caramelized Onions", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 29,
@@ -230,7 +399,13 @@
     "name": "Vegetable Tempura",
     "price": 15.99,
     "description": "Assorted vegetables lightly battered and fried to a crispy texture.",
-    "category": "Specials"
+    "category": "Specials",
+    "modifiers": [
+      { "name": "Soy-Ginger Dipping Sauce", "price": "1.0" },
+      { "name": "Sweet Chili Drizzle", "price": "1.5" },
+      { "name": "Sesame Seeds Sprinkle", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 30,
@@ -238,7 +413,13 @@
     "name": "Caprese Salad",
     "price": 14.99,
     "description": "Fresh mozzarella, tomatoes, and basil drizzled with balsamic glaze.",
-    "category": "Specials"
+    "category": "Specials",
+    "modifiers": [
+      { "name": "Prosciutto Slices", "price": "2.0" },
+      { "name": "Pine Nut Crunch", "price": "1.0" },
+      { "name": "Fresh Arugula Bed", "price": "1.25" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 31,
@@ -246,7 +427,13 @@
     "name": "Garlic Parmesan Fries",
     "price": 5.99,
     "description": "Crispy fries tossed in garlic butter and Parmesan cheese.",
-    "category": "Sides"
+    "category": "Sides",
+    "modifiers": [
+      { "name": "Truffle Oil Drizzle", "price": "1.5" },
+      { "name": "Rosemary Infusion", "price": "2.0" },
+      { "name": "Spicy Aioli Dip", "price": "1.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 32,
@@ -254,7 +441,13 @@
     "name": "Caesar Salad",
     "price": 4.99,
     "description": "Classic Caesar salad with romaine lettuce, croutons, and Caesar dressing.",
-    "category": "Sides"
+    "category": "Sides",
+    "modifiers": [
+      { "name": "Grilled Chicken Strips", "price": "2.0" },
+      { "name": "Shaved Parmesan", "price": "1.5" },
+      { "name": "Anchovy Fillets", "price": "1.0" },
+      { "name": "Gluten-Free Croutons", "price": "2.5" }
+    ]
   },
   {
     "id": 33,
@@ -262,7 +455,13 @@
     "name": "Grilled Asparagus",
     "price": 6.99,
     "description": "Fresh asparagus spears grilled to perfection.",
-    "category": "Sides"
+    "category": "Sides",
+    "modifiers": [
+      { "name": "Balsamic Reduction", "price": "1.0" },
+      { "name": "Lemon Zest Sprinkle", "price": "1.5" },
+      { "name": "Toasted Almond Crumbs", "price": "2.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 34,
@@ -270,7 +469,13 @@
     "name": "Loaded Baked Potato",
     "price": 7.99,
     "description": "Baked potato topped with cheese, bacon, and sour cream.",
-    "category": "Sides"
+    "category": "Sides",
+    "modifiers": [
+      { "name": "Chives Garnish", "price": "1.0" },
+      { "name": "Jalapeno Slices", "price": "1.5" },
+      { "name": "BBQ Drizzle", "price": "1.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   },
   {
     "id": 35,
@@ -278,6 +483,12 @@
     "name": "Mashed Sweet Potatoes",
     "price": 6.99,
     "description": "Creamy mashed sweet potatoes with a hint of cinnamon.",
-    "category": "Sides"
+    "category": "Sides",
+    "modifiers": [
+      { "name": "Brown Sugar Drizzle", "price": "1.5" },
+      { "name": "Toasted Pecan Topping", "price": "2.0" },
+      { "name": "Marshmallow Fluff", "price": "1.0" },
+      { "name": "Gluten-Free Option", "price": "2.5" }
+    ]
   }
 ]

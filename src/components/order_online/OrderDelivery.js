@@ -13,6 +13,7 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const Section = styled.section`
   padding: 0 15rem;
+  min-height: 80vh;
   display: grid;
   gap: 2.5rem;
   grid-template-columns: repeat(2, 1fr);
@@ -114,12 +115,6 @@ const Title = styled.h2`
   margin-bottom: 1rem;
 `;
 
-const addons = [
-  { id: 1, name: "Avocado", price: "1" },
-  { id: 2, name: "Seeds", price: "1" },
-  { id: 3, name: "Dressing", price: "1" },
-];
-
 const toSlug = (text) =>
   text
     .toLowerCase()
@@ -131,23 +126,23 @@ const OrderDelivery = () => {
   const dishList = useDishContext();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
-  // Calculate the initial total price based on addon prices
-  const initialTotalPrice = addons.reduce(
-    (total, addon) => total + parseFloat(addon.price),
+  // Find the dish with the matching dishName
+  const selectedDish = dishList.find((dish) => toSlug(dish.name) === dishName);
+
+  // Calculate the initial total price based on modifiers prices
+  const initialTotalPrice = selectedDish?.modifiers?.reduce(
+    (total, modifier) => total + parseFloat(modifier.price),
     0
   );
 
   const [selectedTotalPrice, setSelectedTotalPrice] =
     useState(initialTotalPrice);
 
-  // Find the dish with the matching dishName
-  const selectedDish = dishList.find((dish) => toSlug(dish.name) === dishName);
-
   if (!selectedDish) {
     return <div>Dish not found</div>; // Handle the case where the dish is not found
   }
 
-  const { image, name, price, description } = selectedDish;
+  const { image, name, price, description, modifiers } = selectedDish;
 
   // Handle quantity change
   const handleQuantityChange = (newQuantity) => {
@@ -159,7 +154,7 @@ const OrderDelivery = () => {
     setSelectedTotalPrice(newTotalPrice);
   };
 
-  // Calculate the total price based on quantity and add the total price from DishAddons
+  // Calculate the total price based on quantity and add the total price from Dish Modifiers
   const totalPrice = (
     selectedQuantity * parseFloat(price) +
     selectedTotalPrice
@@ -187,14 +182,18 @@ const OrderDelivery = () => {
       </div>
       <Container>
         <Title>Add</Title>
-        {addons.map(({ id, name, price }) => (
-          <DishModifiers
-            key={id}
-            name={name}
-            price={price}
-            onTotalPriceChange={handleTotalPriceChange}
-          />
-        ))}
+        {modifiers && modifiers.length > 0 && (
+          <div>
+            {modifiers.map(({ id, name, price }) => (
+              <DishModifiers
+                key={name}
+                name={name}
+                price={price}
+                onTotalPriceChange={handleTotalPriceChange}
+              />
+            ))}
+          </div>
+        )}
         <QuantityOfDishes onQuantityChange={handleQuantityChange} />
         <CtaButton width="100%" height="2.5rem">
           Add for ${totalPrice}

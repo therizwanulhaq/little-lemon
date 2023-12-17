@@ -9,7 +9,6 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const FooterContainer = styled.footer`
   border-top: 1px #bfbfbfc7 solid;
-  margin-top: 7rem;
   background: #efeeee;
   color: #333333;
   padding: 3rem 15rem;
