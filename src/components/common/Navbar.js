@@ -173,7 +173,7 @@ function Navbar() {
           )
         )}
         {user ? (
-          <DesktopNavLink to={`/profile/${toSlug(userData?.name)}`}>
+          <DesktopNavLink to={`/${toSlug(userData?.name)}`}>
             Profile
           </DesktopNavLink>
         ) : (
