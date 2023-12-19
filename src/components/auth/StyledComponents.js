@@ -6,6 +6,8 @@ const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
+//Login and Signup styles
+
 export const Container = styled.main`
   position: relative;
   height: 90vh;
@@ -72,24 +74,38 @@ export const SignUpOrSignInMessage = styled.p`
   text-align: center;
 `;
 
+//Profile Styles
+
 export const Main = styled.main`
   padding: 2rem 15rem;
-  background: #f7f7f7;
+  /* background: #f7f7f7; */
 
   ${mq[3]} {
-    padding: 0rem 10rem;
+    padding: 2rem 10rem;
   }
   ${mq[2]} {
-    padding: 0rem 5rem;
+    padding: 2rem 5rem;
   }
 
   ${mq[1]} {
-    padding: 0rem 2rem;
+    padding: 1rem 2rem;
   }
 
   ${mq[0]} {
-    padding: 0rem 1rem;
+    padding: 1rem 1rem;
   }
+`;
+
+export const ProfileContainer = styled.section`
+  display: flex;
+  gap: 5rem;
+`;
+
+export const NameAndPhoto = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 `;
 
 export const ProfilePhoto = styled.img`
@@ -98,4 +114,54 @@ export const ProfilePhoto = styled.img`
   border: 1px solid black;
   border-radius: 50%;
   object-fit: cover;
+`;
+
+export const ProfileName = styled.p`
+  font-size: 1rem;
+  font-weight: 500;
+`;
+
+export const UserDetails = styled.div``;
+
+export const Heading = styled.h1`
+  font-size: 2.3rem;
+`;
+
+export const SubHeading = styled.p`
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+`;
+
+export const Preferences = styled.h4`
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+`;
+
+export const ExpandIcon = styled.span`
+  font-size: 2rem;
+  transition: rotate 0.4s ease-in;
+  ${({ expanded }) =>
+    expanded &&
+    `
+    rotate: 180deg;
+    `};
+`;
+
+export const PreferencesContent = styled.div`
+  overflow: hidden;
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+
+  ${({ expanded }) =>
+    expanded &&
+    `
+      opacity: 1;
+      max-height: 500px; // Adjust the max height based on your content
+    `};
 `;
