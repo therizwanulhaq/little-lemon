@@ -89,7 +89,7 @@ const Urls = () => {
         <Route path="/booking/confirmed" element={<ConfirmedBooking />} />
         <Route path="/order-online/:dishName" element={<OrderDelivery />} />
         {user ? (
-          <Route path="/:username" element={<Profile />} />
+          <Route path="little-lemon/:username" element={<Profile />} />
         ) : (
           <>
             <Route path="/sign-in" element={<SignIn />} />
