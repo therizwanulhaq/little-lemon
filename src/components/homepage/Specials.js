@@ -34,7 +34,7 @@ const Specials = () => {
           <Title color="#333333" fontSize="3rem">
             This Weeks Specials!
           </Title>
-          <Link to="/menu">
+          <Link to="/order-online">
             <CustomButton>Online Menu</CustomButton>
           </Link>
         </div>
