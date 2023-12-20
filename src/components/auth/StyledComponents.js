@@ -78,6 +78,7 @@ export const SignUpOrSignInMessage = styled.p`
 
 export const Main = styled.main`
   padding: 2rem 15rem;
+  height: 100vh;
   /* background: #f7f7f7; */
 
   ${mq[3]} {
@@ -131,20 +132,22 @@ export const SubHeading = styled.p`
   margin-top: 0.5rem;
   font-size: 1rem;
   font-weight: 400;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
 `;
 
 export const Preferences = styled.h4`
+  padding: 0.5rem 0;
   cursor: pointer;
   font-size: 1.1rem;
+  font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 5rem;
+  justify-content: space-between;
 `;
 
 export const ExpandIcon = styled.span`
   font-size: 2rem;
-  transition: rotate 0.4s ease-in;
+  transition: rotate 0.2s ease-in;
   ${({ expanded }) =>
     expanded &&
     `
@@ -154,14 +157,88 @@ export const ExpandIcon = styled.span`
 
 export const PreferencesContent = styled.div`
   overflow: hidden;
-  opacity: 0;
   max-height: 0;
-  transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+  transition: max-height 0.5s ease-in-out;
+  border-bottom: 1px solid grey;
 
   ${({ expanded }) =>
     expanded &&
     `
-      opacity: 1;
+      
       max-height: 500px; // Adjust the max height based on your content
     `};
+`;
+
+export const Popup = styled.div`
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 1px solid grey;
+  border-radius: 0.3rem;
+  display: ${(props) => (props.isVisible ? "block" : "none")};
+`;
+
+export const PopupHeader = styled.div`
+  background: #f0f2f2;
+  padding: 1rem 1.5rem;
+  font-size: 0.8rem;
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  align-items: center;
+  border-radius: 0.3rem 0.3rem 0 0;
+  justify-content: space-between;
+`;
+
+export const ClosePopUpIcon = styled.span`
+  font-weight: 500;
+  font-size: 1.5rem;
+  cursor: pointer;
+`;
+
+export const PopupBody = styled.div`
+  padding: 1rem 1.5rem;
+`;
+
+export const PopupOverlay = styled.div`
+  position: absolute;
+  z-index: 2;
+  background: #00000042;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.isVisible ? "block" : "none")};
+`;
+
+export const SaveButton = styled.button`
+  color: #333333;
+  background: #b9b6a9a1;
+  border: 1px solid grey;
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  display: block;
+  margin-left: auto;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.4rem 1rem;
+  :hover {
+    background: #f4ce10;
+  }
+`;
+
+export const PreferencesContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 100%;
+  padding-bottom: 2rem;
+`;
+
+export const StyledButtons = styled.button`
+  margin-top: 1rem;
+  padding: 0.1rem 0.5rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 `;

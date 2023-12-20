@@ -3,18 +3,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CustomButton } from "../common/CustomButton";
 import { useAuth } from "../context/AuthContext";
 import {
-  ExpandIcon,
   Heading,
   Main,
   NameAndPhoto,
-  Preferences,
-  PreferencesContent,
   ProfileContainer,
   ProfileName,
   ProfilePhoto,
   SubHeading,
   UserDetails,
 } from "./StyledComponents";
+import PreferenceTile from "./Preferences";
+import { css } from "@emotion/css";
 
 const toSlug = (text) => {
   if (text) {
@@ -30,15 +29,11 @@ const Profile = () => {
   const { logOut, user, userData } = useAuth();
   const navigate = useNavigate();
   const { username } = useParams();
+  const [selectedPreference, setSelectedPreference] = useState(null);
+  const [selectedAgeGroup, setSelectedAgeGroup] = useState(null);
 
   // eslint-disable-next-line no-unused-vars
   const currentUser = toSlug(userData?.name) === username;
-
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded);
-  };
 
   const userSignOut = () => {
     logOut()
@@ -48,6 +43,32 @@ const Profile = () => {
       .catch((error) => console.log(error));
     navigate("/");
   };
+
+  const handleSelectedPreference = (preference) => {
+    setSelectedPreference(preference);
+  };
+  const handleSelectedAgeGroup = (preference) => {
+    setSelectedAgeGroup(preference);
+  };
+
+  // Sample dietary preferences data
+  const dietaryPreferences = [
+    "Vegetarian",
+    "Vegan",
+    "Gluten-Free",
+    "Dairy-Free",
+  ];
+  // Sample age group data
+  const ageGroup = [
+    "18-20",
+    "21-24",
+    "25-29",
+    "30-34",
+    "35-39",
+    "40-44",
+    "45-49",
+    "50 and above",
+  ];
 
   return (
     <Main>
@@ -64,25 +85,31 @@ const Profile = () => {
                 Your profile preferences help us personalize recommendations for
                 you.
               </SubHeading>
-              <Preferences onClick={handleToggle}>
-                Dietary Preferences
-                <ExpandIcon
-                  className="material-symbols-outlined"
-                  expanded={isExpanded}
-                >
-                  expand_more
-                </ExpandIcon>
-              </Preferences>
-              <PreferencesContent expanded={isExpanded}>
-                This content expands and collapses! This content expands and
-                collapses! This content expands and collapses! This content
-                expands and collapses! This content expands and collapses! This
-                content expands and collapses! This content expands and
-                collapses! This content expands and collapses! This content
-                expands and collapses! This content expands and collapses! This
-                content expands and collapses! This content expands and
-                collapses! This content expands and collapses!
-              </PreferencesContent>
+              <h3>About you</h3>
+              <div
+                className={css`
+                  margin-top: 0.5rem;
+                  border-top: 1px solid grey;
+                `}
+              >
+                <PreferenceTile
+                  title=" Dietary Preferences"
+                  popupTitle="What are your dietary preferences ?"
+                  popupOptions={dietaryPreferences}
+                  selectedOptions={selectedPreference}
+                  displayedOptions={userData?.dietaryPreferences}
+                  onSelectedPreferenceChange={handleSelectedPreference}
+                />
+                <PreferenceTile
+                  title="Age Group"
+                  popupTitle="What is your age group?"
+                  popupOptions={ageGroup}
+                  selectedOptions={selectedAgeGroup}
+                  displayedOptions={userData?.ageGroup}
+                  onSelectedPreferenceChange={handleSelectedAgeGroup}
+                />
+              </div>
+
               <CustomButton onClick={userSignOut}>Sign Out</CustomButton>
             </UserDetails>
           </ProfileContainer>
