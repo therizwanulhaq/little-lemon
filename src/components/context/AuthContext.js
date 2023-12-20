@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import Spinner from "../common/Loader";
+import Spinner from "../common/Spinner";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 
 const AuthContext = createContext();
@@ -37,18 +37,15 @@ export const AuthProvider = ({ children }) => {
     await signOut(auth);
   };
 
-  const signUp = async (name, email, password) => {
-    await createUserWithEmailAndPassword(auth, name, email, password);
+  const signUp = async (email, password) => {
+    await createUserWithEmailAndPassword(auth, email, password);
   };
 
   const fetchUserData = async (user) => {
     if (user) {
       // Query the "users" collection to find the document with the matching email
       const usersCollection = collection(db, "users");
-      const userQuery = query(
-        usersCollection,
-        where("email", "==", user.email)
-      );
+      const userQuery = query(usersCollection, where("uid", "==", user.uid));
       const userDocs = await getDocs(userQuery);
 
       if (userDocs.size > 0) {
@@ -67,7 +64,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user, userData, signIn, logOut, signUp }}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };
