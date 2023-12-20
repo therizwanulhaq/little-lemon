@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, auth } from "../../firebase";
 import { CustomButton } from "../common/CustomButton";
 import { BackgroundImage } from "../homepage/StyledComponents";
 import Lemon from "../../assets/GreenLemon.png";
@@ -27,6 +27,7 @@ const SignUp = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -62,17 +63,23 @@ const SignUp = () => {
       );
       return;
     }
-
+    setLoading(true);
     // Continue with the sign-up process
     try {
       await signUp(email, password);
 
+      // Fetch the current user after signing up
+      const currentUser = auth.currentUser;
+
+      // Get the current user UID
+      const userUID = currentUser.uid;
+
       // Add user data to FireStore
       const usersCollection = collection(db, "users");
       await addDoc(usersCollection, {
+        uid: userUID,
         name: name,
         email: email,
-        // You can add more fields as needed
       });
 
       // Redirect after successful sign-up
@@ -85,6 +92,7 @@ const SignUp = () => {
           "This email is already registered. Please use another email."
         );
       }
+      setLoading(false);
     }
   };
 
@@ -153,7 +161,7 @@ const SignUp = () => {
           width="100%"
           height="2.5rem"
         >
-          Sign Up
+          {loading ? "Signing up..." : "Sign Up"}
         </CustomButton>
         <SignUpOrSignInMessage>
           Already have an account? <Link to="/sign-in">Log In</Link>

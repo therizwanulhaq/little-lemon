@@ -141,8 +141,18 @@ const Logo = styled.img`
   margin: auto;
 `;
 
+const toSlug = (text) => {
+  if (text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\w ]+/g, "")
+      .replace(/ +/g, "-");
+  }
+  return ""; // Or handle the case when text is undefined
+};
+
 function Navbar() {
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -163,7 +173,9 @@ function Navbar() {
           )
         )}
         {user ? (
-          <DesktopNavLink to="/profile">Profile</DesktopNavLink>
+          <DesktopNavLink to={`/little-lemon/${toSlug(userData?.name)}`}>
+            Profile
+          </DesktopNavLink>
         ) : (
           <DesktopNavLink to="/sign-in">Login</DesktopNavLink>
         )}
@@ -197,7 +209,10 @@ function Navbar() {
           )
         )}
         {user ? (
-          <MobileNavLink to="/profile" onClick={toggleMobileMenu}>
+          <MobileNavLink
+            to={`/little-lemon/${toSlug(userData?.name)}`}
+            onClick={toggleMobileMenu}
+          >
             Profile
           </MobileNavLink>
         ) : (
