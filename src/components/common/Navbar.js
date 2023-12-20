@@ -209,7 +209,10 @@ function Navbar() {
           )
         )}
         {user ? (
-          <MobileNavLink to="/profile" onClick={toggleMobileMenu}>
+          <MobileNavLink
+            to={`/little-lemon/${toSlug(userData?.name)}`}
+            onClick={toggleMobileMenu}
+          >
             Profile
           </MobileNavLink>
         ) : (
