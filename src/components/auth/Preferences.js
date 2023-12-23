@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ClosePopUpIcon,
   ExpandIcon,
@@ -11,29 +11,37 @@ import {
   PreferencesContent,
   SaveButton,
   StyledButtons,
+  DisplayedOptions,
+  DeleteConfirmation,
+  SelectedOptions,
+  Options,
 } from "./StyledComponents";
-import { CategoriesButton } from "../common/CustomButton";
 import {
   collection,
   getDocs,
   query,
   updateDoc,
+  deleteField,
   where,
+  onSnapshot,
 } from "@firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../context/AuthContext";
+import { css } from "@emotion/css";
+import Loader from "./Loader";
 
 const PreferenceTile = ({
   title,
   popupTitle,
   popupOptions,
-  selectedOptions,
-  displayedOptions,
   onSelectedPreferenceChange,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isDisplayed, setIsDisplayed] = useState(false);
   const [isAddPopupVisible, setAddPopupVisible] = useState(false);
   const [selectedPreference, setSelectedPreference] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [realtimeValue, setRealtimeValue] = useState("");
 
   const { user } = useAuth();
 
@@ -48,8 +56,14 @@ const PreferenceTile = ({
     setIsExpanded(!isExpanded);
   };
 
+  const toggleDeleteConfirmation = () => {
+    setIsDisplayed(!isDisplayed);
+  };
+
   const toggleAddPopup = () => {
     setAddPopupVisible(!isAddPopupVisible);
+    // Toggle the overflow property to disable or enable scrolling
+    document.body.style.overflow = isAddPopupVisible ? "auto" : "hidden";
   };
 
   const convertToCamelCase = (title) => {
@@ -65,8 +79,11 @@ const PreferenceTile = ({
 
   const fieldName = convertToFieldName(title);
 
-  const submitUserData = async () => {
+  // Update user data in Firestore
+  const updateUserData = async (fieldName, fieldValue, operation) => {
     try {
+      setIsLoading(true); // Set loading to true when the operation starts
+
       const usersCollection = collection(db, "users");
 
       // Find the user document by UID
@@ -76,46 +93,143 @@ const PreferenceTile = ({
       if (userDocs.size > 0) {
         const userDoc = userDocs.docs[0];
 
-        // Update the user document with the selected preference
-        await updateDoc(userDoc.ref, {
-          [fieldName]: selectedPreference || "", // Dynamic field based on the title prop
-        });
+        // Perform the specified operation (update or delete)
+        const updateData =
+          operation === "update"
+            ? { [fieldName]: fieldValue }
+            : { [fieldName]: deleteField() };
 
-        console.log("User data updated successfully");
+        // Update or delete the user document based on the operation
+        await updateDoc(userDoc.ref, updateData);
+
+        console.log(
+          `User data ${
+            operation === "update" ? "updated" : "field deleted"
+          } successfully`
+        );
       } else {
         console.log("User data not found in Firestore");
       }
-
-      // Additional code if needed after updating user data
     } catch (error) {
-      console.error("Error updating user data:", error.message);
+      console.error(
+        `Error ${operation === "update" ? "updating" : "deleting"} user data:`,
+        error.message
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const submitUserData = async () => {
+    try {
+      await updateUserData(fieldName, selectedPreference || "", "update");
+    } catch (error) {}
+  };
+
+  const deleteUserDataField = async () => {
+    try {
+      await updateUserData(fieldName, null, "delete");
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    // Subscribe to real-time updates when the component mounts
+    const usersCollection = collection(db, "users");
+
+    const unsubscribe = onSnapshot(
+      query(usersCollection, where("uid", "==", user.uid)),
+      (snapshot) => {
+        if (!snapshot.empty) {
+          const data = snapshot.docs[0].data();
+          setRealtimeValue(data[fieldName] || "");
+        }
+      },
+      (error) => {
+        console.error("Error getting real-time data: ", error.message);
+      }
+    );
+
+    // Unsubscribe from real-time updates when the component unmounts
+    return () => unsubscribe();
+  });
 
   return (
     <div>
       <Preferences onClick={handleToggle}>
-        {title} <li>{selectedOptions || displayedOptions}</li>
+        {title}
+        <DisplayedOptions expanded={isExpanded}>
+          {realtimeValue ? realtimeValue : "--"}
+        </DisplayedOptions>
         <ExpandIcon className="material-symbols-outlined" expanded={isExpanded}>
           expand_more
         </ExpandIcon>
       </Preferences>
       <PreferencesContent expanded={isExpanded}>
-        <ul>
-          <li>{selectedOptions || displayedOptions}</li>
-        </ul>
-        {displayedOptions || selectedOptions ? (
-          <>
-            <StyledButtons onClick={toggleAddPopup}>Edit</StyledButtons>
-            <StyledButtons>Delete</StyledButtons>
-          </>
+        {isLoading ? (
+          <div
+            className={css`
+              padding-bottom: 1rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            `}
+          >
+            <Loader />
+          </div>
+        ) : isDisplayed ? (
+          <DeleteConfirmation displayed={isDisplayed}>
+            <h3
+              className={css`
+                font-weight: 700;
+                font-size: 1.2rem;
+                line-height: 1.5rem;
+              `}
+            >
+              Are you sure you want to clear {title} data?
+            </h3>
+            <p
+              className={css`
+                font-size: 0.8rem;
+                line-height: 1.2rem;
+              `}
+            >
+              By clearing this data, your personalised Little Lemon experiences
+              will be affected.
+            </p>
+            <div>
+              <StyledButtons onClick={toggleDeleteConfirmation}>
+                No, cancel
+              </StyledButtons>
+              <StyledButtons
+                onClick={() => {
+                  deleteUserDataField();
+                  toggleDeleteConfirmation();
+                }}
+              >
+                Yes, clear my data
+              </StyledButtons>
+            </div>
+          </DeleteConfirmation>
         ) : (
-          <StyledButtons onClick={toggleAddPopup}>Add</StyledButtons>
+          <SelectedOptions>
+            <p>{realtimeValue ? realtimeValue : "--"}</p>
+
+            {realtimeValue ? (
+              <>
+                <StyledButtons onClick={toggleAddPopup}>Edit</StyledButtons>
+                <StyledButtons onClick={toggleDeleteConfirmation}>
+                  Delete
+                </StyledButtons>
+              </>
+            ) : (
+              <StyledButtons onClick={toggleAddPopup}>Add</StyledButtons>
+            )}
+          </SelectedOptions>
         )}
 
         <Popup isVisible={isAddPopupVisible}>
           <PopupHeader>
-            <h2>{popupTitle}</h2>
+            <h2>{title}</h2>
             <ClosePopUpIcon
               className="material-symbols-outlined"
               onClick={toggleAddPopup}
@@ -124,15 +238,16 @@ const PreferenceTile = ({
             </ClosePopUpIcon>
           </PopupHeader>
           <PopupBody>
+            <h3>{popupTitle}</h3>
             <PreferencesContainer>
               {popupOptions.map((preference) => (
-                <CategoriesButton
+                <Options
                   key={preference}
                   onClick={() => handlePreferenceClick(preference)}
                   selected={preference === selectedPreference}
                 >
                   {preference}
-                </CategoriesButton>
+                </Options>
               ))}
             </PreferencesContainer>
             <SaveButton

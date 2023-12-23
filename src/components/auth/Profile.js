@@ -29,7 +29,8 @@ const Profile = () => {
   const { logOut, user, userData } = useAuth();
   const navigate = useNavigate();
   const { username } = useParams();
-  const [selectedPreference, setSelectedPreference] = useState(null);
+  const [selectedDietaryPreference, setSelectedDietaryPreference] =
+    useState(null);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState(null);
 
   // eslint-disable-next-line no-unused-vars
@@ -45,7 +46,7 @@ const Profile = () => {
   };
 
   const handleSelectedPreference = (preference) => {
-    setSelectedPreference(preference);
+    setSelectedDietaryPreference(preference);
   };
   const handleSelectedAgeGroup = (preference) => {
     setSelectedAgeGroup(preference);
@@ -96,8 +97,7 @@ const Profile = () => {
                   title=" Dietary Preferences"
                   popupTitle="What are your dietary preferences ?"
                   popupOptions={dietaryPreferences}
-                  selectedOptions={selectedPreference}
-                  displayedOptions={userData?.dietaryPreferences}
+                  selectedOptions={selectedDietaryPreference}
                   onSelectedPreferenceChange={handleSelectedPreference}
                 />
                 <PreferenceTile
@@ -105,7 +105,6 @@ const Profile = () => {
                   popupTitle="What is your age group?"
                   popupOptions={ageGroup}
                   selectedOptions={selectedAgeGroup}
-                  displayedOptions={userData?.ageGroup}
                   onSelectedPreferenceChange={handleSelectedAgeGroup}
                 />
               </div>
