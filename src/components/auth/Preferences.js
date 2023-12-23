@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ClosePopUpIcon,
   ExpandIcon,
@@ -23,6 +23,7 @@ import {
   updateDoc,
   deleteField,
   where,
+  onSnapshot,
 } from "@firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../context/AuthContext";
@@ -33,15 +34,14 @@ const PreferenceTile = ({
   title,
   popupTitle,
   popupOptions,
-  selectedOptions,
-  displayedOptions,
   onSelectedPreferenceChange,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDisplayed, setIsDisplayed] = useState(false);
   const [isAddPopupVisible, setAddPopupVisible] = useState(false);
   const [selectedPreference, setSelectedPreference] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const [isLoading, setIsLoading] = useState(false);
+  const [realtimeValue, setRealtimeValue] = useState("");
 
   const { user } = useAuth();
 
@@ -79,9 +79,11 @@ const PreferenceTile = ({
 
   const fieldName = convertToFieldName(title);
 
-  const submitUserData = async () => {
+  // Update user data in Firestore
+  const updateUserData = async (fieldName, fieldValue, operation) => {
     try {
       setIsLoading(true); // Set loading to true when the operation starts
+
       const usersCollection = collection(db, "users");
 
       // Find the user document by UID
@@ -91,74 +93,72 @@ const PreferenceTile = ({
       if (userDocs.size > 0) {
         const userDoc = userDocs.docs[0];
 
-        // Update the user document with the selected preference
-        await updateDoc(userDoc.ref, {
-          [fieldName]: selectedPreference || "", // Dynamic field based on the title prop
-        });
+        // Perform the specified operation (update or delete)
+        const updateData =
+          operation === "update"
+            ? { [fieldName]: fieldValue }
+            : { [fieldName]: deleteField() };
 
-        console.log("User data updated successfully");
+        // Update or delete the user document based on the operation
+        await updateDoc(userDoc.ref, updateData);
+
+        console.log(
+          `User data ${
+            operation === "update" ? "updated" : "field deleted"
+          } successfully`
+        );
       } else {
         console.log("User data not found in Firestore");
       }
-
-      // Additional code if needed after updating user data
     } catch (error) {
-      console.error("Error updating user data:", error.message);
+      console.error(
+        `Error ${operation === "update" ? "updating" : "deleting"} user data:`,
+        error.message
+      );
     } finally {
-      setIsLoading(false); // Set loading to false when the operation completes (success or error)
+      setIsLoading(false);
     }
+  };
+
+  const submitUserData = async () => {
+    try {
+      await updateUserData(fieldName, selectedPreference || "", "update");
+    } catch (error) {}
   };
 
   const deleteUserDataField = async () => {
     try {
-      setIsLoading(true); // Set loading to true when the operation starts
-
-      const usersCollection = collection(db, "users");
-
-      // Find the user document by UID
-      const userQuery = query(usersCollection, where("uid", "==", user.uid));
-      const userDocs = await getDocs(userQuery);
-
-      if (userDocs.size > 0) {
-        const userDoc = userDocs.docs[0];
-
-        // Check if the field exists before attempting to delete
-        if (userDoc.data()[fieldName]) {
-          // Update the user document to delete the field
-          await updateDoc(userDoc.ref, {
-            [fieldName]: deleteField(),
-          });
-
-          console.log("User data field deleted successfully");
-          // Manually update the component state to reflect the changes
-          setSelectedPreference(null);
-          // Notify the parent component of the change
-          onSelectedPreferenceChange(null);
-        } else {
-          console.log("Field does not exist in user data");
-        }
-      } else {
-        console.log("User data not found in Firestore");
-      }
-
-      // Additional code if needed after deleting the user data field
-    } catch (error) {
-      console.error("Error deleting user data field:", error.message);
-    } finally {
-      setIsLoading(false); // Set loading to false when the operation completes (success or error)
-    }
+      await updateUserData(fieldName, null, "delete");
+    } catch (error) {}
   };
+
+  useEffect(() => {
+    // Subscribe to real-time updates when the component mounts
+    const usersCollection = collection(db, "users");
+
+    const unsubscribe = onSnapshot(
+      query(usersCollection, where("uid", "==", user.uid)),
+      (snapshot) => {
+        if (!snapshot.empty) {
+          const data = snapshot.docs[0].data();
+          setRealtimeValue(data[fieldName] || "");
+        }
+      },
+      (error) => {
+        console.error("Error getting real-time data: ", error.message);
+      }
+    );
+
+    // Unsubscribe from real-time updates when the component unmounts
+    return () => unsubscribe();
+  });
 
   return (
     <div>
       <Preferences onClick={handleToggle}>
         {title}
         <DisplayedOptions expanded={isExpanded}>
-          {selectedOptions
-            ? selectedOptions
-            : displayedOptions
-            ? displayedOptions
-            : "--"}
+          {realtimeValue ? realtimeValue : "--"}
         </DisplayedOptions>
         <ExpandIcon className="material-symbols-outlined" expanded={isExpanded}>
           expand_more
@@ -212,15 +212,9 @@ const PreferenceTile = ({
           </DeleteConfirmation>
         ) : (
           <SelectedOptions>
-            <p>
-              {selectedOptions
-                ? selectedOptions
-                : displayedOptions
-                ? displayedOptions
-                : "--"}
-            </p>
+            <p>{realtimeValue ? realtimeValue : "--"}</p>
 
-            {displayedOptions || selectedOptions ? (
+            {realtimeValue ? (
               <>
                 <StyledButtons onClick={toggleAddPopup}>Edit</StyledButtons>
                 <StyledButtons onClick={toggleDeleteConfirmation}>
