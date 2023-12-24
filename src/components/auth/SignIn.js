@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { CustomButton } from "../common/CustomButton";
 import {
   Container,
@@ -17,9 +16,10 @@ import {
 import { BackgroundImage } from "../homepage/StyledComponents";
 
 import Lemon from "../../assets/GreenLemon.png";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const SignIn = () => {
-  const { signIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,7 +53,7 @@ const SignIn = () => {
 
     // Continue with the sign-in process
     try {
-      await signIn(email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       // Redirect after successful sign-in
       navigate("/");
     } catch (error) {

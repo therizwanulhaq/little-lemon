@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { CustomButton } from "../common/CustomButton";
@@ -15,9 +14,9 @@ import {
   ErrorMessage,
   SignUpOrSignInMessage,
 } from "./StyledComponents";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
-  const { signUp } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -66,7 +65,7 @@ const SignUp = () => {
     setLoading(true);
     // Continue with the sign-up process
     try {
-      await signUp(email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
 
       // Fetch the current user after signing up
       const currentUser = auth.currentUser;
