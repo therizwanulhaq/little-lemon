@@ -1,13 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth, db } from "../../firebase";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import Spinner from "../common/Spinner";
-import { collection, getDocs, query, where } from "@firebase/firestore";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -15,55 +10,58 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    let unsubscribeAuth;
+    let unsubscribeSnapshot;
+
+    const fetchUserData = async (uid) => {
+      setLoading(true);
+      const usersCollection = collection(db, "users");
+
+      unsubscribeSnapshot = onSnapshot(
+        query(usersCollection, where("uid", "==", uid)),
+        (snapshot) => {
+          if (!snapshot.empty) {
+            const data = snapshot.docs[0].data();
+            setUserData(data);
+          }
+          setLoading(false);
+        },
+        (error) => {
+          setError(`Error getting real-time data: ${error.message}`);
+          setLoading(false);
+        }
+      );
+    };
+
+    unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       setUser(user);
+
       if (user) {
-        // If user is logged in, fetch user data
-        fetchUserData(user);
+        fetchUserData(user.uid);
       }
+
       setLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => {
+      if (unsubscribeAuth) unsubscribeAuth();
+      if (unsubscribeSnapshot) unsubscribeSnapshot();
+    };
   }, []);
-
-  const signIn = async (email, password) => {
-    await signInWithEmailAndPassword(auth, email, password);
-  };
-
-  const logOut = async () => {
-    await signOut(auth);
-  };
-
-  const signUp = async (email, password) => {
-    await createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  const fetchUserData = async (user) => {
-    if (user) {
-      // Query the "users" collection to find the document with the matching email
-      const usersCollection = collection(db, "users");
-      const userQuery = query(usersCollection, where("uid", "==", user.uid));
-      const userDocs = await getDocs(userQuery);
-
-      if (userDocs.size > 0) {
-        // Assume the first document (if multiple found) corresponds to the user
-        const userDoc = userDocs.docs[0];
-        setUserData(userDoc.data());
-      } else {
-        console.log("User data not found in FireStore");
-      }
-    }
-  };
 
   if (loading) {
     return <Spinner />;
   }
 
+  if (error) {
+    console.log(error.message);
+  }
+
   return (
-    <AuthContext.Provider value={{ user, userData, signIn, logOut, signUp }}>
+    <AuthContext.Provider value={{ user, userData }}>
       {!loading && children}
     </AuthContext.Provider>
   );
