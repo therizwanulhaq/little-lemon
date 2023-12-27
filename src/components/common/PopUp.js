@@ -22,6 +22,8 @@ export const Popup = styled.div`
     bottom: 0;
     left: 0;
     width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
     border-radius: 0.3rem 0.3rem 0 0;
     transform: translateY(${({ isVisible }) => (isVisible ? "0" : "100%")});
   }
