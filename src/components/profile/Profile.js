@@ -39,39 +39,36 @@ import {
 import { signOut } from "firebase/auth";
 import { ref, uploadBytes } from "firebase/storage";
 import PersonalizedSection from "./PersonalizedSection";
-
-const toSlug = (text) => {
-  if (text) {
-    return text
-      .toLowerCase()
-      .replace(/[^\w ]+/g, "")
-      .replace(/ +/g, "-");
-  }
-  return "";
-};
+import { toSlug } from "../common/Utils";
 
 const Profile = () => {
   const { user, userData } = useAuth();
   const navigate = useNavigate();
   const { username } = useParams();
-  const [selectedDietaryPreference, setSelectedDietaryPreference] =
-    useState(null);
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState(null);
+  const fileInputRef = useRef(null);
+
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [updateName, setUpdateName] = useState(userData?.name || "");
   const [profilePicture, setProfilePicture] = useState(
     userData?.profilePicture || defaultProfilePicture
   );
-  const [loading, setLoading] = useState(false);
   const [loadingProfilePicture, setLoadingProfilePicture] = useState(false);
   const [imageUploadError, setImageUploadError] = useState("");
-  const fileInputRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   // eslint-disable-next-line no-unused-vars
   const currentUser = toSlug(userData?.name) === username;
 
   const openFileInput = () => {
     fileInputRef.current.click();
+  };
+
+  const togglePopup = () => {
+    setUpdateName(userData.name);
+    setProfilePicture(userData.profilePicture || defaultProfilePicture);
+    setPopupVisible(!isPopupVisible);
+    document.body.style.overflow = isPopupVisible ? "auto" : "hidden";
+    setImageUploadError("");
   };
 
   const handleProfilePicture = async (e) => {
@@ -90,16 +87,18 @@ const Profile = () => {
       const reader = new FileReader();
       const imageRef = ref(storage, `users/profilePictures/${userData?.uid}`);
 
-      await uploadBytes(imageRef, file);
+      try {
+        await uploadBytes(imageRef, file);
 
-      setProfilePicture(userData?.profilePicture);
-
-      reader.onloadend = () => {
-        setProfilePicture(reader.result);
-      };
-      reader.readAsDataURL(file);
+        reader.onloadend = () => setProfilePicture(reader.result);
+        reader.readAsDataURL(file);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        setImageUploadError("Error uploading image. Please try again.");
+      } finally {
+        setLoadingProfilePicture(false);
+      }
     }
-    setLoadingProfilePicture(false);
   };
 
   const updateProfile = async (e) => {
@@ -127,6 +126,7 @@ const Profile = () => {
       }
     } catch (error) {
       console.error("Error updating user data:", error);
+      setLoading(false);
     }
   };
 
@@ -137,21 +137,6 @@ const Profile = () => {
       })
       .catch((error) => console.log(error));
     navigate("/");
-  };
-
-  const handleSelectedDietaryPreference = (preference) => {
-    setSelectedDietaryPreference(preference);
-  };
-  const handleSelectedAgeGroup = (preference) => {
-    setSelectedAgeGroup(preference);
-  };
-
-  const togglePopup = () => {
-    setUpdateName(userData.name);
-    setProfilePicture(userData.profilePicture || defaultProfilePicture);
-    setPopupVisible(!isPopupVisible);
-    document.body.style.overflow = isPopupVisible ? "auto" : "hidden";
-    setImageUploadError("");
   };
 
   // Sample dietary preferences data
@@ -267,15 +252,11 @@ const Profile = () => {
                   title=" Dietary Preferences"
                   popupTitle="What are your dietary preferences ?"
                   popupOptions={dietaryPreferences}
-                  selectedOptions={selectedDietaryPreference}
-                  onSelectedPreferenceChange={handleSelectedDietaryPreference}
                 />
                 <PreferenceTile
                   title="Age Group"
                   popupTitle="What is your age group?"
                   popupOptions={ageGroup}
-                  selectedOptions={selectedAgeGroup}
-                  onSelectedPreferenceChange={handleSelectedAgeGroup}
                 />
               </div>
 
