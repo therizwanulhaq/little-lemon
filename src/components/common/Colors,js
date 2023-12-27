@@ -1,9 +1,0 @@
-const colors = {
-  primary: "#3498db",
-  secondary: "#2ecc71",
-  accent: "#e74c3c",
-  text: "#333",
-  background: "#ecf0f1",
-};
-
-export default colors;
