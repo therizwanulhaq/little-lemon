@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { CustomButton } from "../common/CustomButton";
@@ -15,9 +14,10 @@ import {
   ErrorMessage,
   SignUpOrSignInMessage,
 } from "./StyledComponents";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Loader, LoaderWrapper } from "../common/StyledComponents";
 
 const SignUp = () => {
-  const { signUp } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -66,7 +66,10 @@ const SignUp = () => {
     setLoading(true);
     // Continue with the sign-up process
     try {
-      await signUp(email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
+
+      // Redirect after successful sign-up
+      navigate("/");
 
       // Fetch the current user after signing up
       const currentUser = auth.currentUser;
@@ -81,9 +84,6 @@ const SignUp = () => {
         name: name,
         email: email,
       });
-
-      // Redirect after successful sign-up
-      navigate("/");
     } catch (error) {
       // Authentication errors
       console.error("Error signing up:", error);
@@ -155,13 +155,24 @@ const SignUp = () => {
         <ErrorMessage>{confirmPasswordError}</ErrorMessage>
 
         <CustomButton
+          disabled={loading}
           margin="1.5rem 0"
           type="submit"
           borderRadius="0.3rem"
           width="100%"
-          height="2.5rem"
+          height="2.7rem"
         >
-          {loading ? "Signing up..." : "Sign Up"}
+          {loading ? (
+            <LoaderWrapper>
+              <Loader
+                height="1.4rem"
+                width="1.4rem"
+                border="3px solid #f0f2f2"
+              />
+            </LoaderWrapper>
+          ) : (
+            "Sign Up"
+          )}
         </CustomButton>
         <SignUpOrSignInMessage>
           Already have an account? <Link to="/sign-in">Log In</Link>

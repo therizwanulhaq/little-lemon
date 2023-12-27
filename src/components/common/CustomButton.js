@@ -4,9 +4,9 @@ export const CustomButton = styled.button((props) => ({
   width: props.width || "auto",
   height: props.height || "auto",
   color: props.color || "#333333",
-  background: props.background || "#F4CE14",
+  background: props.disabled ? "3333337a" : "#F4CE14",
   padding: props.padding || "0.7rem 2rem",
-  border: "none",
+  border: props.disabled ? "1px solid #FFED94" : "none",
   borderRadius: props.borderRadius || "1rem",
   fontWeight: "700",
   fontSize: props.fontSize || "1rem",
@@ -16,7 +16,7 @@ export const CustomButton = styled.button((props) => ({
   opacity: props.disabled ? 0.5 : 1, // Adjust opacity based on disabled state
 
   "&:hover": {
-    background: "#D3AC0E",
+    background: props.disabled ? "3333337a" : "#D3AC0E",
   },
   // Media Queries
   "@media (max-width: 768px)": {

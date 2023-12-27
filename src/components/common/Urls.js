@@ -10,9 +10,11 @@ import ScrollToTop from "./ScrollToTop";
 import Homepage from "../homepage/Homepage";
 import SignIn from "../auth/SignIn";
 import SignUp from "../auth/SignUp";
-import Profile from "../auth/Profile";
+import Profile from "../profile/Profile";
 import { useAuth } from "../context/AuthContext";
 import PageNotFound from "./PageNotFound";
+import TestPage from "./TestPage";
+import ResetPassword from "../auth/ResetPassword";
 
 const Urls = () => {
   const { user } = useAuth();
@@ -75,6 +77,8 @@ const Urls = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/order-online" element={<OrderOnline />} />
+        <Route path="/test" element={<TestPage />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route
           path="/booking"
@@ -89,7 +93,7 @@ const Urls = () => {
         <Route path="/booking/confirmed" element={<ConfirmedBooking />} />
         <Route path="/order-online/:dishName" element={<OrderDelivery />} />
         {user ? (
-          <Route path="little-lemon/:username" element={<Profile />} />
+          <Route path="profile/:username" element={<Profile />} />
         ) : (
           <>
             <Route path="/sign-in" element={<SignIn />} />

@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  ClosePopUpIcon,
-  ExpandIcon,
-  Popup,
-  PopupBody,
-  PopupHeader,
-  PopupOverlay,
   Preferences,
-  PreferencesContainer,
-  PreferencesContent,
-  SaveButton,
-  StyledButtons,
   DisplayedOptions,
+  ExpandIcon,
+  PreferencesContent,
+  LoaderContainer,
   DeleteConfirmation,
+  StyledButtons,
   SelectedOptions,
+  PreferencesContainer,
   Options,
+  SaveButton,
 } from "./StyledComponents";
+
 import {
   collection,
   getDocs,
@@ -23,12 +20,12 @@ import {
   updateDoc,
   deleteField,
   where,
-  onSnapshot,
 } from "@firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../context/AuthContext";
 import { css } from "@emotion/css";
-import Loader from "./Loader";
+import Loader from "../auth/Loader";
+import PopUp from "../common/PopUp";
 
 const PreferenceTile = ({
   title,
@@ -41,9 +38,8 @@ const PreferenceTile = ({
   const [isAddPopupVisible, setAddPopupVisible] = useState(false);
   const [selectedPreference, setSelectedPreference] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [realtimeValue, setRealtimeValue] = useState("");
 
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
 
   const handlePreferenceClick = (preference) => {
     setSelectedPreference(
@@ -60,9 +56,14 @@ const PreferenceTile = ({
     setIsDisplayed(!isDisplayed);
   };
 
-  const toggleAddPopup = () => {
+  const togglePopup = () => {
+    if (userData?.[fieldName]) {
+      setSelectedPreference(userData?.[fieldName]);
+    } else {
+      // If no stored value, reset selectedPreference
+      setSelectedPreference(null);
+    }
     setAddPopupVisible(!isAddPopupVisible);
-    // Toggle the overflow property to disable or enable scrolling
     document.body.style.overflow = isAddPopupVisible ? "auto" : "hidden";
   };
 
@@ -132,33 +133,12 @@ const PreferenceTile = ({
     } catch (error) {}
   };
 
-  useEffect(() => {
-    // Subscribe to real-time updates when the component mounts
-    const usersCollection = collection(db, "users");
-
-    const unsubscribe = onSnapshot(
-      query(usersCollection, where("uid", "==", user.uid)),
-      (snapshot) => {
-        if (!snapshot.empty) {
-          const data = snapshot.docs[0].data();
-          setRealtimeValue(data[fieldName] || "");
-        }
-      },
-      (error) => {
-        console.error("Error getting real-time data: ", error.message);
-      }
-    );
-
-    // Unsubscribe from real-time updates when the component unmounts
-    return () => unsubscribe();
-  });
-
   return (
     <div>
       <Preferences onClick={handleToggle}>
         {title}
         <DisplayedOptions expanded={isExpanded}>
-          {realtimeValue ? realtimeValue : "--"}
+          {userData?.[fieldName] ? userData?.[fieldName] : "--"}
         </DisplayedOptions>
         <ExpandIcon className="material-symbols-outlined" expanded={isExpanded}>
           expand_more
@@ -166,23 +146,16 @@ const PreferenceTile = ({
       </Preferences>
       <PreferencesContent expanded={isExpanded}>
         {isLoading ? (
-          <div
-            className={css`
-              padding-bottom: 1rem;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            `}
-          >
+          <LoaderContainer>
             <Loader />
-          </div>
+          </LoaderContainer>
         ) : isDisplayed ? (
           <DeleteConfirmation displayed={isDisplayed}>
             <h3
               className={css`
                 font-weight: 700;
-                font-size: 1.2rem;
-                line-height: 1.5rem;
+                font-size: 1rem;
+                line-height: 2rem;
               `}
             >
               Are you sure you want to clear {title} data?
@@ -190,10 +163,11 @@ const PreferenceTile = ({
             <p
               className={css`
                 font-size: 0.8rem;
-                line-height: 1.2rem;
+                font-weight: 500;
+                line-height: 2rem;
               `}
             >
-              By clearing this data, your personalised Little Lemon experiences
+              By clearing this data, your personalized Little Lemon experiences
               will be affected.
             </p>
             <div>
@@ -212,55 +186,48 @@ const PreferenceTile = ({
           </DeleteConfirmation>
         ) : (
           <SelectedOptions>
-            <p>{realtimeValue ? realtimeValue : "--"}</p>
+            <p>{userData?.[fieldName] ? userData?.[fieldName] : "--"}</p>
 
-            {realtimeValue ? (
+            {userData?.[fieldName] ? (
               <>
-                <StyledButtons onClick={toggleAddPopup}>Edit</StyledButtons>
+                <StyledButtons onClick={togglePopup}>Edit</StyledButtons>
                 <StyledButtons onClick={toggleDeleteConfirmation}>
                   Delete
                 </StyledButtons>
               </>
             ) : (
-              <StyledButtons onClick={toggleAddPopup}>Add</StyledButtons>
+              <StyledButtons onClick={togglePopup}>Add</StyledButtons>
             )}
           </SelectedOptions>
         )}
 
-        <Popup isVisible={isAddPopupVisible}>
-          <PopupHeader>
-            <h2>{title}</h2>
-            <ClosePopUpIcon
-              className="material-symbols-outlined"
-              onClick={toggleAddPopup}
-            >
-              close
-            </ClosePopUpIcon>
-          </PopupHeader>
-          <PopupBody>
-            <h3>{popupTitle}</h3>
-            <PreferencesContainer>
-              {popupOptions.map((preference) => (
-                <Options
-                  key={preference}
-                  onClick={() => handlePreferenceClick(preference)}
-                  selected={preference === selectedPreference}
-                >
-                  {preference}
-                </Options>
-              ))}
-            </PreferencesContainer>
-            <SaveButton
-              onClick={() => {
-                submitUserData();
-                toggleAddPopup();
-              }}
-            >
-              Save
-            </SaveButton>
-          </PopupBody>
-        </Popup>
-        <PopupOverlay isVisible={isAddPopupVisible} onClick={toggleAddPopup} />
+        <PopUp
+          title={title}
+          isVisible={isAddPopupVisible}
+          togglePopup={togglePopup}
+        >
+          <h3>{popupTitle}</h3>
+          <PreferencesContainer>
+            {popupOptions.map((preference) => (
+              <Options
+                key={preference}
+                onClick={() => handlePreferenceClick(preference)}
+                selected={preference === selectedPreference}
+              >
+                {preference}
+              </Options>
+            ))}
+          </PreferencesContainer>
+          <SaveButton
+            disabled={!selectedPreference}
+            onClick={() => {
+              submitUserData();
+              togglePopup();
+            }}
+          >
+            Save
+          </SaveButton>
+        </PopUp>
       </PreferencesContent>
     </div>
   );

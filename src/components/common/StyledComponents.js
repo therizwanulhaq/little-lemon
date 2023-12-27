@@ -1,4 +1,3 @@
-import React from "react";
 import { keyframes } from "@emotion/css";
 import styled from "@emotion/styled";
 
@@ -11,10 +10,10 @@ const rotation = keyframes`
     }
 `;
 
-const LoaderWrapper = styled.span`
+export const Loader = styled.span`
   width: ${(props) => props.width || "2.5rem"};
   height: ${(props) => props.height || "2.5rem"};
-  border: 5px solid #f0f2f2;
+  border: ${(props) => props.border || "5px solid #f0f2f2"};
   border-bottom-color: #558b7b;
   border-radius: 50%;
   display: inline-block;
@@ -22,8 +21,8 @@ const LoaderWrapper = styled.span`
   animation: ${rotation} 1s linear infinite;
 `;
 
-const Loader = () => {
-  return <LoaderWrapper />;
-};
-
-export default Loader;
+export const LoaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { CustomButton } from "../common/CustomButton";
 import {
   Container,
@@ -12,21 +11,24 @@ import {
   EyeIcon,
   ErrorMessage,
   SignUpOrSignInMessage,
+  ForgotPassword,
 } from "./StyledComponents";
 
 import { BackgroundImage } from "../homepage/StyledComponents";
 
 import Lemon from "../../assets/GreenLemon.png";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+import { Loader, LoaderWrapper } from "../common/StyledComponents";
 
 const SignIn = () => {
-  const { signIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -53,15 +55,27 @@ const SignIn = () => {
 
     // Continue with the sign-in process
     try {
-      await signIn(email, password);
+      setLoading(true);
+      await signInWithEmailAndPassword(auth, email, password);
+
       // Redirect after successful sign-in
       navigate("/");
+      setLoading(false);
     } catch (error) {
       // Authentication errors
       console.error("Error signing up:", error);
       if (error.code === "auth/invalid-credential") {
         setPasswordError("Incorrect email or password.");
+        setLoading(false);
+      } else if (error.code === "auth/too-many-requests") {
+        setPasswordError(
+          "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. "
+        );
+        setLoading(false);
+      } else {
+        setPasswordError(error);
       }
+      setLoading(false);
     }
   };
 
@@ -108,14 +122,28 @@ const SignIn = () => {
           </EyeIcon>
         </PasswordContainer>
         <ErrorMessage>{passwordError}</ErrorMessage>
+        <ForgotPassword>
+          <Link to="/reset-password">Forgot Password?</Link>
+        </ForgotPassword>
         <CustomButton
+          disabled={loading}
           margin="1.5rem 0"
           type="submit"
           borderRadius="0.3rem"
           width="100%"
-          height="2.5rem"
+          height="2.7rem"
         >
-          Log In
+          {loading ? (
+            <LoaderWrapper>
+              <Loader
+                height="1.4rem"
+                width="1.4rem"
+                border="3px solid #f0f2f2"
+              />
+            </LoaderWrapper>
+          ) : (
+            "Sign In"
+          )}
         </CustomButton>
         <SignUpOrSignInMessage>
           Don't have an account? <Link to="/sign-up">Sign Up</Link>

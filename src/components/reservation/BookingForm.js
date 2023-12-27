@@ -177,7 +177,7 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
           type="submit"
           borderRadius="0.3rem"
           width="100%"
-          height="2.5rem"
+          height="2.7rem"
           disabled={!areAllFieldsValid()}
         >
           Make Your reservation
