@@ -27,12 +27,7 @@ import { css } from "@emotion/css";
 import Loader from "../auth/Loader";
 import PopUp from "../common/PopUp";
 
-const PreferenceTile = ({
-  title,
-  popupTitle,
-  popupOptions,
-  onSelectedPreferenceChange,
-}) => {
+const PreferenceTile = ({ title, popupTitle, popupOptions }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDisplayed, setIsDisplayed] = useState(false);
   const [isAddPopupVisible, setAddPopupVisible] = useState(false);
@@ -45,7 +40,6 @@ const PreferenceTile = ({
     setSelectedPreference(
       selectedPreference === preference ? null : preference
     );
-    onSelectedPreferenceChange(preference); // Notify the parent component of the change
   };
 
   const handleToggle = () => {

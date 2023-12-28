@@ -77,6 +77,8 @@ export const ProfileEditContainer = styled.div`
   gap: 1.5rem;
   padding: 1rem 0.5rem;
   height: fit-content;
+  height: 100%;
+  overflow-y: auto;
 `;
 
 export const ProfileUploadProgress = styled.div`
@@ -91,6 +93,7 @@ export const ProfileUploadProgress = styled.div`
 
 export const Cta = styled.p`
   cursor: pointer;
+  user-select: none;
   color: ${(props) => props.color || "#007185"};
 `;
 
