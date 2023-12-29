@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { CustomButton } from "../common/CustomButton";
 import { BackgroundImage } from "../homepage/StyledComponents";
@@ -78,8 +78,8 @@ const SignUp = () => {
       const userUID = currentUser.uid;
 
       // Add user data to FireStore
-      const usersCollection = collection(db, "users");
-      await addDoc(usersCollection, {
+      const userDocRef = doc(db, "users", userUID);
+      await setDoc(userDocRef, {
         uid: userUID,
         name: name,
         email: email,

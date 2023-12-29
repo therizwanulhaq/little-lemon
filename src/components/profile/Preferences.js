@@ -13,14 +13,7 @@ import {
   SaveButton,
 } from "./StyledComponents";
 
-import {
-  collection,
-  getDocs,
-  query,
-  updateDoc,
-  deleteField,
-  where,
-} from "@firebase/firestore";
+import { updateDoc, deleteField, doc } from "@firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../context/AuthContext";
 import { css } from "@emotion/css";
@@ -79,32 +72,22 @@ const PreferenceTile = ({ title, popupTitle, popupOptions }) => {
     try {
       setIsLoading(true); // Set loading to true when the operation starts
 
-      const usersCollection = collection(db, "users");
+      const userDocRef = doc(db, "users", user.uid);
 
-      // Find the user document by UID
-      const userQuery = query(usersCollection, where("uid", "==", user.uid));
-      const userDocs = await getDocs(userQuery);
+      // Perform the specified operation (update or delete)
+      const updateData =
+        operation === "update"
+          ? { [fieldName]: fieldValue }
+          : { [fieldName]: deleteField() };
 
-      if (userDocs.size > 0) {
-        const userDoc = userDocs.docs[0];
+      // Update or delete the user document based on the operation
+      await updateDoc(userDocRef, updateData);
 
-        // Perform the specified operation (update or delete)
-        const updateData =
-          operation === "update"
-            ? { [fieldName]: fieldValue }
-            : { [fieldName]: deleteField() };
-
-        // Update or delete the user document based on the operation
-        await updateDoc(userDoc.ref, updateData);
-
-        console.log(
-          `User data ${
-            operation === "update" ? "updated" : "field deleted"
-          } successfully`
-        );
-      } else {
-        console.log("User data not found in Firestore");
-      }
+      console.log(
+        `User data ${
+          operation === "update" ? "updated" : "field deleted"
+        } successfully`
+      );
     } catch (error) {
       console.error(
         `Error ${operation === "update" ? "updating" : "deleting"} user data:`,
