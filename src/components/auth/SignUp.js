@@ -14,7 +14,7 @@ import {
   ErrorMessage,
   SignUpOrSignInMessage,
 } from "./StyledComponents";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Loader, LoaderWrapper } from "../common/StyledComponents";
 
 const SignUp = () => {
@@ -76,6 +76,11 @@ const SignUp = () => {
 
       // Get the current user UID
       const userUID = currentUser.uid;
+
+      // Update the user's display name
+      await updateProfile(currentUser, {
+        displayName: name,
+      });
 
       // Add user data to FireStore
       const userDocRef = doc(db, "users", userUID);

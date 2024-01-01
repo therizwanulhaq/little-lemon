@@ -36,7 +36,7 @@ import {
   updateDoc,
   where,
 } from "@firebase/firestore";
-import { signOut } from "firebase/auth";
+import { signOut, updateProfile } from "firebase/auth";
 import { ref, uploadBytes } from "firebase/storage";
 import PersonalizedSection from "./PersonalizedSection";
 import { toSlug } from "../common/Utils";
@@ -101,7 +101,7 @@ const Profile = () => {
     }
   };
 
-  const updateProfile = async (e) => {
+  const updateUserProfile = async (e) => {
     e.preventDefault();
 
     try {
@@ -116,6 +116,13 @@ const Profile = () => {
         await updateDoc(userDocRef, {
           name: updateName,
           profilePicture: profilePicture,
+        });
+
+        const currentUser = auth.currentUser;
+
+        // Update the user's display name
+        await updateProfile(currentUser, {
+          displayName: updateName,
         });
 
         console.log("User data updated successfully!");
@@ -212,7 +219,7 @@ const Profile = () => {
                       <Cta onClick={togglePopup}>Cancel</Cta>
                       <SaveButton
                         disabled={loading}
-                        onClick={updateProfile}
+                        onClick={updateUserProfile}
                         width="6rem"
                         padding="0.4rem 1rem"
                       >
