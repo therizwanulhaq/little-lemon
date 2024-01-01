@@ -20,7 +20,7 @@ import { css } from "@emotion/css";
 import Loader from "../auth/Loader";
 import PopUp from "../common/PopUp";
 
-const PreferenceTile = ({ title, popupTitle, popupOptions }) => {
+const Accordion = ({ title, popupTitle, popupOptions }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDisplayed, setIsDisplayed] = useState(false);
   const [isAddPopupVisible, setAddPopupVisible] = useState(false);
@@ -210,4 +210,4 @@ const PreferenceTile = ({ title, popupTitle, popupOptions }) => {
   );
 };
 
-export default PreferenceTile;
+export default Accordion;

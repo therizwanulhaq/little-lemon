@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useReducer, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "../auth/StyledComponents";
 import {
@@ -24,7 +24,7 @@ import {
 import { useAuth } from "../context/AuthContext";
 
 import defaultProfilePicture from "../../assets/defaultProfilePicture.jpg";
-import PreferenceTile from "./Preferences";
+import Accordion from "./Accordion";
 import { Loader, LoaderWrapper } from "../common/StyledComponents";
 import { css } from "@emotion/css";
 import PopUp from "../common/PopUp";
@@ -41,20 +41,49 @@ import { ref, uploadBytes } from "firebase/storage";
 import PersonalizedSection from "./PersonalizedSection";
 import { toSlug } from "../common/Utils";
 
+const initialState = {
+  isPopupVisible: false,
+  updateName: "",
+  profilePicture: "",
+  loadingProfilePicture: false,
+  imageUploadError: "",
+  loading: false,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "TOGGLE_POPUP":
+      return { ...state, isPopupVisible: !state.isPopupVisible };
+    case "SET_UPDATE_NAME":
+      return { ...state, updateName: action.payload };
+    case "SET_LOADING_PROFILE_PICTURE":
+      return { ...state, loadingProfilePicture: action.payload };
+    case "SET_PROFILE_PICTURE":
+      return { ...state, profilePicture: action.payload };
+    case "SET_IMAGE_UPLOAD_ERROR":
+      return { ...state, imageUploadError: action.payload };
+    case "SET_LOADING":
+      return { ...state, loading: action.payload };
+    default:
+      return state;
+  }
+};
+
 const Profile = () => {
   const { user, userData } = useAuth();
   const navigate = useNavigate();
   const { username } = useParams();
   const fileInputRef = useRef(null);
 
-  const [isPopupVisible, setPopupVisible] = useState(false);
-  const [updateName, setUpdateName] = useState(userData?.name || "");
-  const [profilePicture, setProfilePicture] = useState(
-    userData?.profilePicture || defaultProfilePicture
-  );
-  const [loadingProfilePicture, setLoadingProfilePicture] = useState(false);
-  const [imageUploadError, setImageUploadError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const {
+    isPopupVisible,
+    updateName,
+    loadingProfilePicture,
+    profilePicture,
+    imageUploadError,
+    loading,
+  } = state;
 
   // eslint-disable-next-line no-unused-vars
   const currentUser = toSlug(userData?.name) === username;
@@ -64,11 +93,15 @@ const Profile = () => {
   };
 
   const togglePopup = () => {
-    setUpdateName(userData.name);
-    setProfilePicture(userData.profilePicture || defaultProfilePicture);
-    setPopupVisible(!isPopupVisible);
+    dispatch({ type: "TOGGLE_POPUP" });
+    dispatch({ type: "SET_UPDATE_NAME", payload: userData.name });
+    dispatch({
+      type: "SET_PROFILE_PICTURE",
+      payload: userData.profilePicture || defaultProfilePicture,
+    });
+    dispatch({ type: "SET_IMAGE_UPLOAD_ERROR", payload: "" });
+
     document.body.style.overflow = isPopupVisible ? "auto" : "hidden";
-    setImageUploadError("");
   };
 
   const handleProfilePicture = async (e) => {
@@ -77,26 +110,33 @@ const Profile = () => {
       const maxSizeInBytes = 1024 * 1024;
 
       if (file.size > maxSizeInBytes) {
-        setImageUploadError(
-          "Image size exceeds the maximum allowed size (max 1MB)."
-        );
+        dispatch({
+          type: "SET_IMAGE_UPLOAD_ERROR",
+          payload: "Image size exceeds the maximum allowed size (max 1MB).",
+        });
         return;
       }
-      setImageUploadError("");
-      setLoadingProfilePicture(true);
+      dispatch({ type: "SET_IMAGE_UPLOAD_ERROR", payload: "" });
+      dispatch({ type: "SET_LOADING_PROFILE_PICTURE", payload: true });
+
       const reader = new FileReader();
       const imageRef = ref(storage, `users/profilePictures/${userData?.uid}`);
 
       try {
         await uploadBytes(imageRef, file);
 
-        reader.onloadend = () => setProfilePicture(reader.result);
+        reader.onloadend = () =>
+          dispatch({ type: "SET_PROFILE_PICTURE", payload: reader.result });
+
         reader.readAsDataURL(file);
       } catch (error) {
         console.error("Error uploading image:", error);
-        setImageUploadError("Error uploading image. Please try again.");
+        dispatch({
+          type: "SET_IMAGE_UPLOAD_ERROR",
+          payload: "Error uploading image. Please try again.",
+        });
       } finally {
-        setLoadingProfilePicture(false);
+        dispatch({ type: "SET_LOADING_PROFILE_PICTURE", payload: false });
       }
     }
   };
@@ -110,7 +150,8 @@ const Profile = () => {
       const userDocs = await getDocs(userQuery);
 
       if (!userDocs.empty) {
-        setLoading(true);
+        dispatch({ type: "SET_LOADING", payload: true });
+
         const userDocRef = userDocs.docs[0].ref;
 
         await updateDoc(userDocRef, {
@@ -126,14 +167,15 @@ const Profile = () => {
         });
 
         console.log("User data updated successfully!");
-        setLoading(false);
+        dispatch({ type: "SET_LOADING", payload: false });
+
         togglePopup();
       } else {
         console.error("User document not found!");
       }
     } catch (error) {
       console.error("Error updating user data:", error);
-      setLoading(false);
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   };
 
@@ -213,7 +255,12 @@ const Profile = () => {
                     <Input
                       type="text"
                       value={updateName}
-                      onChange={(e) => setUpdateName(e.target.value)}
+                      onChange={(e) =>
+                        dispatch({
+                          type: "SET_UPDATE_NAME",
+                          payload: e.target.value,
+                        })
+                      }
                     />
                     <CancelAndContinue>
                       <Cta onClick={togglePopup}>Cancel</Cta>
@@ -255,12 +302,12 @@ const Profile = () => {
                   border-top: 1px solid #d5d9d9;
                 `}
               >
-                <PreferenceTile
+                <Accordion
                   title=" Dietary Preferences"
                   popupTitle="What are your dietary preferences ?"
                   popupOptions={dietaryPreferences}
                 />
-                <PreferenceTile
+                <Accordion
                   title="Age Group"
                   popupTitle="What is your age group?"
                   popupOptions={ageGroup}
