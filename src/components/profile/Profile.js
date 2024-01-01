@@ -56,10 +56,10 @@ const reducer = (state, action) => {
       return { ...state, isPopupVisible: !state.isPopupVisible };
     case "SET_UPDATE_NAME":
       return { ...state, updateName: action.payload };
-    case "SET_LOADING_PROFILE_PICTURE":
-      return { ...state, loadingProfilePicture: action.payload };
     case "SET_PROFILE_PICTURE":
       return { ...state, profilePicture: action.payload };
+    case "SET_LOADING_PROFILE_PICTURE":
+      return { ...state, loadingProfilePicture: action.payload };
     case "SET_IMAGE_UPLOAD_ERROR":
       return { ...state, imageUploadError: action.payload };
     case "SET_LOADING":
@@ -69,7 +69,7 @@ const reducer = (state, action) => {
   }
 };
 
-const Profile = () => {
+const Profile = React.memo(() => {
   const { user, userData } = useAuth();
   const navigate = useNavigate();
   const { username } = useParams();
@@ -120,14 +120,13 @@ const Profile = () => {
       dispatch({ type: "SET_LOADING_PROFILE_PICTURE", payload: true });
 
       const reader = new FileReader();
-      const imageRef = ref(storage, `users/profilePictures/${userData?.uid}`);
 
       try {
+        const imageRef = ref(storage, `users/profilePictures/${userData?.uid}`);
         await uploadBytes(imageRef, file);
 
         reader.onloadend = () =>
           dispatch({ type: "SET_PROFILE_PICTURE", payload: reader.result });
-
         reader.readAsDataURL(file);
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -323,6 +322,6 @@ const Profile = () => {
       )}
     </Main>
   );
-};
+});
 
 export default Profile;

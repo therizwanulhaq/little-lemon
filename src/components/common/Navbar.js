@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import LittleLemon from "../../assets/Asset20@4x.png";
 import { useAuth } from "../context/AuthContext";
+import { toSlug } from "./Utils";
 
 const navElements = [
   { name: "Home", path: "/", type: "navLink" },
@@ -140,16 +141,6 @@ const Logo = styled.img`
   width: 5rem;
   margin: auto;
 `;
-
-const toSlug = (text) => {
-  if (text) {
-    return text
-      .toLowerCase()
-      .replace(/[^\w ]+/g, "")
-      .replace(/ +/g, "-");
-  }
-  return ""; // Or handle the case when text is undefined
-};
 
 function Navbar() {
   const { user, userData } = useAuth();

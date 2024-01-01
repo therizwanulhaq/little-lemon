@@ -19,6 +19,7 @@ import { useAuth } from "../context/AuthContext";
 import { css } from "@emotion/css";
 import Loader from "../auth/Loader";
 import PopUp from "../common/PopUp";
+import { convertToFieldName } from "../common/Utils";
 
 const Accordion = ({ title, popupTitle, popupOptions }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -52,17 +53,6 @@ const Accordion = ({ title, popupTitle, popupOptions }) => {
     }
     setAddPopupVisible(!isAddPopupVisible);
     document.body.style.overflow = isAddPopupVisible ? "auto" : "hidden";
-  };
-
-  const convertToCamelCase = (title) => {
-    // Remove spaces and convert to camelCase
-    return title.replace(/\s+(.)/g, (match, group) => group.toUpperCase());
-  };
-
-  const convertToFieldName = (title) => {
-    const camelCaseTitle = convertToCamelCase(title);
-    // Ensure the first character is lowercase
-    return camelCaseTitle.charAt(0).toLowerCase() + camelCaseTitle.slice(1);
   };
 
   const fieldName = convertToFieldName(title);
