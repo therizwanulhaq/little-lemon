@@ -13,21 +13,15 @@ import {
   SaveButton,
 } from "./StyledComponents";
 
-import {
-  collection,
-  getDocs,
-  query,
-  updateDoc,
-  deleteField,
-  where,
-} from "@firebase/firestore";
+import { updateDoc, deleteField, doc } from "@firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../context/AuthContext";
 import { css } from "@emotion/css";
 import Loader from "../auth/Loader";
 import PopUp from "../common/PopUp";
+import { convertToFieldName } from "../common/Utils";
 
-const PreferenceTile = ({ title, popupTitle, popupOptions }) => {
+const Accordion = ({ title, popupTitle, popupOptions }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDisplayed, setIsDisplayed] = useState(false);
   const [isAddPopupVisible, setAddPopupVisible] = useState(false);
@@ -61,17 +55,6 @@ const PreferenceTile = ({ title, popupTitle, popupOptions }) => {
     document.body.style.overflow = isAddPopupVisible ? "auto" : "hidden";
   };
 
-  const convertToCamelCase = (title) => {
-    // Remove spaces and convert to camelCase
-    return title.replace(/\s+(.)/g, (match, group) => group.toUpperCase());
-  };
-
-  const convertToFieldName = (title) => {
-    const camelCaseTitle = convertToCamelCase(title);
-    // Ensure the first character is lowercase
-    return camelCaseTitle.charAt(0).toLowerCase() + camelCaseTitle.slice(1);
-  };
-
   const fieldName = convertToFieldName(title);
 
   // Update user data in Firestore
@@ -79,32 +62,22 @@ const PreferenceTile = ({ title, popupTitle, popupOptions }) => {
     try {
       setIsLoading(true); // Set loading to true when the operation starts
 
-      const usersCollection = collection(db, "users");
+      const userDocRef = doc(db, "users", user.uid);
 
-      // Find the user document by UID
-      const userQuery = query(usersCollection, where("uid", "==", user.uid));
-      const userDocs = await getDocs(userQuery);
+      // Perform the specified operation (update or delete)
+      const updateData =
+        operation === "update"
+          ? { [fieldName]: fieldValue }
+          : { [fieldName]: deleteField() };
 
-      if (userDocs.size > 0) {
-        const userDoc = userDocs.docs[0];
+      // Update or delete the user document based on the operation
+      await updateDoc(userDocRef, updateData);
 
-        // Perform the specified operation (update or delete)
-        const updateData =
-          operation === "update"
-            ? { [fieldName]: fieldValue }
-            : { [fieldName]: deleteField() };
-
-        // Update or delete the user document based on the operation
-        await updateDoc(userDoc.ref, updateData);
-
-        console.log(
-          `User data ${
-            operation === "update" ? "updated" : "field deleted"
-          } successfully`
-        );
-      } else {
-        console.log("User data not found in Firestore");
-      }
+      console.log(
+        `User data ${
+          operation === "update" ? "updated" : "field deleted"
+        } successfully`
+      );
     } catch (error) {
       console.error(
         `Error ${operation === "update" ? "updating" : "deleting"} user data:`,
@@ -227,4 +200,4 @@ const PreferenceTile = ({ title, popupTitle, popupOptions }) => {
   );
 };
 
-export default PreferenceTile;
+export default Accordion;

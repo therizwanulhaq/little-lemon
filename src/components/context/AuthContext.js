@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth, db } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Spinner from "../common/Spinner";
-import { collection, onSnapshot, query, where } from "@firebase/firestore";
+import { doc, onSnapshot } from "@firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -18,13 +18,13 @@ export const AuthProvider = ({ children }) => {
 
     const fetchUserData = async (uid) => {
       setLoading(true);
-      const usersCollection = collection(db, "users");
+      const userDocRef = doc(db, "users", uid);
 
       unsubscribeSnapshot = onSnapshot(
-        query(usersCollection, where("uid", "==", uid)),
-        (snapshot) => {
-          if (!snapshot.empty) {
-            const data = snapshot.docs[0].data();
+        userDocRef,
+        (doc) => {
+          if (doc.exists()) {
+            const data = doc.data();
             setUserData(data);
           }
           setLoading(false);

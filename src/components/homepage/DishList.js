@@ -3,6 +3,7 @@ import Card from "./Card";
 import styled from "@emotion/styled";
 import { useDishContext } from "../context/Context";
 import { Link } from "react-router-dom";
+import { toSlug } from "../common/Utils";
 
 const Dishes = styled.div`
   display: grid;
@@ -15,12 +16,6 @@ const Dishes = styled.div`
     gap: 0;
   }
 `;
-
-const toSlug = (text) =>
-  text
-    .toLowerCase()
-    .replace(/[^\w ]+/g, "")
-    .replace(/ +/g, "-");
 
 const DishList = () => {
   const dishList = useDishContext();

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import { CustomButton } from "../common/CustomButton";
 import { BackgroundImage } from "../homepage/StyledComponents";
@@ -14,7 +14,7 @@ import {
   ErrorMessage,
   SignUpOrSignInMessage,
 } from "./StyledComponents";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Loader, LoaderWrapper } from "../common/StyledComponents";
 
 const SignUp = () => {
@@ -77,9 +77,14 @@ const SignUp = () => {
       // Get the current user UID
       const userUID = currentUser.uid;
 
+      // Update the user's display name
+      await updateProfile(currentUser, {
+        displayName: name,
+      });
+
       // Add user data to FireStore
-      const usersCollection = collection(db, "users");
-      await addDoc(usersCollection, {
+      const userDocRef = doc(db, "users", userUID);
+      await setDoc(userDocRef, {
         uid: userUID,
         name: name,
         email: email,

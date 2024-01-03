@@ -15,6 +15,7 @@ import { useAuth } from "../context/AuthContext";
 import PageNotFound from "./PageNotFound";
 import TestPage from "./TestPage";
 import ResetPassword from "../auth/ResetPassword";
+import SetNewPassword from "../auth/SetNewPassword";
 
 const Urls = () => {
   const { user } = useAuth();
@@ -79,6 +80,7 @@ const Urls = () => {
         <Route path="/order-online" element={<OrderOnline />} />
         <Route path="/test" element={<TestPage />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/set-new-password" element={<SetNewPassword />} />
 
         <Route
           path="/booking"
