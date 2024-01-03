@@ -8,8 +8,8 @@ export const CustomButton = styled.button((props) => ({
   padding: props.padding || "0.7rem 2rem",
   border: props.disabled ? "1px solid #FFED94" : "none",
   borderRadius: props.borderRadius || "1rem",
-  fontWeight: "700",
-  fontSize: props.fontSize || "1rem",
+  fontWeight: "600",
+  fontSize: props.fontSize || "0.9rem",
   margin: props.margin || "1rem 0",
   transition: "background 0.3s ease",
   cursor: props.disabled ? "not-allowed" : "pointer", // Adjust cursor based on disabled state

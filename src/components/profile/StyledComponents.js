@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { NavLink } from "react-router-dom";
+import { CustomButton } from "../common/CustomButton";
 
 const breakpoints = [576, 768, 992, 1200];
 
@@ -289,3 +291,93 @@ export const Options = styled.button((props) => ({
     height: "3rem",
   },
 }));
+
+//Login & Security
+
+export const Section = styled.section`
+  min-width: 300px;
+  max-width: 600px;
+  margin: auto;
+`;
+
+export const Title = styled.h2`
+  margin-top: 1.5rem;
+  font-size: 1.7rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+
+  ${mq[1]} {
+    font-size: 1.5rem;
+  }
+`;
+
+export const Container = styled.div`
+  outline: 1px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+`;
+
+export const AccountSettingsNavigation = styled.p`
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  ${mq[1]} {
+    display: none;
+  }
+`;
+
+const linkStyles = `
+  color: #007185;
+  text-decoration: none;
+
+   &.active {
+    color: #c66218;
+  }
+  `;
+
+export const StyledLink = styled(NavLink)`
+  ${linkStyles}
+`;
+
+export const UerDetailChangeInfo = styled.p`
+  color: #111;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.3rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+`;
+
+export const Label = styled.label`
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+`;
+
+export const Input = styled.input`
+  width: 15rem;
+  padding: 0.7rem 0.5rem;
+  border-radius: 0.3rem;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+  outline: none;
+  appearance: textfield;
+  display: block;
+
+  &:focus {
+    border-color: #f4ce14;
+  }
+
+  ${mq[1]} {
+    width: 100%;
+  }
+`;
+
+export const SaveChanges = styled(CustomButton)`
+  width: 9rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  ${mq[1]} {
+    width: 100%;
+  }
+`;

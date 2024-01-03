@@ -16,6 +16,13 @@ import PageNotFound from "./PageNotFound";
 import TestPage from "./TestPage";
 import ResetPassword from "../auth/ResetPassword";
 import SetNewPassword from "../auth/SetNewPassword";
+import Cart from "../cart/Cart";
+import YourOrders from "../profile/YourOrders";
+import YourAddresses from "../profile/YourAddresses";
+import LoginAndSecurity from "../profile/LoginAndSecurity";
+import ChangeName from "../profile/ChangeName";
+import ChangeEmail from "../profile/ChangeEmail";
+import ChangePassword from "../profile/ChangePassword";
 
 const Urls = () => {
   const { user } = useAuth();
@@ -102,6 +109,17 @@ const Urls = () => {
             <Route path="/sign-up" element={<SignUp />} />
           </>
         )}
+
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/account/orders" element={<YourOrders />} />
+        <Route path="/your-addresses" element={<YourAddresses />} />
+        <Route path="/account/manage" element={<LoginAndSecurity />} />
+        <Route path="/account/manage/change-name" element={<ChangeName />} />
+        <Route path="/account/manage/change-email" element={<ChangeEmail />} />
+        <Route
+          path="/account/manage/change-password"
+          element={<ChangePassword />}
+        />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
