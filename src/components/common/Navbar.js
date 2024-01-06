@@ -142,6 +142,28 @@ const Logo = styled.img`
   margin: auto;
 `;
 
+const ShoppingCartContainer = styled.div`
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+`;
+
+const ShoppingCart = styled.span`
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+`;
+
+const ShoppingCartItems = styled.p`
+  z-index: 2;
+  position: absolute;
+  bottom: 45%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  font-size: 0.8rem;
+  font-weight: 700;
+`;
+
 function Navbar() {
   const { user, userData } = useAuth();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -170,6 +192,14 @@ function Navbar() {
         ) : (
           <DesktopNavLink to="/sign-in">Login</DesktopNavLink>
         )}
+        <DesktopNavLink to={user ? "/cart" : "/login"}>
+          <ShoppingCartContainer>
+            <ShoppingCart className="material-symbols-outlined">
+              shopping_cart
+            </ShoppingCart>
+            <ShoppingCartItems>4</ShoppingCartItems>
+          </ShoppingCartContainer>
+        </DesktopNavLink>
       </DesktopNavBar>
       <HamburgerMenu
         className="material-symbols-outlined"
