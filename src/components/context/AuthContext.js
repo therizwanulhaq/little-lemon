@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth, db } from "../../firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, updateProfile } from "firebase/auth";
 import Spinner from "../common/Spinner";
-import { doc, onSnapshot } from "@firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "@firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -52,6 +52,32 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
+  const updateUserData = async (updateFields) => {
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+
+      await updateDoc(userDocRef, updateFields);
+
+      const currentUser = auth.currentUser;
+
+      if (updateFields.name) {
+        await updateDisplayName(currentUser, updateFields.name);
+      }
+
+      console.log("User data updated successfully!");
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
+  };
+
+  const updateDisplayName = async (currentUser, name) => {
+    try {
+      await updateProfile(currentUser, { displayName: name });
+    } catch (error) {
+      console.error("Error updating display name:", error);
+    }
+  };
+
   if (loading) {
     return <Spinner />;
   }
@@ -61,7 +87,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, userData }}>
+    <AuthContext.Provider value={{ user, userData, updateUserData }}>
       {!loading && children}
     </AuthContext.Provider>
   );

@@ -28,15 +28,8 @@ import Accordion from "./Accordion";
 import { Loader, LoaderWrapper } from "../common/StyledComponents";
 import { css } from "@emotion/css";
 import PopUp from "../common/PopUp";
-import { auth, db, storage } from "../../firebase";
-import {
-  collection,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "@firebase/firestore";
-import { signOut, updateProfile } from "firebase/auth";
+import { auth, storage } from "../../firebase";
+import { signOut } from "firebase/auth";
 import { ref, uploadBytes } from "firebase/storage";
 import PersonalizedSection from "./PersonalizedSection";
 import { toSlug } from "../common/Utils";
@@ -70,7 +63,7 @@ const reducer = (state, action) => {
 };
 
 const Profile = React.memo(() => {
-  const { user, userData } = useAuth();
+  const { user, userData, updateUserData } = useAuth();
   const navigate = useNavigate();
   const { username } = useParams();
   const fileInputRef = useRef(null);
@@ -144,34 +137,16 @@ const Profile = React.memo(() => {
     e.preventDefault();
 
     try {
-      const usersCollection = collection(db, "users");
-      const userQuery = query(usersCollection, where("uid", "==", user.uid));
-      const userDocs = await getDocs(userQuery);
+      dispatch({ type: "SET_LOADING", payload: true });
+      const updateFields = {
+        name: updateName,
+        profilePicture: profilePicture,
+      };
 
-      if (!userDocs.empty) {
-        dispatch({ type: "SET_LOADING", payload: true });
+      await updateUserData(updateFields);
+      dispatch({ type: "SET_LOADING", payload: false });
 
-        const userDocRef = userDocs.docs[0].ref;
-
-        await updateDoc(userDocRef, {
-          name: updateName,
-          profilePicture: profilePicture,
-        });
-
-        const currentUser = auth.currentUser;
-
-        // Update the user's display name
-        await updateProfile(currentUser, {
-          displayName: updateName,
-        });
-
-        console.log("User data updated successfully!");
-        dispatch({ type: "SET_LOADING", payload: false });
-
-        togglePopup();
-      } else {
-        console.error("User document not found!");
-      }
+      togglePopup();
     } catch (error) {
       console.error("Error updating user data:", error);
       dispatch({ type: "SET_LOADING", payload: false });
