@@ -2,44 +2,45 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 const Container = styled.div`
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  /* margin-top: 2rem; */
+  /* margin-bottom: 0.5rem; */
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: start;
+  gap: 0.5rem;
   align-items: center;
   user-select: none;
+  width: 9rem;
+  color: #0f1111;
 `;
 
 const Quantity = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
 `;
 
 const Button = styled.span`
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1rem;
   cursor: pointer;
 `;
 
-const QuantityOfDishes = ({ onQuantityChange }) => {
+const DishQuantity = () => {
   const [quantity, setQuantity] = useState(1);
 
   const incrementQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
-    onQuantityChange((prevQuantity) => prevQuantity + 1); // Notify the parent component about the quantity change
+    setQuantity((prevQuantity) => prevQuantity + 1); 
   };
 
   const decrementQuantity = () => {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
-      onQuantityChange((prevQuantity) => prevQuantity - 1); // Notify the parent component about the quantity change
     }
   };
 
   return (
     <>
       <Container>
+     <Quantity>Quantity: </Quantity>
         <Button
           className="material-symbols-outlined"
           onClick={decrementQuantity}
@@ -58,4 +59,4 @@ const QuantityOfDishes = ({ onQuantityChange }) => {
   );
 };
 
-export default QuantityOfDishes;
+export default DishQuantity;
