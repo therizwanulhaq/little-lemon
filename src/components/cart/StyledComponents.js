@@ -6,7 +6,7 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Main = styled.main`
   padding: 2rem 15rem;
-  background: #eaeded;
+  /* background: #eaeded; */
   min-height: 100vh;
   ${mq[3]} {
     padding: 2rem 10rem;
@@ -25,6 +25,8 @@ export const Main = styled.main`
 `;
 
 export const Container = styled.section`
+ border: 1px solid #ccc;
+  border-radius: 0.3rem;
   width: 100%;
   background: #ffffff;
   padding: 1rem;
@@ -65,6 +67,8 @@ export const Checkout = styled.div`
   height: 15rem;
   background: #ffffff;
   padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
 `
 export const FreeDelivery = styled.p`
 margin-top: 1rem;

@@ -26,6 +26,18 @@ const dishes = [
     description: "Assorted cheeses served with crackers and fruits.",
     price: "$8.99",
   },
+  {
+    name: "Cheese Platter",
+    image: dishImageSource,
+    description: "Assorted cheeses served with crackers and fruits.",
+    price: "$8.99",
+  },
+  {
+    name: "Cheese Platter",
+    image: dishImageSource,
+    description: "Assorted cheeses served with crackers and fruits.",
+    price: "$8.99",
+  },
   
 ];
 
