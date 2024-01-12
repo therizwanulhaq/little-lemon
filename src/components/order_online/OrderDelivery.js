@@ -12,8 +12,8 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const Section = styled.section`
-  padding: 0 15rem;
-  min-height: 80vh;
+  padding: 1rem 15rem 0 15rem;
+  min-height: 100vh;
   display: grid;
   gap: 2.5rem;
   grid-template-columns: repeat(2, 1fr);
