@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import logo from "../../assets/Asset18@4x.png";
+import { useLocation } from "react-router-dom";
 
 const breakpoints = [576, 768, 992, 1200];
 
@@ -59,31 +60,35 @@ const FooterLink = styled.a`
 `;
 
 const Footer = () => {
+  const location = useLocation();
+  const isDashboardRoute = location.pathname.includes("/dashboard");
   return (
-    <FooterContainer>
-      <Logo src={logo} alt="Logo" />
-      <LinkSection>
-        <SectionTitle>Doormat Navigation</SectionTitle>
-        <FooterLink href="#">Home</FooterLink>
-        <FooterLink href="#">About</FooterLink>
-        <FooterLink href="#">Menu</FooterLink>
-        <FooterLink href="#">Reservations</FooterLink>
-        <FooterLink href="#">Order Online</FooterLink>
-        <FooterLink href="#">Login</FooterLink>
-      </LinkSection>
-      <LinkSection>
-        <SectionTitle>Contact</SectionTitle>
-        <FooterLink href="#">Address</FooterLink>
-        <FooterLink href="#">Phone Number</FooterLink>
-        <FooterLink href="#">Email</FooterLink>
-      </LinkSection>
-      <LinkSection>
-        <SectionTitle>Socials</SectionTitle>
-        <FooterLink href="#">Instagram</FooterLink>
-        <FooterLink href="#">Facebook</FooterLink>
-        <FooterLink href="#">Twitter</FooterLink>
-      </LinkSection>
-    </FooterContainer>
+    !isDashboardRoute && (
+      <FooterContainer>
+        <Logo src={logo} alt="Logo" />
+        <LinkSection>
+          <SectionTitle>Doormat Navigation</SectionTitle>
+          <FooterLink href="#">Home</FooterLink>
+          <FooterLink href="#">About</FooterLink>
+          <FooterLink href="#">Menu</FooterLink>
+          <FooterLink href="#">Reservations</FooterLink>
+          <FooterLink href="#">Order Online</FooterLink>
+          <FooterLink href="#">Login</FooterLink>
+        </LinkSection>
+        <LinkSection>
+          <SectionTitle>Contact</SectionTitle>
+          <FooterLink href="#">Address</FooterLink>
+          <FooterLink href="#">Phone Number</FooterLink>
+          <FooterLink href="#">Email</FooterLink>
+        </LinkSection>
+        <LinkSection>
+          <SectionTitle>Socials</SectionTitle>
+          <FooterLink href="#">Instagram</FooterLink>
+          <FooterLink href="#">Facebook</FooterLink>
+          <FooterLink href="#">Twitter</FooterLink>
+        </LinkSection>
+      </FooterContainer>
+    )
   );
 };
 

@@ -23,6 +23,7 @@ import LoginAndSecurity from "../profile/LoginAndSecurity";
 import ChangeName from "../profile/ChangeName";
 import ChangeEmail from "../profile/ChangeEmail";
 import ChangePassword from "../profile/ChangePassword";
+import Dashboard from "../dashboard/Dashboard";
 
 const Urls = () => {
   const { user } = useAuth();
@@ -120,6 +121,7 @@ const Urls = () => {
           path="/account/manage/change-password"
           element={<ChangePassword />}
         />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
