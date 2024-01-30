@@ -4,7 +4,7 @@ export const CustomButton = styled.button((props) => ({
   width: props.width || "auto",
   height: props.height || "auto",
   color: props.color || "#333333",
-  background: props.disabled ? "3333337a" : "#F4CE14",
+  background: props.disabled ? "3333337a" : props.background || "#F4CE14",
   padding: props.padding || "0.7rem 2rem",
   border: props.disabled ? "1px solid #FFED94" : "none",
   borderRadius: props.borderRadius || "0.4rem",
@@ -37,6 +37,7 @@ export const CategoriesButton = styled(CustomButton)((props) => ({
   background: props.selected ? " #f4ce14" : "#495e57",
   fontSize: "0.8rem",
   padding: "0.4rem",
+  borderRadius: "1rem",
 
   "&:hover": {
     background: props.selected ? "#f4ce14" : "#495e57",
