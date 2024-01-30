@@ -5,7 +5,7 @@ import { CtaButton } from "../common/CustomButton";
 import DishModifiers from "./DishModifiers";
 import QuantityOfDishes from "./QuantityOfDishes";
 import { useParams } from "react-router-dom";
-import { useDishContext } from "../context/Context";
+import { useDishContext } from "../context/DishContext";
 
 const breakpoints = [576, 768, 992, 1200];
 
