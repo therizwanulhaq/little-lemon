@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { CategoriesButton } from "../common/CustomButton";
-import { useDishContext } from "../context/Context";
+import { useDishContext } from "../context/DishContext";
 import DishTile from "./DishTile";
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,7 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const Main = styled.main`
+  padding-top: 1rem;
   min-height: 100vh;
   padding-bottom: 5rem;
 `;

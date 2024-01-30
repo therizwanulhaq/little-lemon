@@ -6,7 +6,7 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Main = styled.main`
   padding: 2rem 15rem;
-  background: #eaeded;
+  /* background: #eaeded; */
   min-height: 100vh;
   ${mq[3]} {
     padding: 2rem 10rem;
@@ -25,6 +25,8 @@ export const Main = styled.main`
 `;
 
 export const Container = styled.section`
+ border: 1px solid #ccc;
+  border-radius: 0.3rem;
   width: 100%;
   background: #ffffff;
   padding: 1rem;
@@ -47,3 +49,42 @@ export const TitleAndPrice = styled.div`
   padding-bottom: 1rem;
   border-bottom: 1px solid #ccc;
 `;
+
+
+export const ShoppingCart = styled.div`
+  display: grid;
+  grid-template-columns: 2.5fr 1.5fr;
+  gap: 1rem;
+`;
+
+export const Divider = styled.div`
+  margin-top: 1rem;
+  border-bottom: 1px solid #ccc;
+`;
+
+export const Checkout = styled.div`
+  width: 100%;
+  height: 15rem;
+  background: #ffffff;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+`
+export const FreeDelivery = styled.p`
+margin-top: 1rem;
+color: #077e63;
+font-weight: 600;
+font-size: 0.9rem;
+display: inline-flex;
+gap: 0.3rem;
+align-items: center;
+margin-bottom: 1rem;
+
+`
+export const Icon = styled.span`
+font-size: 1rem;
+`
+export const Subtotal = styled.p`
+font-size: 1.1rem;
+font-weight: 500;
+`

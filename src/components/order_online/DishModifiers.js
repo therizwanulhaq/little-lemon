@@ -17,6 +17,7 @@ const Cta = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  user-select: none;
 `;
 
 const Price = styled.p`

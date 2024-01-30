@@ -5,15 +5,15 @@ import { CtaButton } from "../common/CustomButton";
 import DishModifiers from "./DishModifiers";
 import QuantityOfDishes from "./QuantityOfDishes";
 import { useParams } from "react-router-dom";
-import { useDishContext } from "../context/Context";
+import { useDishContext } from "../context/DishContext";
 
 const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const Section = styled.section`
-  padding: 0 15rem;
-  min-height: 80vh;
+  padding: 1rem 15rem 0 15rem;
+  min-height: 100vh;
   display: grid;
   gap: 2.5rem;
   grid-template-columns: repeat(2, 1fr);
@@ -42,6 +42,7 @@ const Container = styled.div`
 `;
 const DishImage = styled.img`
   width: 100%;
+  border-radius: 0.3rem;
   height: 15rem;
   object-fit: cover;
   ${mq[1]} {

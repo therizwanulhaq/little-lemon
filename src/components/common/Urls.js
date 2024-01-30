@@ -23,6 +23,7 @@ import LoginAndSecurity from "../profile/LoginAndSecurity";
 import ChangeName from "../profile/ChangeName";
 import ChangeEmail from "../profile/ChangeEmail";
 import ChangePassword from "../profile/ChangePassword";
+import Dashboard from "../dashboard/Dashboard";
 
 const Urls = () => {
   const { user } = useAuth();
@@ -84,13 +85,13 @@ const Urls = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/order-online" element={<OrderOnline />} />
-        <Route path="/test" element={<TestPage />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/set-new-password" element={<SetNewPassword />} />
+        <Route path="order-online" element={<OrderOnline />} />
+        <Route path="test" element={<TestPage />} />
+        <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="set-new-password" element={<SetNewPassword />} />
 
         <Route
-          path="/booking"
+          path="booking"
           element={
             <BookingForm
               availableTimes={availableTimes}
@@ -99,27 +100,28 @@ const Urls = () => {
             />
           }
         />
-        <Route path="/booking/confirmed" element={<ConfirmedBooking />} />
-        <Route path="/order-online/:dishName" element={<OrderDelivery />} />
+        <Route path="booking/confirmed" element={<ConfirmedBooking />} />
+        <Route path="order-online/:dishName" element={<OrderDelivery />} />
         {user ? (
           <Route path="profile/:username" element={<Profile />} />
         ) : (
           <>
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="sign-in" element={<SignIn />} />
+            <Route path="sign-up" element={<SignUp />} />
           </>
         )}
 
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/account/orders" element={<YourOrders />} />
-        <Route path="/your-addresses" element={<YourAddresses />} />
-        <Route path="/account/manage" element={<LoginAndSecurity />} />
-        <Route path="/account/manage/change-name" element={<ChangeName />} />
-        <Route path="/account/manage/change-email" element={<ChangeEmail />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="account/orders" element={<YourOrders />} />
+        <Route path="your-addresses" element={<YourAddresses />} />
+        <Route path="account/manage" element={<LoginAndSecurity />} />
+        <Route path="account/manage/change-name" element={<ChangeName />} />
+        <Route path="account/manage/change-email" element={<ChangeEmail />} />
         <Route
-          path="/account/manage/change-password"
+          path="account/manage/change-password"
           element={<ChangePassword />}
         />
+        <Route path="dashboard/*" element={<Dashboard />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
