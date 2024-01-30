@@ -42,6 +42,7 @@ const Container = styled.div`
 `;
 const DishImage = styled.img`
   width: 100%;
+  border-radius: 0.3rem;
   height: 15rem;
   object-fit: cover;
   ${mq[1]} {
