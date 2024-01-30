@@ -4,19 +4,19 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { DishListProvider } from "./components/context/Context";
 import { AuthProvider } from "./components/context/AuthContext";
+import { DishDataProvider } from "./components/context/DishContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <DishListProvider>
+    <DishDataProvider>
       <AuthProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </AuthProvider>
-    </DishListProvider>
+    </DishDataProvider>
   </React.StrictMode>
 );
 
