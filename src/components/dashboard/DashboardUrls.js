@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import DishListPage from "./DishListPage";
-import EditDishPage from "./EditDishPage";
-import AddNewDish from "./AddNewDish";
+import AddNewDish from "./online_menu/AddNewDish";
+import DishListPage from "./online_menu/DishListPage";
+import EditDishPage from "./online_menu/EditDishPage";
 
 const Section = styled.section`
   grid-area: dashboardUrls;

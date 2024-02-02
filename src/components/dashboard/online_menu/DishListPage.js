@@ -19,7 +19,7 @@ import {
   Title,
 } from "./StyledComponents";
 
-import { useDishContext } from "../context/DishContext";
+import { useDishContext } from "../../context/DishContext";
 
 const DishListPage = () => {
   const dishData = useDishContext();

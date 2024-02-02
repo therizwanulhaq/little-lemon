@@ -1,8 +1,8 @@
 import React, { useReducer, useRef } from "react";
-import { db, storage } from "../../firebase";
+import { db, storage } from "../../../firebase";
 import { addDoc, collection, doc, updateDoc } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useDishContext } from "../context/DishContext";
+import { useDishContext } from "../../context/DishContext";
 import {
   DeleteIcon,
   DishStatus,
@@ -21,7 +21,7 @@ import {
   UploadFileIcon,
   UploadFileText,
 } from "./StyledComponents";
-import { Loader } from "../common/StyledComponents";
+import { Loader } from "../../common/StyledComponents";
 
 const initialState = {
   dishImage: "",
