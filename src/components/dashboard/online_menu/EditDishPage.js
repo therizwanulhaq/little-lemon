@@ -168,7 +168,8 @@ const EditDishPage = () => {
   };
 
   //Handle submitting dish data
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       dispatch({ type: "SET_SAVING_CHANGES", payload: true });
       const imageRef = ref(storage, `dishData/images/${dishData.id}`);
@@ -204,7 +205,6 @@ const EditDishPage = () => {
   };
 
   const handleDeleteDish = async (e) => {
-    e.preventDefault();
     try {
       dispatch({ type: "SET_DELETING_DISH_DATA", payload: true });
       const dishDocRef = doc(db, "dishData", id);
@@ -237,7 +237,7 @@ const EditDishPage = () => {
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <div>
         <HeaderContainer>
           <h3>Edit Dish</h3>
@@ -381,8 +381,7 @@ const EditDishPage = () => {
             color="white"
             background="#067d62"
             width="100%"
-            type="button"
-            onClick={handleSubmit}
+            type="submit"
             disabled={savingChanges}
           >
             {savingChanges ? (
@@ -407,6 +406,7 @@ const EditDishPage = () => {
               background="red"
               color="white"
               width="100%"
+              type="button"
               onClick={handleDeleteDish}
               disabled={deletingDishData}
             >

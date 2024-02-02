@@ -36,20 +36,6 @@ const SidebarNav = styled.ul`
   margin-top: 3rem;
 `;
 
-const SideBarElement = styled.li`
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 1rem;
-  border-radius: 1rem;
-  cursor: pointer;
-
-  :hover {
-    background: #f4f4f4;
-  }
-`;
-
 const Icon = styled.span`
   font-size: 1.2rem;
 `;
@@ -60,12 +46,24 @@ const Title = styled.p`
 `;
 
 const linkStyles = `
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+padding: 0.4rem 1rem;
+border-radius: 1rem;
+cursor: pointer;
 color: #1b2e35;
   text-decoration: none;
 
+  :hover {
+    background: #f4f4f4;
+  }
    &.active {
     color: #c66218;
   }
+
+
   `;
 
 const StyledNavlink = styled(NavLink)`
@@ -76,16 +74,16 @@ const Sidebar = () => {
   const { userData } = useAuth();
 
   const sidebarMenu = [
-    { icon: "overview", title: "Overview", path: "online-menu" },
+    { icon: "overview", title: "Overview", path: "/dashboard/overview" },
     {
       icon: "receipt_long",
       title: "Reservations",
-      path: "online-menu",
+      path: "/dashboard/reservations",
     },
     {
       icon: "restaurant_menu",
       title: "Online Menu",
-      path: "online-menu",
+      path: "/dashboard/online-menu",
     },
   ];
   return (
@@ -100,12 +98,8 @@ const Sidebar = () => {
       <SidebarNav>
         {sidebarMenu.map((sidebarNav) => (
           <StyledNavlink key={sidebarNav.title} to={sidebarNav.path}>
-            <SideBarElement>
-              <Icon className="material-symbols-outlined">
-                {sidebarNav.icon}
-              </Icon>
-              <Title>{sidebarNav.title}</Title>
-            </SideBarElement>
+            <Icon className="material-symbols-outlined">{sidebarNav.icon}</Icon>
+            <Title>{sidebarNav.title}</Title>
           </StyledNavlink>
         ))}
       </SidebarNav>
