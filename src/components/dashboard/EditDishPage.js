@@ -299,17 +299,25 @@ const EditDishPage = () => {
           value={dishCategory}
           onChange={handleInputChange}
         >
-          <Option>{dishCategory}</Option>
+          {/* <Option>{dishCategory}</Option> */}
           {dishCategories.map((category, index) => (
             <Option key={index}>{category}</Option>
           ))}
+          <Option value="__new__">Add New Category</Option>
         </Select>
-        <Input
-          type="text"
-          name="newCategory"
-          value={dishCategory}
-          onChange={handleInputChange}
-        />
+        {dishCategory === "__new__" && (
+          <Input
+            type="text"
+            name="newCategory"
+            value={newDishCategory}
+            onChange={(e) =>
+              dispatch({
+                type: "SET_NEW_DISH_CATEGORY",
+                payload: e.target.value,
+              })
+            }
+          />
+        )}
       </div>
 
       <div>

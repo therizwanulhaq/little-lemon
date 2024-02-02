@@ -3,6 +3,8 @@ import { useAuth } from "../context/AuthContext";
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 
+import defaultProfilePicture from "../../assets/defaultProfilePicture.jpg";
+
 const Aside = styled.aside`
   padding: 2rem;
   border-right: 1px solid #ccc;
@@ -20,6 +22,7 @@ const Profile = styled.div`
 const ProfilePicture = styled.img`
   width: 2rem;
   height: 2rem;
+  border: 1px solid #ccc;
   object-fit: cover;
   border-radius: 50%;
 `;
@@ -88,7 +91,10 @@ const Sidebar = () => {
   return (
     <Aside>
       <Profile>
-        <ProfilePicture src={userData?.profilePicture} alt="user" />
+        <ProfilePicture
+          src={userData?.profilePicture || defaultProfilePicture}
+          alt="user"
+        />
         <ProfileName>{userData?.name}</ProfileName>
       </Profile>
       <SidebarNav>
