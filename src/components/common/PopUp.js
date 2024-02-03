@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-export const Popup = styled.div`
+export const PopupContainer = styled.div`
   position: fixed;
   z-index: 3;
   top: 50%;
@@ -64,7 +64,7 @@ export const PopupOverlay = styled.div`
 const PopUp = ({ isVisible, togglePopup, title, children }) => {
   return (
     <>
-      <Popup isVisible={isVisible}>
+      <PopupContainer isVisible={isVisible}>
         <PopupHeader>
           <h2>{title}</h2>
           <ClosePopUpIcon
@@ -75,7 +75,7 @@ const PopUp = ({ isVisible, togglePopup, title, children }) => {
           </ClosePopUpIcon>
         </PopupHeader>
         <PopupBody>{children}</PopupBody>
-      </Popup>
+      </PopupContainer>
       <PopupOverlay isVisible={isVisible} onClick={togglePopup} />
     </>
   );
