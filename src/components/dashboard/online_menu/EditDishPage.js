@@ -8,7 +8,6 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
-import { useDishContext } from "../../context/DishContext";
 import {
   DeleteIcon,
   DishStatus,
@@ -31,31 +30,32 @@ import {
 } from "./StyledComponents";
 import { Loader } from "../../common/StyledComponents";
 import PopUp from "../../common/PopUp";
+import { useAppDataContext } from "../../context/AppDataContext";
 
 const EditDishPage = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
-  const dishDataFromContext = useDishContext();
+  const { dishData } = useAppDataContext();
   const { id } = useParams();
 
   const dishCategories = [
-    ...new Set(dishDataFromContext.map((dishData) => dishData.category)),
+    ...new Set(dishData.map((dishData) => dishData.category)),
   ];
 
   // Find the specific dish data based on the 'id' parameter
-  const dishData = dishDataFromContext.find((dish) => dish.id === id) || {};
+  const selectedDishData = dishData.find((dish) => dish.id === id) || {};
 
   const initialState = {
     savingChanges: false,
     deletingDishData: false,
     imageUploadLoader: false,
     dishImagePreview: null,
-    dishName: dishData.name || "",
-    dishPrice: dishData.price || "",
-    dishDescription: dishData.description || "",
-    dishCategory: dishData.category || "",
+    dishName: selectedDishData.name || "",
+    dishPrice: selectedDishData.price || "",
+    dishDescription: selectedDishData.description || "",
+    dishCategory: selectedDishData.category || "",
     newDishCategory: "",
-    modifiers: dishData.modifiers || [{ name: "", price: "" }],
+    modifiers: selectedDishData.modifiers || [{ name: "", price: "" }],
     dishStatus: null,
     isPopupVisible: false,
   };
@@ -128,7 +128,7 @@ const EditDishPage = () => {
 
         dispatch({ type: "SET_DISH_IMAGE", payload: file });
 
-        const imageRef = ref(storage, `dishData/images/${dishData.id}`);
+        const imageRef = ref(storage, `dishData/images/${selectedDishData.id}`);
         await uploadBytes(imageRef, file);
 
         dispatch({
@@ -172,7 +172,7 @@ const EditDishPage = () => {
     e.preventDefault();
     try {
       dispatch({ type: "SET_SAVING_CHANGES", payload: true });
-      const imageRef = ref(storage, `dishData/images/${dishData.id}`);
+      const imageRef = ref(storage, `dishData/images/${selectedDishData.id}`);
 
       const imageUrl = await getDownloadURL(imageRef);
 
@@ -255,8 +255,8 @@ const EditDishPage = () => {
             </LoaderContainer>
           ) : (
             <ImagePreview
-              src={dishImagePreview || dishData.image}
-              alt={dishData.name}
+              src={dishImagePreview || selectedDishData.image}
+              alt={selectedDishData.name}
             />
           )}
         </ImagePreviewContainer>

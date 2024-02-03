@@ -1,9 +1,10 @@
 import React from "react";
 import Card from "./Card";
 import styled from "@emotion/styled";
-import { useDishContext } from "../context/DishContext";
+
 import { Link } from "react-router-dom";
 import { toSlug } from "../common/Utils";
+import { useAppDataContext } from "../context/AppDataContext";
 
 const Dishes = styled.div`
   display: grid;
@@ -18,9 +19,9 @@ const Dishes = styled.div`
 `;
 
 const DishList = () => {
-  const dishList = useDishContext();
+  const { dishData } = useAppDataContext();
   // Limit the displayed dishes to only three
-  const limitedDishList = dishList.slice(4, 7);
+  const limitedDishList = dishData.slice(4, 7);
   return (
     <Dishes>
       {limitedDishList.map((dish) => (

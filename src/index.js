@@ -5,18 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./components/context/AuthContext";
-import { DishDataProvider } from "./components/context/DishContext";
+import { AppDataProvider } from "./components/context/AppDataContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <DishDataProvider>
+    <AppDataProvider>
       <AuthProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </AuthProvider>
-    </DishDataProvider>
+    </AppDataProvider>
   </React.StrictMode>
 );
 

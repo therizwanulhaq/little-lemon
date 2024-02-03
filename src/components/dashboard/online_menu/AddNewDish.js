@@ -2,7 +2,7 @@ import React, { useReducer, useRef } from "react";
 import { db, storage } from "../../../firebase";
 import { addDoc, collection, doc, updateDoc } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useDishContext } from "../../context/DishContext";
+
 import {
   DeleteIcon,
   DishStatus,
@@ -22,6 +22,7 @@ import {
   UploadFileText,
 } from "./StyledComponents";
 import { Loader } from "../../common/StyledComponents";
+import { useAppDataContext } from "../../context/AppDataContext";
 
 const initialState = {
   dishImage: "",
@@ -68,9 +69,9 @@ const reducer = (state, action) => {
 };
 
 const AddNewDish = () => {
-  const existingDishData = useDishContext() || [];
+  const { dishData } = useAppDataContext() || [];
   const existingCategories = [
-    ...new Set(existingDishData.map((dishData) => dishData.category) || []),
+    ...new Set(dishData.map((dishData) => dishData.category) || []),
   ];
   const fileInputRef = useRef(null);
 

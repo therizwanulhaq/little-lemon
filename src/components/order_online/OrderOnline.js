@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { CategoriesButton } from "../common/CustomButton";
-import { useDishContext } from "../context/DishContext";
+
 import DishTile from "./DishTile";
 import { Link } from "react-router-dom";
+import { useAppDataContext } from "../context/AppDataContext";
 
 const focusColor = "#f4ce14";
 
@@ -161,12 +162,12 @@ const OrderOnline = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const dishList = useDishContext();
+  const { dishData } = useAppDataContext();
 
   // Getting categories from dishes
-  const dishCategories = [...new Set(dishList.map((dish) => dish.category))];
+  const dishCategories = [...new Set(dishData.map((dish) => dish.category))];
 
-  const filteredDishes = dishList.filter((dish) => {
+  const filteredDishes = dishData.filter((dish) => {
     // Filter by category
     if (selectedCategory && dish.category !== selectedCategory) {
       return false;

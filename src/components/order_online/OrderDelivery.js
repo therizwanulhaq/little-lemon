@@ -5,7 +5,7 @@ import { CtaButton } from "../common/CustomButton";
 import DishModifiers from "./DishModifiers";
 import QuantityOfDishes from "./QuantityOfDishes";
 import { useParams } from "react-router-dom";
-import { useDishContext } from "../context/DishContext";
+import { useAppDataContext } from "../context/AppDataContext";
 
 const breakpoints = [576, 768, 992, 1200];
 
@@ -124,11 +124,11 @@ const toSlug = (text) =>
 
 const OrderDelivery = () => {
   const { dishName } = useParams();
-  const dishList = useDishContext();
+  const { dishData } = useAppDataContext();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
   // Find the dish with the matching dishName
-  const selectedDish = dishList.find((dish) => toSlug(dish.name) === dishName);
+  const selectedDish = dishData.find((dish) => toSlug(dish.name) === dishName);
 
   // Calculate the initial total price based on modifiers prices
   const initialTotalPrice = selectedDish?.modifiers?.reduce(
