@@ -1,7 +1,8 @@
 import React from "react";
+import { Main } from "./StyledComponents";
 
 const YourOrders = () => {
-  return <div></div>;
+  return <Main></Main>;
 };
 
 export default YourOrders;

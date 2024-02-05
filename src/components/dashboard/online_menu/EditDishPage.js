@@ -363,7 +363,10 @@ const EditDishPage = () => {
               }
             />
 
-            <DeleteIcon onClick={() => handleDeleteModifier(index)}>
+            <DeleteIcon
+              type="button"
+              onClick={() => handleDeleteModifier(index)}
+            >
               <span className="material-symbols-outlined">delete</span>
             </DeleteIcon>
           </ModifierBody>

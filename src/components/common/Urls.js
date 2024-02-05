@@ -15,13 +15,13 @@ import ResetPassword from "../auth/ResetPassword";
 import SetNewPassword from "../auth/SetNewPassword";
 import Cart from "../cart/Cart";
 import YourOrders from "../profile/YourOrders";
-import YourAddresses from "../profile/YourAddresses";
 import LoginAndSecurity from "../profile/LoginAndSecurity";
 import ChangeName from "../profile/ChangeName";
 import ChangeEmail from "../profile/ChangeEmail";
 import ChangePassword from "../profile/ChangePassword";
 import Dashboard from "../dashboard/Dashboard";
 import Test from "./Test";
+import Reservations from "../profile/Reservations";
 
 const Urls = () => {
   const { user } = useAuth();
@@ -41,7 +41,7 @@ const Urls = () => {
         <Route path="booking/confirmed" element={<ConfirmedBooking />} />
         <Route path="order-online/:dishName" element={<OrderDelivery />} />
         {user ? (
-          <Route path="profile/:username" element={<Profile />} />
+          <Route path="user/:username" element={<Profile />} />
         ) : (
           <>
             <Route path="sign-in" element={<SignIn />} />
@@ -51,7 +51,7 @@ const Urls = () => {
 
         <Route path="cart" element={<Cart />} />
         <Route path="account/orders" element={<YourOrders />} />
-        <Route path="your-addresses" element={<YourAddresses />} />
+        <Route path="your-reservations" element={<Reservations />} />
         <Route path="account/manage" element={<LoginAndSecurity />} />
         <Route path="account/manage/change-name" element={<ChangeName />} />
         <Route path="account/manage/change-email" element={<ChangeEmail />} />

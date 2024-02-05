@@ -186,7 +186,7 @@ function Navbar() {
           )
         )}
         {user ? (
-          <DesktopNavLink to={`/profile/${toSlug(userData?.name)}`}>
+          <DesktopNavLink to={`/user/${toSlug(userData?.name)}`}>
             Profile
           </DesktopNavLink>
         ) : (
@@ -231,7 +231,7 @@ function Navbar() {
         )}
         {user ? (
           <MobileNavLink
-            to={`/profile/${toSlug(userData?.name)}`}
+            to={`/user/${toSlug(userData?.name)}`}
             onClick={toggleMobileMenu}
           >
             Profile

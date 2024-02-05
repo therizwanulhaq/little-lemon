@@ -26,7 +26,7 @@ import {
 } from "./StyledComponents";
 import { Loader } from "../../common/StyledComponents";
 
-const Reservations = () => {
+const ReservationTimes = () => {
   const [availableTimes, setAvailableTimes] = useState("");
   const [newAvailableTimes, setNewAvailableTimes] = useState("");
   const [date, setDate] = useState("");
@@ -175,7 +175,7 @@ const Reservations = () => {
   return (
     <section>
       <Header>
-        <h1>Reservations</h1>
+        <h1>Reservation Times</h1>
         <AddNewTimesBtn onClick={() => togglePopup("add")}>
           Add new times
           <AddIcon className="material-symbols-outlined">more_time</AddIcon>
@@ -320,4 +320,4 @@ const Reservations = () => {
   );
 };
 
-export default Reservations;
+export default ReservationTimes;

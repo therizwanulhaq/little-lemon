@@ -76,6 +76,11 @@ const Sidebar = () => {
   const sidebarMenu = [
     { icon: "overview", title: "Overview", path: "/dashboard/overview" },
     {
+      icon: "orders",
+      title: "Orders",
+      path: "/dashboard/orders",
+    },
+    {
       icon: "receipt_long",
       title: "Reservations",
       path: "/dashboard/reservations",
@@ -84,6 +89,11 @@ const Sidebar = () => {
       icon: "restaurant_menu",
       title: "Online Menu",
       path: "/dashboard/online-menu",
+    },
+    {
+      icon: "calendar_clock",
+      title: "Reservation Times",
+      path: "/dashboard/reservation-times",
     },
   ];
   return (
