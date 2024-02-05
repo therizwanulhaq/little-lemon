@@ -117,7 +117,7 @@ const LoginAndSecurity = () => {
     <Main>
       <Section>
         <AccountSettingsNavigation>
-          <StyledLink to={`/profile/${toSlug(userData?.name)}`}>
+          <StyledLink to={`/user/${toSlug(userData?.name)}`}>
             Your account{" > "}
           </StyledLink>
           <StyledLink to="/account/manage">Login and Security</StyledLink>
