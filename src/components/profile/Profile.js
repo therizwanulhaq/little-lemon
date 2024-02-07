@@ -9,7 +9,6 @@ import {
   ProfileName,
   EditProfileIcon,
   ProfileEditContainer,
-  ProfileUploadProgress,
   Cta,
   UploadError,
   EditProfileForm,
@@ -207,9 +206,7 @@ const Profile = React.memo(() => {
                 <ProfileEditContainer>
                   <div style={{ position: "relative" }}>
                     {loadingProfilePicture ? (
-                      <ProfileUploadProgress>
-                        <Loader />
-                      </ProfileUploadProgress>
+                      <Loader />
                     ) : (
                       <ProfilePhoto src={profilePicture} />
                     )}

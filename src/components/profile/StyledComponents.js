@@ -83,15 +83,15 @@ export const ProfileEditContainer = styled.div`
   overflow-y: auto;
 `;
 
-export const ProfileUploadProgress = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+// export const ProfileUploadProgress = styled.div`
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
 export const Cta = styled.p`
   cursor: pointer;

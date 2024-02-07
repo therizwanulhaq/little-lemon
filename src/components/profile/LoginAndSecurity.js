@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { toSlug } from "../common/Utils";
 import { useAuth } from "../context/AuthContext";
 import {
@@ -11,7 +11,7 @@ import {
   Title,
 } from "./StyledComponents";
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import PasswordConfirmation from "./PasswordConfirmation";
 
 const DataList = styled.div`
   display: flex;
@@ -62,20 +62,15 @@ const Icon = styled.span`
   color: ${(props) => (props.success ? "#067d62" : "#ffaf38")};
 `;
 
-const UserData = ({ title, value, path }) => (
-  <DataList>
-    <div>
-      <DataTitle>{title}</DataTitle>
-      <DataValue>{title === "Password" ? "*********" : value}</DataValue>
-    </div>
-    <Link to={path}>
-      <EditButton>Edit</EditButton>
-    </Link>
-  </DataList>
-);
-
 const LoginAndSecurity = () => {
   const { userData } = useAuth();
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const togglePopup = (title) => {
+    setSelectedItem(title);
+    setIsPopupVisible(!isPopupVisible);
+  };
 
   const urlParams = new URLSearchParams(window.location.search);
   const success = urlParams.get("success") === "true";
@@ -99,17 +94,17 @@ const LoginAndSecurity = () => {
     {
       title: "Name",
       value: userData?.name,
-      path: "/account/manage/change-name",
+      // path: "/account/manage/change-name",
     },
     {
       title: "Email",
       value: userData?.email,
-      path: "/account/manage/change-email",
+      // path: "/account/manage/change-email",
     },
     {
       title: "Password",
       value: userData?.password,
-      path: "/account/manage/change-password",
+      // path: "/account/manage/change-password",
     },
   ];
 
@@ -134,11 +129,27 @@ const LoginAndSecurity = () => {
         <Container>
           {UserDetails.map((data, index) => (
             <React.Fragment key={index}>
-              <UserData {...data} />
+              <DataList>
+                <div>
+                  <DataTitle>{data.title}</DataTitle>
+                  <DataValue>
+                    {data.title === "Password" ? "*********" : data.value}
+                  </DataValue>
+                </div>
+
+                <EditButton onClick={() => togglePopup(data.title)}>
+                  Edit
+                </EditButton>
+              </DataList>
               {index < UserDetails.length - 1 && <Divider />}
             </React.Fragment>
           ))}
         </Container>
+        <PasswordConfirmation
+          togglePopup={() => togglePopup(null)}
+          isVisible={isPopupVisible}
+          selectedItem={selectedItem}
+        />
       </Section>
     </Main>
   );

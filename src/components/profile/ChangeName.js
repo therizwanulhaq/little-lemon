@@ -21,7 +21,7 @@ const ChangeName = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { userData, updateUserData } = useAuth();
-  const [updateName, setUpdateName] = useState();
+  const [updateName, setUpdateName] = useState("");
 
   const updateUserProfile = async (e) => {
     e.preventDefault();
@@ -69,7 +69,8 @@ const ChangeName = () => {
             <Input
               type="text"
               id="name"
-              value={updateName || userData?.name}
+              value={updateName}
+              required
               onChange={(e) => setUpdateName(e.target.value)}
             ></Input>
             <SaveChanges
