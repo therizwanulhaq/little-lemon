@@ -6,6 +6,11 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const fontFamily = `"Markazi Text", serif`;
 
+export const Main = styled.main`
+  max-width: 1600px;
+  margin: 0 auto;
+`;
+
 export const Container = styled.div((props) => ({
   margin: props.margin || "0",
   position: "relative",

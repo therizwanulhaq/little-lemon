@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
-  max-width: 400px;
+  max-width: 20rem;
   border: none;
 `;
 
@@ -208,7 +208,7 @@ const BookingForm = () => {
         <CustomButton
           type="submit"
           borderRadius="0.3rem"
-          width="25rem"
+          width="20rem"
           height="2.7rem"
           disabled={!areAllFieldsValid()}
         >

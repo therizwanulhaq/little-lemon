@@ -18,11 +18,12 @@ import {
   AdImg,
   BackgroundImage,
   TitleWithLines,
+  Main,
 } from "./StyledComponents";
 
 function Homepage() {
   return (
-    <main>
+    <Main>
       <Container
         display="flex"
         padding="2rem 15rem 1rem 15rem"
@@ -52,7 +53,7 @@ function Homepage() {
       <TestimonialData />
       <TitleWithLines id="about">ABOUT LITTLE LEMON RESTAURANT</TitleWithLines>
       <AboutLittleLemon />
-    </main>
+    </Main>
   );
 }
 

@@ -9,6 +9,8 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 // Styles for Profile
 
 export const Main = styled.main`
+  max-width: 1600px;
+  margin: 0 auto;
   padding: 2rem 15rem;
   min-height: 100vh;
   ${mq[3]} {

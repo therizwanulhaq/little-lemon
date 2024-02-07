@@ -10,6 +10,8 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const StyledHeader = styled.header`
+  max-width: 1600px;
+  margin: 0 auto;
   padding: 1rem 15rem;
   display: flex;
   justify-content: space-between;

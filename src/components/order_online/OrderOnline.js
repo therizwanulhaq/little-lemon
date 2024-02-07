@@ -13,6 +13,8 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const Main = styled.main`
+  max-width: 1600px;
+  margin: 0 auto;
   padding-top: 1rem;
   min-height: 100vh;
   padding-bottom: 5rem;
