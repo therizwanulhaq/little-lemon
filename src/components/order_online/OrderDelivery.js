@@ -6,6 +6,10 @@ import DishModifiers from "./DishModifiers";
 import QuantityOfDishes from "./QuantityOfDishes";
 import { useParams } from "react-router-dom";
 import { useAppDataContext } from "../context/AppDataContext";
+import { db } from "../../firebase";
+import { doc, getDoc, updateDoc } from "@firebase/firestore";
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const breakpoints = [576, 768, 992, 1200];
 
@@ -128,6 +132,7 @@ const OrderDelivery = () => {
   const { dishName } = useParams();
   const { dishData } = useAppDataContext();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const { user } = useAuth();
 
   // Find the dish with the matching dishName
   const selectedDish = dishData.find((dish) => toSlug(dish.name) === dishName);
@@ -163,6 +168,52 @@ const OrderDelivery = () => {
     selectedTotalPrice
   ).toFixed(2);
 
+  const handleUploadToFirestore = async () => {
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+
+      const dishOrder = {
+        dishImage: image,
+        dishName: name,
+        dishPrice: price,
+        quantity: selectedQuantity,
+        totalModifiersPrice: selectedTotalPrice,
+      };
+
+      // Retrieve the user's existing orders array from Firestore
+      const userDocSnapshot = await getDoc(userDocRef);
+      const userData = userDocSnapshot.data();
+
+      // Check if the item already exists in the cart
+      const existingItemIndex = userData?.orders.findIndex(
+        (order) => order.dishName === dishOrder.dishName
+      );
+
+      let updatedOrdersArray;
+      if (existingItemIndex !== -1) {
+        // Item already exists, update the quantity
+        updatedOrdersArray = userData.orders.map((order, index) => {
+          if (index === existingItemIndex) {
+            return {
+              ...order,
+              quantity: order.quantity + selectedQuantity,
+            };
+          }
+          return order;
+        });
+      } else {
+        // Item does not exist, add it to the cart
+        updatedOrdersArray = [...(userData.orders || []), dishOrder];
+      }
+
+      // Update the Firestore document with the updated orders array
+      await updateDoc(userDocRef, { orders: updatedOrdersArray });
+      console.log("Added to cart");
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+
   return (
     <Section>
       <div>
@@ -187,7 +238,7 @@ const OrderDelivery = () => {
         <Title>Add</Title>
         {modifiers && modifiers.length > 0 && (
           <div>
-            {modifiers.map(({ id, name, price }) => (
+            {modifiers.map(({ name, price }) => (
               <DishModifiers
                 key={name}
                 name={name}
@@ -198,9 +249,15 @@ const OrderDelivery = () => {
           </div>
         )}
         <QuantityOfDishes onQuantityChange={handleQuantityChange} />
-        <CtaButton width="100%" height="2.5rem">
-          Add for ${totalPrice}
-        </CtaButton>
+        <Link to="/cart">
+          <CtaButton
+            width="100%"
+            height="2.5rem"
+            onClick={handleUploadToFirestore}
+          >
+            Add for ${totalPrice}
+          </CtaButton>
+        </Link>
       </Container>
     </Section>
   );

@@ -197,7 +197,9 @@ function Navbar() {
             <ShoppingCart className="material-symbols-outlined">
               shopping_cart
             </ShoppingCart>
-            <ShoppingCartItems>4</ShoppingCartItems>
+            <ShoppingCartItems>
+              {userData?.orders ? userData.orders.length : ""}
+            </ShoppingCartItems>
           </ShoppingCartContainer>
         </DesktopNavLink>
       </DesktopNavBar>

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 const Container = styled.div`
-  /* margin-top: 2rem; */
-  /* margin-bottom: 0.5rem; */
   display: flex;
   justify-content: start;
   gap: 0.5rem;
@@ -24,11 +22,11 @@ const Button = styled.span`
   cursor: pointer;
 `;
 
-const DishQuantity = () => {
-  const [quantity, setQuantity] = useState(1);
+const DishQuantity = ({ existingQuantity }) => {
+  const [quantity, setQuantity] = useState(existingQuantity);
 
   const incrementQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1); 
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
   const decrementQuantity = () => {
@@ -40,7 +38,7 @@ const DishQuantity = () => {
   return (
     <>
       <Container>
-     <Quantity>Quantity: </Quantity>
+        <Quantity>Quantity: </Quantity>
         <Button
           className="material-symbols-outlined"
           onClick={decrementQuantity}

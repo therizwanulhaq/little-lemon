@@ -142,7 +142,7 @@ const BookingForm = () => {
         <Title>Book Now</Title>
 
         <Label htmlFor="res-date" hasError={!isDateValid()}>
-          Choose Date:
+          Choose date:
         </Label>
         <Input
           type="date"
@@ -158,7 +158,7 @@ const BookingForm = () => {
           <ErrorMessage>{invalidDateErrorMessage}</ErrorMessage>
         )}
 
-        <Label htmlFor="res-time">Choose Time:</Label>
+        <Label htmlFor="res-time">Available time slots:</Label>
         <Select
           id="res-time"
           required
@@ -177,7 +177,7 @@ const BookingForm = () => {
         </Select>
 
         <Label htmlFor="guests" hasError={!isNumberOfGuestsValid()}>
-          Number of Guests:
+          Number of guests:
         </Label>
         <Input
           type="number"

@@ -32,6 +32,10 @@ export const Container = styled.section`
   width: 100%;
   background: #ffffff;
   padding: 1rem;
+  ${mq[1]} {
+    border: none;
+    padding: 0;
+  }
 `;
 
 // export const TotalPriceContainer = styled(Container)``;
@@ -50,17 +54,29 @@ export const TitleAndPrice = styled.div`
   justify-content: space-between;
   padding-bottom: 1rem;
   border-bottom: 1px solid #ccc;
+  ${mq[1]} {
+    display: none;
+  }
 `;
 
 export const ShoppingCart = styled.div`
   display: grid;
   grid-template-columns: 2.5fr 1.5fr;
   gap: 1rem;
+
+  ${mq[1]} {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0;
+  }
 `;
 
 export const Divider = styled.div`
   margin-top: 1rem;
   border-bottom: 1px solid #ccc;
+  ${mq[1]} {
+    margin-bottom: 1rem;
+  }
 `;
 
 export const Checkout = styled.div`
@@ -70,7 +86,20 @@ export const Checkout = styled.div`
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 0.3rem;
+  ${mq[1]} {
+    height: 100%;
+    border: none;
+    padding: 0;
+  }
 `;
+
+export const CheckoutContainer = styled.div`
+  ${mq[1]} {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+`;
+
 export const FreeDelivery = styled.p`
   margin-top: 1rem;
   color: #077e63;
@@ -87,4 +116,14 @@ export const Icon = styled.span`
 export const Subtotal = styled.p`
   font-size: 1.1rem;
   font-weight: 500;
+  ${mq[1]} {
+    margin-top: 1rem;
+  }
+`;
+
+export const CenteredMessage = styled.p`
+  margin-top: 20%;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
 `;
