@@ -138,10 +138,11 @@ const OrderDelivery = () => {
   const selectedDish = dishData.find((dish) => toSlug(dish.name) === dishName);
 
   // Calculate the initial total price based on modifiers prices
-  const initialTotalPrice = selectedDish?.modifiers?.reduce(
-    (total, modifier) => total + parseFloat(modifier.price),
-    0
-  );
+  const initialTotalPrice =
+    selectedDish?.modifiers?.reduce(
+      (total, modifier) => total + parseFloat(modifier.price),
+      0
+    ) || 0;
 
   const [selectedTotalPrice, setSelectedTotalPrice] =
     useState(initialTotalPrice);
@@ -182,17 +183,20 @@ const OrderDelivery = () => {
 
       // Retrieve the user's existing orders array from Firestore
       const userDocSnapshot = await getDoc(userDocRef);
-      const userData = userDocSnapshot.data();
+      const userData = userDocSnapshot.data() || {};
+
+      // Check if the user data contains orders array
+      const ordersArray = userData.orders || [];
 
       // Check if the item already exists in the cart
-      const existingItemIndex = userData?.orders.findIndex(
+      const existingItemIndex = ordersArray.findIndex(
         (order) => order.dishName === dishOrder.dishName
       );
 
       let updatedOrdersArray;
       if (existingItemIndex !== -1) {
         // Item already exists, update the quantity
-        updatedOrdersArray = userData.orders.map((order, index) => {
+        updatedOrdersArray = ordersArray.map((order, index) => {
           if (index === existingItemIndex) {
             return {
               ...order,
@@ -203,7 +207,7 @@ const OrderDelivery = () => {
         });
       } else {
         // Item does not exist, add it to the cart
-        updatedOrdersArray = [...(userData.orders || []), dishOrder];
+        updatedOrdersArray = [...ordersArray, dishOrder];
       }
 
       // Update the Firestore document with the updated orders array
