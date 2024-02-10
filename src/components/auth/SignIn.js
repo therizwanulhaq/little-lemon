@@ -52,29 +52,27 @@ const SignIn = () => {
       setPasswordError("Please enter your password!");
       return;
     }
-
-    // Continue with the sign-in process
     try {
       setLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
-
-      // Redirect after successful sign-in
       navigate("/");
-      setLoading(false);
     } catch (error) {
-      // Authentication errors
-      console.error("Error signing up:", error);
+      console.error("Error signing in:", error);
       if (error.code === "auth/invalid-credential") {
         setPasswordError("Incorrect email or password.");
-        setLoading(false);
       } else if (error.code === "auth/too-many-requests") {
         setPasswordError(
           "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. "
         );
-        setLoading(false);
+      } else if (error.code === "auth/user-not-found") {
+        setEmailError("Email not found!");
+      } else if (error.code === "auth/wrong-password") {
+        setPasswordError("Incorrect password!");
       } else {
-        setPasswordError(error);
+        const errorMessage = error.code;
+        setPasswordError(errorMessage);
       }
+    } finally {
       setLoading(false);
     }
   };
