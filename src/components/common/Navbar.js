@@ -186,22 +186,24 @@ function Navbar() {
           )
         )}
         {user ? (
-          <DesktopNavLink to={`/user/${toSlug(userData?.name)}`}>
-            Profile
-          </DesktopNavLink>
+          <>
+            <DesktopNavLink to={`/user/${toSlug(userData?.name)}`}>
+              Profile
+            </DesktopNavLink>
+            <DesktopNavLink to="/cart">
+              <ShoppingCartContainer>
+                <ShoppingCart className="material-symbols-outlined">
+                  shopping_cart
+                </ShoppingCart>
+                <ShoppingCartItems>
+                  {userData?.orders ? userData.orders.length : ""}
+                </ShoppingCartItems>
+              </ShoppingCartContainer>
+            </DesktopNavLink>
+          </>
         ) : (
           <DesktopNavLink to="/sign-in">Login</DesktopNavLink>
         )}
-        <DesktopNavLink to={user ? "/cart" : "/login"}>
-          <ShoppingCartContainer>
-            <ShoppingCart className="material-symbols-outlined">
-              shopping_cart
-            </ShoppingCart>
-            <ShoppingCartItems>
-              {userData?.orders ? userData.orders.length : ""}
-            </ShoppingCartItems>
-          </ShoppingCartContainer>
-        </DesktopNavLink>
       </DesktopNavBar>
       <HamburgerMenu
         className="material-symbols-outlined"
