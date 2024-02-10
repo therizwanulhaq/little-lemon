@@ -1,6 +1,6 @@
 import React, { useRef, useReducer } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { db, storage } from "../../firebase";
+import { db, storage } from "../../../firebase";
 import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import {
   deleteObject,
@@ -8,7 +8,6 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
-import { useDishContext } from "../context/DishContext";
 import {
   DeleteIcon,
   DishStatus,
@@ -29,33 +28,34 @@ import {
   UploadFileIcon,
   UploadFileText,
 } from "./StyledComponents";
-import { Loader } from "../common/StyledComponents";
-import PopUp from "../common/PopUp";
+import { Loader } from "../../common/StyledComponents";
+import PopUp from "../../common/PopUp";
+import { useAppDataContext } from "../../context/AppDataContext";
 
 const EditDishPage = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
-  const dishDataFromContext = useDishContext();
+  const { dishData } = useAppDataContext();
   const { id } = useParams();
 
   const dishCategories = [
-    ...new Set(dishDataFromContext.map((dishData) => dishData.category)),
+    ...new Set(dishData.map((dishData) => dishData.category)),
   ];
 
   // Find the specific dish data based on the 'id' parameter
-  const dishData = dishDataFromContext.find((dish) => dish.id === id) || {};
+  const selectedDishData = dishData.find((dish) => dish.id === id) || {};
 
   const initialState = {
     savingChanges: false,
     deletingDishData: false,
     imageUploadLoader: false,
     dishImagePreview: null,
-    dishName: dishData.name || "",
-    dishPrice: dishData.price || "",
-    dishDescription: dishData.description || "",
-    dishCategory: dishData.category || "",
+    dishName: selectedDishData.name || "",
+    dishPrice: selectedDishData.price || "",
+    dishDescription: selectedDishData.description || "",
+    dishCategory: selectedDishData.category || "",
     newDishCategory: "",
-    modifiers: dishData.modifiers || [{ name: "", price: "" }],
+    modifiers: selectedDishData.modifiers || [{ name: "", price: "" }],
     dishStatus: null,
     isPopupVisible: false,
   };
@@ -128,7 +128,7 @@ const EditDishPage = () => {
 
         dispatch({ type: "SET_DISH_IMAGE", payload: file });
 
-        const imageRef = ref(storage, `dishData/images/${dishData.id}`);
+        const imageRef = ref(storage, `dishData/images/${selectedDishData.id}`);
         await uploadBytes(imageRef, file);
 
         dispatch({
@@ -168,10 +168,11 @@ const EditDishPage = () => {
   };
 
   //Handle submitting dish data
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       dispatch({ type: "SET_SAVING_CHANGES", payload: true });
-      const imageRef = ref(storage, `dishData/images/${dishData.id}`);
+      const imageRef = ref(storage, `dishData/images/${selectedDishData.id}`);
 
       const imageUrl = await getDownloadURL(imageRef);
 
@@ -204,7 +205,6 @@ const EditDishPage = () => {
   };
 
   const handleDeleteDish = async (e) => {
-    e.preventDefault();
     try {
       dispatch({ type: "SET_DELETING_DISH_DATA", payload: true });
       const dishDocRef = doc(db, "dishData", id);
@@ -237,7 +237,7 @@ const EditDishPage = () => {
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <div>
         <HeaderContainer>
           <h3>Edit Dish</h3>
@@ -255,8 +255,8 @@ const EditDishPage = () => {
             </LoaderContainer>
           ) : (
             <ImagePreview
-              src={dishImagePreview || dishData.image}
-              alt={dishData.name}
+              src={dishImagePreview || selectedDishData.image}
+              alt={selectedDishData.name}
             />
           )}
         </ImagePreviewContainer>
@@ -299,17 +299,25 @@ const EditDishPage = () => {
           value={dishCategory}
           onChange={handleInputChange}
         >
-          <Option>{dishCategory}</Option>
+          {/* <Option>{dishCategory}</Option> */}
           {dishCategories.map((category, index) => (
             <Option key={index}>{category}</Option>
           ))}
+          <Option value="__new__">Add New Category</Option>
         </Select>
-        <Input
-          type="text"
-          name="newCategory"
-          value={dishCategory}
-          onChange={handleInputChange}
-        />
+        {dishCategory === "__new__" && (
+          <Input
+            type="text"
+            name="newCategory"
+            value={newDishCategory}
+            onChange={(e) =>
+              dispatch({
+                type: "SET_NEW_DISH_CATEGORY",
+                payload: e.target.value,
+              })
+            }
+          />
+        )}
       </div>
 
       <div>
@@ -355,7 +363,10 @@ const EditDishPage = () => {
               }
             />
 
-            <DeleteIcon onClick={() => handleDeleteModifier(index)}>
+            <DeleteIcon
+              type="button"
+              onClick={() => handleDeleteModifier(index)}
+            >
               <span className="material-symbols-outlined">delete</span>
             </DeleteIcon>
           </ModifierBody>
@@ -373,8 +384,7 @@ const EditDishPage = () => {
             color="white"
             background="#067d62"
             width="100%"
-            type="button"
-            onClick={handleSubmit}
+            type="submit"
             disabled={savingChanges}
           >
             {savingChanges ? (
@@ -399,6 +409,7 @@ const EditDishPage = () => {
               background="red"
               color="white"
               width="100%"
+              type="button"
               onClick={handleDeleteDish}
               disabled={deletingDishData}
             >

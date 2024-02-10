@@ -5,13 +5,19 @@ import { CtaButton } from "../common/CustomButton";
 import DishModifiers from "./DishModifiers";
 import QuantityOfDishes from "./QuantityOfDishes";
 import { useParams } from "react-router-dom";
-import { useDishContext } from "../context/DishContext";
+import { useAppDataContext } from "../context/AppDataContext";
+import { db } from "../../firebase";
+import { doc, getDoc, updateDoc } from "@firebase/firestore";
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
-const Section = styled.section`
+const Section = styled.main`
+  max-width: 1600px;
+  margin: 0 auto;
   padding: 1rem 15rem 0 15rem;
   min-height: 100vh;
   display: grid;
@@ -124,17 +130,19 @@ const toSlug = (text) =>
 
 const OrderDelivery = () => {
   const { dishName } = useParams();
-  const dishList = useDishContext();
+  const { dishData } = useAppDataContext();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const { user } = useAuth();
 
   // Find the dish with the matching dishName
-  const selectedDish = dishList.find((dish) => toSlug(dish.name) === dishName);
+  const selectedDish = dishData.find((dish) => toSlug(dish.name) === dishName);
 
   // Calculate the initial total price based on modifiers prices
-  const initialTotalPrice = selectedDish?.modifiers?.reduce(
-    (total, modifier) => total + parseFloat(modifier.price),
-    0
-  );
+  const initialTotalPrice =
+    selectedDish?.modifiers?.reduce(
+      (total, modifier) => total + parseFloat(modifier.price),
+      0
+    ) || 0;
 
   const [selectedTotalPrice, setSelectedTotalPrice] =
     useState(initialTotalPrice);
@@ -161,6 +169,55 @@ const OrderDelivery = () => {
     selectedTotalPrice
   ).toFixed(2);
 
+  const handleUploadToFirestore = async () => {
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+
+      const dishOrder = {
+        dishImage: image,
+        dishName: name,
+        dishPrice: price,
+        quantity: selectedQuantity,
+        totalModifiersPrice: selectedTotalPrice,
+      };
+
+      // Retrieve the user's existing orders array from Firestore
+      const userDocSnapshot = await getDoc(userDocRef);
+      const userData = userDocSnapshot.data() || {};
+
+      // Check if the user data contains orders array
+      const ordersArray = userData.orders || [];
+
+      // Check if the item already exists in the cart
+      const existingItemIndex = ordersArray.findIndex(
+        (order) => order.dishName === dishOrder.dishName
+      );
+
+      let updatedOrdersArray;
+      if (existingItemIndex !== -1) {
+        // Item already exists, update the quantity
+        updatedOrdersArray = ordersArray.map((order, index) => {
+          if (index === existingItemIndex) {
+            return {
+              ...order,
+              quantity: order.quantity + selectedQuantity,
+            };
+          }
+          return order;
+        });
+      } else {
+        // Item does not exist, add it to the cart
+        updatedOrdersArray = [...ordersArray, dishOrder];
+      }
+
+      // Update the Firestore document with the updated orders array
+      await updateDoc(userDocRef, { orders: updatedOrdersArray });
+      console.log("Added to cart");
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+
   return (
     <Section>
       <div>
@@ -185,7 +242,7 @@ const OrderDelivery = () => {
         <Title>Add</Title>
         {modifiers && modifiers.length > 0 && (
           <div>
-            {modifiers.map(({ id, name, price }) => (
+            {modifiers.map(({ name, price }) => (
               <DishModifiers
                 key={name}
                 name={name}
@@ -196,9 +253,15 @@ const OrderDelivery = () => {
           </div>
         )}
         <QuantityOfDishes onQuantityChange={handleQuantityChange} />
-        <CtaButton width="100%" height="2.5rem">
-          Add for ${totalPrice}
-        </CtaButton>
+        <Link to="/cart">
+          <CtaButton
+            width="100%"
+            height="2.5rem"
+            onClick={handleUploadToFirestore}
+          >
+            Add for ${totalPrice}
+          </CtaButton>
+        </Link>
       </Container>
     </Section>
   );

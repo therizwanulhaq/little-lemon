@@ -9,6 +9,8 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 // Styles for Profile
 
 export const Main = styled.main`
+  max-width: 1600px;
+  margin: 0 auto;
   padding: 2rem 15rem;
   min-height: 100vh;
   ${mq[3]} {
@@ -83,15 +85,15 @@ export const ProfileEditContainer = styled.div`
   overflow-y: auto;
 `;
 
-export const ProfileUploadProgress = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+// export const ProfileUploadProgress = styled.div`
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
 export const Cta = styled.p`
   cursor: pointer;

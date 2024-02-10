@@ -18,10 +18,11 @@ const ConfirmedBooking = () => {
         <h2>Booking Confirmed!</h2>
         <p
           className={css`
-            margin: 1rem 0 7rem 0;
+            margin: 2rem 0 7rem 0;
           `}
         >
-          Your reservation has been confirmed. Thank you!
+          Your reservation has been successfully confirmed. A confirmation email
+          will be sent to you shortly.
         </p>
         <Link
           to="/"

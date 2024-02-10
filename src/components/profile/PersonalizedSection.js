@@ -76,10 +76,10 @@ const PersonalizedSection = () => {
       path: "/account/orders",
     },
     {
-      icon: "security",
-      title: "Login & Security",
-      description: "Edit login, name, and email",
-      path: "/account/manage",
+      icon: " other_admission",
+      title: "Your Reservations",
+      description: "Manage your reservations",
+      path: "/your-reservations",
     },
     {
       icon: "shopping_cart",
@@ -88,10 +88,10 @@ const PersonalizedSection = () => {
       path: "/cart",
     },
     {
-      icon: "home_pin",
-      title: "Your addresses",
-      description: "Edit addresses for orders",
-      path: "/your-addresses",
+      icon: "security",
+      title: "Login & Security",
+      description: "Edit login, name, and email",
+      path: "/account/manage",
     },
   ];
 

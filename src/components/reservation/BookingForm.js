@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { CustomButton } from "../common/CustomButton";
+import { useAppDataContext } from "../context/AppDataContext";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { Loader } from "../common/StyledComponents";
 
 const focusColor = "#f4ce14";
 
@@ -12,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
-  max-width: 400px;
+  max-width: 20rem;
   border: none;
 `;
 
@@ -87,11 +91,22 @@ function getCurrentDate() {
   return `${year}-${month}-${day}`;
 }
 
-const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
+const BookingForm = () => {
   const [date, setDate] = useState(getCurrentDate());
   const [time, setTime] = useState("17:00");
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("Birthday");
+  const [loading, setLoading] = useState(false);
+
+  const { reservationTimes } = useAppDataContext();
+  const { updateUserData } = useAuth();
+
+  const navigate = useNavigate();
+
+  // Filter available times based on the selected date
+  const availableTimesForSelectedDate = reservationTimes.find(
+    (time) => time.date === date
+  )?.availableTimes;
 
   const invalidDateErrorMessage = "Please choose a valid date";
   const invalidNumberOfGuestsErrorMessage =
@@ -106,7 +121,19 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await submitForm({ date, time, guests, occasion });
+    try {
+      setLoading(true);
+      const updateFields = {
+        reservationDetails: [{ date, time, guests, occasion }],
+      };
+
+      await updateUserData(updateFields);
+      setLoading(false);
+      navigate("/booking/confirmed");
+    } catch (error) {
+      setLoading(false);
+      console.log("Error updating user data", error);
+    }
   };
 
   return (
@@ -115,7 +142,7 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
         <Title>Book Now</Title>
 
         <Label htmlFor="res-date" hasError={!isDateValid()}>
-          Choose Date:
+          Choose date:
         </Label>
         <Input
           type="date"
@@ -125,27 +152,32 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
           value={date}
           onChange={(e) => {
             setDate(e.target.value);
-            updateTimes(e.target.value); // Call updateTimes with the selected date
           }}
         />
         {isDateValid() ? null : (
           <ErrorMessage>{invalidDateErrorMessage}</ErrorMessage>
         )}
 
-        <Label htmlFor="res-time">Choose Time:</Label>
+        <Label htmlFor="res-time">Available time slots:</Label>
         <Select
           id="res-time"
           required
           value={time}
           onChange={(e) => setTime(e.target.value)}
         >
-          {availableTimes?.map((time) => (
-            <option key={time}>{time}</option>
-          ))}
+          {availableTimesForSelectedDate ? (
+            availableTimesForSelectedDate.map((time, index) => (
+              <option key={index} value={time}>
+                {time}
+              </option>
+            ))
+          ) : (
+            <option disabled>No reservations available</option>
+          )}
         </Select>
 
         <Label htmlFor="guests" hasError={!isNumberOfGuestsValid()}>
-          Number of Guests:
+          Number of guests:
         </Label>
         <Input
           type="number"
@@ -176,11 +208,15 @@ const BookingForm = ({ availableTimes, updateTimes, submitForm }) => {
         <CustomButton
           type="submit"
           borderRadius="0.3rem"
-          width="100%"
+          width="20rem"
           height="2.7rem"
           disabled={!areAllFieldsValid()}
         >
-          Make Your reservation
+          {loading ? (
+            <Loader width="1.1rem" height="1.1rem" border="3px solid black" />
+          ) : (
+            "Make Your reservation"
+          )}
         </CustomButton>
       </Form>
     </Container>

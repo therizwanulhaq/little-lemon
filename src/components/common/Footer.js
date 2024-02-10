@@ -9,6 +9,8 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 const FooterContainer = styled.footer`
+  max-width: 1600px;
+  margin: 0 auto;
   border-top: 1px #bfbfbfc7 solid;
   background: #efeeee;
   color: #333333;

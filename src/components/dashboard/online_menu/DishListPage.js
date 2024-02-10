@@ -19,10 +19,10 @@ import {
   Title,
 } from "./StyledComponents";
 
-import { useDishContext } from "../context/DishContext";
+import { useAppDataContext } from "../../context/AppDataContext";
 
 const DishListPage = () => {
-  const dishData = useDishContext();
+  const { dishData } = useAppDataContext();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 

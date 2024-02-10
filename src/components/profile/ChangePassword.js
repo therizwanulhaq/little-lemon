@@ -44,7 +44,7 @@ const ChangePassword = () => {
     <Main>
       <Section>
         <AccountSettingsNavigation>
-          <StyledLink to={`/profile/${toSlug(userData?.name)}`}>
+          <StyledLink to={`/user/${toSlug(userData?.name)}`}>
             Your Account{" > "}
           </StyledLink>
           <StyledLink to="/account/manage" end>

@@ -3,6 +3,8 @@ import { useAuth } from "../context/AuthContext";
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 
+import defaultProfilePicture from "../../assets/defaultProfilePicture.jpg";
+
 const Aside = styled.aside`
   padding: 2rem;
   border-right: 1px solid #ccc;
@@ -20,6 +22,7 @@ const Profile = styled.div`
 const ProfilePicture = styled.img`
   width: 2rem;
   height: 2rem;
+  border: 1px solid #ccc;
   object-fit: cover;
   border-radius: 50%;
 `;
@@ -33,20 +36,6 @@ const SidebarNav = styled.ul`
   margin-top: 3rem;
 `;
 
-const SideBarElement = styled.li`
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 1rem;
-  border-radius: 1rem;
-  cursor: pointer;
-
-  :hover {
-    background: #f4f4f4;
-  }
-`;
-
 const Icon = styled.span`
   font-size: 1.2rem;
 `;
@@ -57,12 +46,24 @@ const Title = styled.p`
 `;
 
 const linkStyles = `
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+padding: 0.4rem 1rem;
+border-radius: 1rem;
+cursor: pointer;
 color: #1b2e35;
   text-decoration: none;
 
+  :hover {
+    background: #f4f4f4;
+  }
    &.active {
     color: #c66218;
   }
+
+
   `;
 
 const StyledNavlink = styled(NavLink)`
@@ -73,33 +74,42 @@ const Sidebar = () => {
   const { userData } = useAuth();
 
   const sidebarMenu = [
-    { icon: "overview", title: "Overview", path: "online-menu" },
+    { icon: "overview", title: "Overview", path: "/dashboard/overview" },
+    {
+      icon: "orders",
+      title: "Orders",
+      path: "/dashboard/orders",
+    },
     {
       icon: "receipt_long",
       title: "Reservations",
-      path: "online-menu",
+      path: "/dashboard/reservations",
     },
     {
       icon: "restaurant_menu",
       title: "Online Menu",
-      path: "online-menu",
+      path: "/dashboard/online-menu",
+    },
+    {
+      icon: "calendar_clock",
+      title: "Reservation Times",
+      path: "/dashboard/reservation-times",
     },
   ];
   return (
     <Aside>
       <Profile>
-        <ProfilePicture src={userData?.profilePicture} alt="user" />
+        <ProfilePicture
+          src={userData?.profilePicture || defaultProfilePicture}
+          alt="user"
+        />
         <ProfileName>{userData?.name}</ProfileName>
       </Profile>
       <SidebarNav>
         {sidebarMenu.map((sidebarNav) => (
           <StyledNavlink key={sidebarNav.title} to={sidebarNav.path}>
-            <SideBarElement>
-              <Icon className="material-symbols-outlined">
-                {sidebarNav.icon}
-              </Icon>
-              <Title>{sidebarNav.title}</Title>
-            </SideBarElement>
+            <Icon className="material-symbols-outlined">{sidebarNav.icon}</Icon>
+            <Title>{sidebarNav.title}</Title>
           </StyledNavlink>
         ))}
       </SidebarNav>

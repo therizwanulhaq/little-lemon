@@ -50,7 +50,7 @@ const ChangeEmail = () => {
     <Main>
       <Section>
         <AccountSettingsNavigation>
-          <StyledLink to={`/profile/${toSlug(userData?.name)}`}>
+          <StyledLink to={`/user/${toSlug(userData?.name)}`}>
             Your Account{" > "}
           </StyledLink>
           <StyledLink to="/account/manage" end>
@@ -65,8 +65,7 @@ const ChangeEmail = () => {
           <UerDetailChangeInfo>
             Current email address: {userData?.email} <br></br>
             Enter the new email address you would like to associate with your
-            account below. We will send a One Time Password (OTP) to that
-            address.
+            account below.
           </UerDetailChangeInfo>
           <form>
             <Label htmlFor="name">New Email</Label>

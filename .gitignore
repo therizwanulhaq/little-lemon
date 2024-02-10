@@ -15,6 +15,11 @@
 .firebase
 firebase.json
 .firebaserc
+firestore.indexes.json
+firestore.rules
+storage.rules
+
+/config
 
 # misc
 .DS_Store
