@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { collection, onSnapshot } from "@firebase/firestore";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../../../firebase";
 
@@ -29,18 +29,25 @@ const Reservations = () => {
   useEffect(() => {
     const getReservationData = async () => {
       try {
-        const collectionRef = collection(db, "users");
-        const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-          const data = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
+        const usersWithReservationsQuery = query(
+          collection(db, "users"),
+          where("reservationDetails", "!=", null)
+        );
 
-          setReservationData(data);
-        });
+        const unsubscribe = onSnapshot(
+          usersWithReservationsQuery,
+          (snapshot) => {
+            const data = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+
+            setReservationData(data);
+          }
+        );
         return () => unsubscribe();
       } catch (error) {
-        console.error("Error fetch reservation data", error);
+        console.error("Error fetching reservation data", error);
       }
     };
     getReservationData();
@@ -58,7 +65,7 @@ const Reservations = () => {
       {reservationData.map((user) => (
         <GridBody key={user.id}>
           <p>{user.name}</p>
-          {user.reservationDetails.map((reservation, index) => (
+          {user?.reservationDetails?.map((reservation, index) => (
             <React.Fragment key={index}>
               <p>{reservation.date}</p>
               <p>{reservation.time}</p>
