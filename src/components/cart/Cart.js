@@ -37,10 +37,12 @@ const DividerMobile = styled(Divider)`
 const Cart = () => {
   const { user, userData } = useAuth();
 
+  const orders = userData?.orders || [];
+
+  // Function to delete an item from Firestore
   const handleDeleteFromFirestore = async (index) => {
     try {
       const userDocRef = doc(db, "users", user.uid);
-
       const userDocSnapshot = await getDoc(userDocRef);
       const userData = userDocSnapshot.data();
 
@@ -59,7 +61,7 @@ const Cart = () => {
   };
 
   // Calculate the total price of all items in the cart
-  const totalPrice = userData?.orders
+  const totalPrice = (orders || [])
     .reduce(
       (total, order) =>
         total +
@@ -71,7 +73,7 @@ const Cart = () => {
 
   return (
     <Main>
-      {userData?.orders.length === 0 ? (
+      {orders?.length === 0 || !orders ? (
         <CenteredMessage>Your cart is empty!</CenteredMessage>
       ) : (
         <ShoppingCart>
@@ -81,13 +83,13 @@ const Cart = () => {
               <Price>Price</Price>
             </TitleAndPrice>
             <DividerMobile />
-            {userData?.orders.map((order, index) => (
+            {orders.map((order, index) => (
               <React.Fragment key={index}>
                 <ItemTile
                   {...order}
                   onDelete={() => handleDeleteFromFirestore(index)}
                 />
-                {index < userData?.orders.length - 1 && <Divider />}
+                {index < orders.length - 1 && <Divider />}
               </React.Fragment>
             ))}
             <DividerMobile />
@@ -103,8 +105,8 @@ const Cart = () => {
                 </FreeDelivery>
               </div>
               <Subtotal>
-                Subtotal ({userData?.orders.length} item
-                {userData?.orders.length !== 1 && "s"}): <b>${totalPrice}</b>
+                Subtotal ({orders.length} item
+                {orders.length !== 1 && "s"}): <b>${totalPrice}</b>
               </Subtotal>
             </CheckoutContainer>
 
