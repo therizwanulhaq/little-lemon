@@ -44,20 +44,33 @@ const CancelButton = styled.button`
   }
 `;
 
+const CenteredMessage = styled.p`
+  margin-top: 20%;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
+`;
+
 const Reservations = () => {
   const { userData } = useAuth();
+
+  const reservationData = userData?.reservationDetails;
   return (
     <Main>
-      {userData?.reservationDetails.map((reservation, index) => (
-        <Container key={index}>
-          <Header>Reservation on {reservation.date}</Header>
-          <Content>Time: {reservation.time}</Content>
-          <Content>Guests: {reservation.guests}</Content>
-          <Content>Occasion: {reservation.occasion}</Content>
+      {!reservationData ? (
+        <CenteredMessage>You have no reservations!</CenteredMessage>
+      ) : (
+        reservationData.map((reservation, index) => (
+          <Container key={index}>
+            <Header>Reservation on {reservation.date}</Header>
+            <Content>Time: {reservation.time}</Content>
+            <Content>Guests: {reservation.guests}</Content>
+            <Content>Occasion: {reservation.occasion}</Content>
 
-          <CancelButton>Cancel Reservation</CancelButton>
-        </Container>
-      ))}
+            <CancelButton>Cancel Reservation</CancelButton>
+          </Container>
+        ))
+      )}
     </Main>
   );
 };
