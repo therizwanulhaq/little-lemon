@@ -73,13 +73,13 @@ const PersonalizedSection = () => {
       icon: "inventory_2",
       title: "Your Orders",
       description: "Track your orders",
-      path: "/account/orders",
+      path: "",
     },
     {
       icon: " other_admission",
       title: "Your Reservations",
       description: "Manage your reservations",
-      path: "/your-reservations",
+      path: "",
     },
     {
       icon: "shopping_cart",
